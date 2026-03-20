@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/logoP"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:src="@drawable/orbislogo"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+
+    <TextView
+        android:id="@+id/textLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Login"
+        app:layout_constraintTop_toBottomOf="@id/logoP"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textColor="@color/purple"
+        android:textStyle="bold"
+        android:textSize="30dp"/>
+
+    <TextView
+        android:id="@+id/textEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Email"
+        app:layout_constraintBottom_toTopOf="@+id/email"
+        android:layout_marginEnd="230dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textColor="@color/gray"
+        android:textSize="18dp"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/email"
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/textLogin"
+        android:layout_marginTop="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        app:boxStrokeWidth="2dp"
+        app:boxStrokeWidthFocused="4dp">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/inputemail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="exemplo@gmail.com"
+            android:inputType="textEmailAddress"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/textSenha"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Senha"
+        app:layout_constraintTop_toBottomOf="@id/email"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="220dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textColor="@color/gray"
+        android:textSize="18dp"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/senha"
+        android:layout_width="280dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/email"
+        android:layout_marginTop="50dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        app:boxStrokeWidth="2dp"
+        app:boxStrokeWidthFocused="4dp">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/inputsenha"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="*********"
+            android:inputType="textPassword"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/btnLogar"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:text="Logar"
+        android:textColor="@color/purpleLight"
+        android:layout_marginTop="30dp"
+        app:layout_constraintTop_toBottomOf="@id/senha"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:backgroundTint="@color/white"
+        app:cornerRadius="4dp"
+        app:strokeWidth="1.5dp"
+        app:strokeColor="@color/purpleLight"/>
+
+
+    <TextView
+        android:id="@+id/textPrivacidade"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:text="Ao entrar na sua conta você concorda com os termos de privacidade"
+        android:layout_marginBottom="30dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:textColor="@color/gray"
+        android:textSize="15dp"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
