@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/maquinasFragment"
+        android:title="Máquinas"
+        android:icon="@drawable/ic_maquinas"/>
+
+    <item
+        android:id="@+id/alertasFragment"
+        android:title="Alertas"
+        android:icon="@drawable/ic_alertas"/>
+
+    <item
+        android:id="@+id/perfilFragment"
+        android:title="Perfil"
+        android:icon="@drawable/ic_perfil"/>
+
+</menu>
