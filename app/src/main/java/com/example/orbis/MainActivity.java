@@ -12,6 +12,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 
+import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
@@ -27,15 +28,23 @@ public class MainActivity extends AppCompatActivity {
             return insets;
         });
 
+        MaterialToolbar toolbar= findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+
+        Fragment maquinasFragment = new MaquinasFragment();
+        Fragment alertasFragment = new AlertasFragment();
+        Fragment perfilFragment = new PerfilFragment();
 
         BottomNavigationView bottomNav = findViewById(R.id.bottomNav);
 
 
-        NavHostFragment navHostFragment =
-                (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host);
+        NavHostFragment navHostFragment = (NavHostFragment)
+                getSupportFragmentManager().findFragmentById(R.id.nav_host);
 
         NavController navController = navHostFragment.getNavController();
 
         NavigationUI.setupWithNavController(bottomNav, navController);
+
     }
 }
