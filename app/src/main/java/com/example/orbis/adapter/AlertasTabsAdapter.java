@@ -4,9 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager2.adapter.FragmentStateAdapter;
 
-import com.example.orbis.AlertasAndamentoTabsFragment;
-import com.example.orbis.AlertasConcluidosTabsFragment;
-import com.example.orbis.AlertasPendentesTabsFragment;
+import com.example.orbis.ui.fragments.AlertasAndamentoTabsFragment;
+import com.example.orbis.ui.fragments.AlertasConcluidosTabsFragment;
+import com.example.orbis.ui.fragments.AlertasPendentesTabsFragment;
 
 public class AlertasTabsAdapter extends FragmentStateAdapter {
     public AlertasTabsAdapter(@NonNull Fragment fragment) {

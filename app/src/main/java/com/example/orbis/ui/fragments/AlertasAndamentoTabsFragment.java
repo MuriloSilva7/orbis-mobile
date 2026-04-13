@@ -1,4 +1,4 @@
-package com.example.orbis;
+package com.example.orbis.ui.fragments;
 
 import android.os.Bundle;
 
@@ -8,12 +8,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.orbis.R;
+
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link MaquinasFragment#newInstance} factory method to
+ * Use the {@link AlertasAndamentoTabsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class MaquinasFragment extends Fragment {
+public class AlertasAndamentoTabsFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -24,7 +26,7 @@ public class MaquinasFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public MaquinasFragment() {
+    public AlertasAndamentoTabsFragment() {
         // Required empty public constructor
     }
 
@@ -34,11 +36,11 @@ public class MaquinasFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment MaquinasFragment.
+     * @return A new instance of fragment AlertasAndamentoTabsFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static MaquinasFragment newInstance(String param1, String param2) {
-        MaquinasFragment fragment = new MaquinasFragment();
+    public static AlertasAndamentoTabsFragment newInstance(String param1, String param2) {
+        AlertasAndamentoTabsFragment fragment = new AlertasAndamentoTabsFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -59,6 +61,6 @@ public class MaquinasFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_maquinas, container, false);
+        return inflater.inflate(R.layout.fragment_alertas_andamento_tabs, container, false);
     }
 }

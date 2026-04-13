@@ -1,4 +1,4 @@
-package com.example.orbis;
+package com.example.orbis.ui.main;
 
 import android.os.Bundle;
 
@@ -12,6 +12,10 @@ import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 
+import com.example.orbis.ui.fragments.MaquinasFragment;
+import com.example.orbis.ui.fragments.PerfilFragment;
+import com.example.orbis.R;
+import com.example.orbis.ui.fragments.AlertasFragment;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 

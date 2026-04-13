@@ -6,17 +6,17 @@
 
     <fragment
         android:id="@+id/maquinasFragment"
-        android:name="com.example.orbis.MaquinasFragment"
+        android:name="com.example.orbis.ui.fragments.MaquinasFragment"
         android:label="Maquinas"/>
 
     <fragment
         android:id="@+id/alertasFragment"
-        android:name="com.example.orbis.AlertasFragment"
+        android:name="com.example.orbis.ui.fragments.AlertasFragment"
         android:label="Alertas"/>
 
     <fragment
         android:id="@+id/perfilFragment"
-        android:name="com.example.orbis.PerfilFragment"
+        android:name="com.example.orbis.ui.fragments.PerfilFragment"
         android:label="Perfil"/>
 
 </navigation>

@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
 <androidx.constraintlayout.widget.ConstraintLayout
     android:id="@+id/main"
     xmlns:android="http://schemas.android.com/apk/res/android"
@@ -27,7 +32,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:textColor="@color/purple"
         android:textStyle="bold"
-        android:textSize="30dp"/>
+        android:textSize="30sp"/>
 
     <TextView
         android:id="@+id/textEmail"
@@ -39,7 +44,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:textColor="@color/gray"
-        android:textSize="18dp"/>
+        android:textSize="18sp"/>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/email"
@@ -72,7 +77,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:textColor="@color/gray"
-        android:textSize="18dp"/>
+        android:textSize="18sp"/>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/senha"
@@ -115,12 +120,14 @@
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:text="Ao entrar na sua conta você concorda com os termos de privacidade"
-        android:layout_marginBottom="30dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnLogar"
+        android:layout_marginTop="140dp"
         android:textColor="@color/gray"
-        android:textSize="15dp"/>
+        android:textSize="15sp"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>
