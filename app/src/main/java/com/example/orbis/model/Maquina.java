@@ -14,4 +14,14 @@ public class Maquina {
     public String getCriticidade() { return criticidade; }
     public float getIntegridade() { return integridade; }
     public boolean isAtivo() { return ativo; }
+
+    public Maquina(int id,String nome, String setor, String tipo, String criticidade, float integridade, boolean ativo) {
+        this.id = id;
+        this.nome = nome;
+        this.setor = setor;
+        this.tipo = tipo;
+        this.criticidade = criticidade;
+        this.integridade = integridade;
+        this.ativo = ativo;
+    }
 }
