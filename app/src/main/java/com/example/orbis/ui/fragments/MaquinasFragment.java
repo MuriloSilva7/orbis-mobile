@@ -3,64 +3,83 @@ package com.example.orbis.ui.fragments;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.orbis.R;
+import com.example.orbis.adapter.MaquinaAdapter;
+import com.example.orbis.api.OrbisApiService;
+import com.example.orbis.model.Maquina;
+import com.example.orbis.network.RetrofitClient;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link MaquinasFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+
 public class MaquinasFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private RecyclerView recyclerMaquinas;
+    private MaquinaAdapter adapter;
+    private List<Maquina> listaMaquinas;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    public View onCreateView(
+            LayoutInflater inflater, ViewGroup container,
+            Bundle savedInstanceState) {
 
-    public MaquinasFragment() {
-        // Required empty public constructor
+        View view = inflater.inflate(R.layout.fragment_maquinas, container, false);
+
+        recyclerMaquinas = view.findViewById(R.id.recyclerMaquinas);
+
+        recyclerMaquinas.setLayoutManager(
+                new LinearLayoutManager(getContext())
+        );
+
+        listaMaquinas = new ArrayList<>();
+
+        adapter = new MaquinaAdapter(listaMaquinas);
+        recyclerMaquinas.setAdapter(adapter);
+
+        carregarMaquinas();
+
+        return view;
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment MaquinasFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static MaquinasFragment newInstance(String param1, String param2) {
-        MaquinasFragment fragment = new MaquinasFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
+    private void carregarMaquinas() {
+        OrbisApiService apiService = RetrofitClient
+                .getInstance()
+                .getApi();
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
+        Call<List<Maquina>> call = apiService.getMaquinas();
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_maquinas, container, false);
+        call.enqueue(new Callback<List<Maquina>>() {
+            @Override
+            public void onResponse(Call<List<Maquina>> call,
+                                   Response<List<Maquina>> response) {
+
+                if (response.isSuccessful() && response.body() != null) {
+
+                    listaMaquinas.clear();
+                    listaMaquinas.addAll(response.body());
+
+                    adapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Maquina>> call,
+                                  Throwable t) {
+
+                Log.e("ERRO_API", t.getMessage());
+            }
+        });
     }
 }

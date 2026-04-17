@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="0dp"
+        android:layout_height="?attr/actionBarSize"
+        app:logo="@drawable/orbislogotoolbar"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+
+    </com.google.android.material.appbar.MaterialToolbar>
+
+    <View
+        android:id="@+id/linha"
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:background="#808080"
+        app:layout_constraintTop_toBottomOf="@id/toolbar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/txtId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linha"
+        android:text="ID: "
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="150dp"/>
+
+
+    <TextView
+        android:id="@+id/txtIdVariavel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ID da Máquina"
+        android:textSize="18sp"
+        app:layout_constraintStart_toEndOf="@+id/txtId"
+        app:layout_constraintTop_toBottomOf="@+id/linha"
+        android:layout_marginTop="40dp"/>
+
+    <TextView
+        android:id="@+id/txtNome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtId"
+        android:text="Nome: "
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginEnd="150dp"/>
+
+    <TextView
+        android:id="@+id/txtNomeVariavel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nome da Máquina"
+        android:textSize="18sp"
+        app:layout_constraintTop_toBottomOf="@+id/txtId"
+        app:layout_constraintStart_toEndOf="@+id/txtNome"/>
+
+    <TextView
+        android:id="@+id/txtSetor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtNome"
+        android:text="Setor: "
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginEnd="150dp"/>
+
+    <TextView
+        android:id="@+id/txtSetorVariavel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nome do Setor"
+        android:textSize="18sp"
+        app:layout_constraintTop_toBottomOf="@+id/txtNome"
+        app:layout_constraintStart_toEndOf="@+id/txtSetor"/>
+
+    <TextView
+        android:id="@+id/txtTipo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtSetor"
+        android:text="Tipo: "
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginEnd="150dp"/>
+
+    <TextView
+        android:id="@+id/txtTipoVariavel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Nome do Tipo"
+        android:textSize="18sp"
+        app:layout_constraintTop_toBottomOf="@+id/txtSetor"
+        app:layout_constraintStart_toEndOf="@+id/txtTipo"/>
+
+    <TextView
+        android:id="@+id/txtCriticidade"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtTipo"
+        android:text="Criticidade: "
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginEnd="150dp"/>
+
+    <TextView
+        android:id="@+id/txtCriticidadeVariavel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Criticidade"
+        android:textSize="18sp"
+        app:layout_constraintTop_toBottomOf="@+id/txtTipo"
+        app:layout_constraintStart_toEndOf="@+id/txtCriticidade"/>
+
+    <TextView
+        android:id="@+id/txtIntegridade"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtCriticidade"
+        android:text="Integridade: "
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginEnd="150dp"/>
+
+    <TextView
+        android:id="@+id/txtIntegridadeVariavel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Integridade"
+        android:textSize="18sp"
+        app:layout_constraintTop_toBottomOf="@+id/txtCriticidade"
+        app:layout_constraintStart_toEndOf="@+id/txtIntegridade"/>
+
+    <TextView
+        android:id="@+id/txtEstado"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtIntegridade"
+        android:text="Estado: "
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginEnd="150dp"/>
+
+    <TextView
+        android:id="@+id/txtEstadoVariavel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ativo ou não"
+        android:textSize="18sp"
+        app:layout_constraintTop_toBottomOf="@+id/txtIntegridade"
+        app:layout_constraintStart_toEndOf="@+id/txtEstado"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

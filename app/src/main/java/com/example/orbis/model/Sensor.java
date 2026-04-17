@@ -7,11 +7,6 @@ public class Sensor {
     private float limiteTemperatura, limiteVibracao;
     private Float ultimaTemperatura, ultimaVibracao;
 
-    public int getId() { return id; }
-    public String getTipo() { return tipo; }
-    public String getStatus() { return status; }
-    public Float getUltimaTemperatura() { return ultimaTemperatura; }
-    public Float getUltimaVibracao() { return ultimaVibracao; }
 
     public Sensor(int id, int maquinaId, String tipo, String status, float limiteTemperatura, float limiteVibracao, Float  ultimaTemperatura, Float ultimaVibracao) {
         this.id = id;
@@ -24,4 +19,13 @@ public class Sensor {
         this.ultimaVibracao = ultimaVibracao;
 
     }
+
+    public int getId() { return id; }
+    public int getMaquinaId() {return maquinaId;}
+    public String getTipo() { return tipo; }
+    public String getStatus() { return status; }
+    public float getLimiteTemperatura() {return limiteTemperatura;}
+    public float getLimiteVibracao() {return limiteVibracao;}
+    public Float getUltimaTemperatura() { return ultimaTemperatura; }
+    public Float getUltimaVibracao() { return ultimaVibracao; }
 }

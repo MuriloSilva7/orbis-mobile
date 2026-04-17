@@ -7,14 +7,6 @@ public class Maquina {
     private float integridade;
     private boolean ativo;
 
-    public int getId() { return id; }
-    public String getNome() { return nome; }
-    public String getSetor() { return setor; }
-    public String getTipo() { return tipo; }
-    public String getCriticidade() { return criticidade; }
-    public float getIntegridade() { return integridade; }
-    public boolean isAtivo() { return ativo; }
-
     public Maquina(int id,String nome, String setor, String tipo, String criticidade, float integridade, boolean ativo) {
         this.id = id;
         this.nome = nome;
@@ -24,4 +16,12 @@ public class Maquina {
         this.integridade = integridade;
         this.ativo = ativo;
     }
+
+    public int getId() { return id; }
+    public String getNome() { return nome; }
+    public String getSetor() { return setor; }
+    public String getTipo() { return tipo; }
+    public String getCriticidade() { return criticidade; }
+    public float getIntegridade() { return integridade; }
+    public boolean isAtivo() { return ativo; }
 }

@@ -6,10 +6,6 @@ public class Usuario {
     private String nome, email, role;
     private boolean ativo;
 
-    public int getId() { return id; }
-    public String getNome() { return nome; }
-    public String getEmail() { return email; }
-    public String getRole() { return role; }
 
     public Usuario(int id,String nome, String email, String role, boolean ativo) {
         this.id = id;
@@ -18,4 +14,10 @@ public class Usuario {
         this.role = role;
         this.ativo = ativo;
     }
+
+    public int getId() { return id; }
+    public String getNome() { return nome; }
+    public String getEmail() { return email; }
+    public String getRole() { return role; }
+    public boolean getAtivo() {return ativo;}
 }
