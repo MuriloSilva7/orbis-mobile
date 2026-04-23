@@ -1,6 +1,8 @@
 package com.example.orbis.ui.main;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,6 +11,7 @@ import com.example.orbis.R;
 import com.example.orbis.api.OrbisApiService;
 import com.example.orbis.model.Maquina;
 import com.example.orbis.network.RetrofitClient;
+import com.example.orbis.ui.fragments.MaquinasFragment;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -24,10 +27,18 @@ public class MaquinaDetalheActivity extends AppCompatActivity {
     private TextView txtIntegridadeVariavel;
     private TextView txtEstadoVariavel;
 
+    Button btnVoltar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maquina_detalhe);
+
+        btnVoltar = findViewById(R.id.btnVoltar);
+
+        btnVoltar.setOnClickListener(v -> {
+            finish();
+        });
 
         txtIdVariavel = findViewById(R.id.txtIdVariavel);
         txtNomeVariavel = findViewById(R.id.txtNomeVariavel);
