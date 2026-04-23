@@ -3,11 +3,7 @@ package com.example.orbis.ui.main;
 import android.os.Bundle;
 import android.widget.TextView;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.example.orbis.R;
 import com.example.orbis.api.OrbisApiService;
@@ -20,6 +16,7 @@ import retrofit2.Response;
 
 public class MaquinaDetalheActivity extends AppCompatActivity {
 
+    private TextView txtIdVariavel;
     private TextView txtNomeVariavel;
     private TextView txtSetorVariavel;
     private TextView txtTipoVariavel;
@@ -32,6 +29,7 @@ public class MaquinaDetalheActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maquina_detalhe);
 
+        txtIdVariavel = findViewById(R.id.txtIdVariavel);
         txtNomeVariavel = findViewById(R.id.txtNomeVariavel);
         txtSetorVariavel = findViewById(R.id.txtSetorVariavel);
         txtTipoVariavel = findViewById(R.id.txtTipoVariavel);
@@ -40,7 +38,6 @@ public class MaquinaDetalheActivity extends AppCompatActivity {
         txtEstadoVariavel = findViewById(R.id.txtEstadoVariavel);
 
         int id = getIntent().getIntExtra("id_maquina", -1);
-
         carregarDetalhes(id);
     }
 
@@ -58,6 +55,7 @@ public class MaquinaDetalheActivity extends AppCompatActivity {
 
                     Maquina maquina = response.body();
 
+                    txtIdVariavel.setText(String.valueOf(maquina.getId()));
                     txtNomeVariavel.setText(maquina.getNome());
                     txtSetorVariavel.setText(maquina.getSetor());
                     txtTipoVariavel.setText(maquina.getTipo());

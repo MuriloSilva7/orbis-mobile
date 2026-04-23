@@ -30,13 +30,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linha"
         android:text="ID: "
         android:textSize="18sp"
         android:textStyle="bold"
         android:layout_marginTop="40dp"
-        android:layout_marginEnd="150dp"/>
+        android:layout_marginStart="50dp"/>
 
 
     <TextView
@@ -54,12 +53,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtId"
         android:text="Nome: "
         android:textSize="18sp"
         android:textStyle="bold"
-        android:layout_marginEnd="150dp"/>
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="9dp"/>
 
     <TextView
         android:id="@+id/txtNomeVariavel"
@@ -68,19 +67,20 @@
         android:text="Nome da Máquina"
         android:textSize="18sp"
         app:layout_constraintTop_toBottomOf="@+id/txtId"
-        app:layout_constraintStart_toEndOf="@+id/txtNome"/>
+        app:layout_constraintStart_toEndOf="@+id/txtNome"
+        android:layout_marginTop="9dp"/>
 
     <TextView
         android:id="@+id/txtSetor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtNome"
         android:text="Setor: "
         android:textSize="18sp"
         android:textStyle="bold"
-        android:layout_marginEnd="150dp"/>
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="9dp"/>
 
     <TextView
         android:id="@+id/txtSetorVariavel"
@@ -89,19 +89,20 @@
         android:text="Nome do Setor"
         android:textSize="18sp"
         app:layout_constraintTop_toBottomOf="@+id/txtNome"
-        app:layout_constraintStart_toEndOf="@+id/txtSetor"/>
+        app:layout_constraintStart_toEndOf="@+id/txtSetor"
+        android:layout_marginTop="9dp"/>
 
     <TextView
         android:id="@+id/txtTipo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtSetor"
         android:text="Tipo: "
         android:textSize="18sp"
         android:textStyle="bold"
-        android:layout_marginEnd="150dp"/>
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="9dp"/>
 
     <TextView
         android:id="@+id/txtTipoVariavel"
@@ -110,19 +111,20 @@
         android:text="Nome do Tipo"
         android:textSize="18sp"
         app:layout_constraintTop_toBottomOf="@+id/txtSetor"
-        app:layout_constraintStart_toEndOf="@+id/txtTipo"/>
+        app:layout_constraintStart_toEndOf="@+id/txtTipo"
+        android:layout_marginTop="9dp"/>
 
     <TextView
         android:id="@+id/txtCriticidade"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtTipo"
         android:text="Criticidade: "
         android:textSize="18sp"
         android:textStyle="bold"
-        android:layout_marginEnd="150dp"/>
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="9dp"/>
 
     <TextView
         android:id="@+id/txtCriticidadeVariavel"
@@ -131,19 +133,20 @@
         android:text="Criticidade"
         android:textSize="18sp"
         app:layout_constraintTop_toBottomOf="@+id/txtTipo"
-        app:layout_constraintStart_toEndOf="@+id/txtCriticidade"/>
+        app:layout_constraintStart_toEndOf="@+id/txtCriticidade"
+        android:layout_marginTop="9dp"/>
 
     <TextView
         android:id="@+id/txtIntegridade"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtCriticidade"
         android:text="Integridade: "
         android:textSize="18sp"
         android:textStyle="bold"
-        android:layout_marginEnd="150dp"/>
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="9dp"/>
 
     <TextView
         android:id="@+id/txtIntegridadeVariavel"
@@ -152,19 +155,20 @@
         android:text="Integridade"
         android:textSize="18sp"
         app:layout_constraintTop_toBottomOf="@+id/txtCriticidade"
-        app:layout_constraintStart_toEndOf="@+id/txtIntegridade"/>
+        app:layout_constraintStart_toEndOf="@+id/txtIntegridade"
+        android:layout_marginTop="9dp"/>
 
     <TextView
         android:id="@+id/txtEstado"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtIntegridade"
         android:text="Estado: "
         android:textSize="18sp"
         android:textStyle="bold"
-        android:layout_marginEnd="150dp"/>
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="9dp"/>
 
     <TextView
         android:id="@+id/txtEstadoVariavel"
@@ -173,6 +177,7 @@
         android:text="Ativo ou não"
         android:textSize="18sp"
         app:layout_constraintTop_toBottomOf="@+id/txtIntegridade"
-        app:layout_constraintStart_toEndOf="@+id/txtEstado"/>
+        app:layout_constraintStart_toEndOf="@+id/txtEstado"
+        android:layout_marginTop="9dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

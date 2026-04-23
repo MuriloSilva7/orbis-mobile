@@ -1,5 +1,7 @@
 package com.example.orbis.model;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Maquina {
 
     private int id;
