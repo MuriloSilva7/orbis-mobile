@@ -17,6 +17,7 @@ import com.example.orbis.ui.fragments.PerfilFragment;
 import com.example.orbis.R;
 import com.example.orbis.ui.fragments.AlertasFragment;
 import com.example.orbis.ui.fragments.SensoresFragment;
+import com.example.orbis.ui.fragments.TecnicosFragment;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -41,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
         Fragment alertasFragment = new AlertasFragment();
         Fragment perfilFragment = new PerfilFragment();
         Fragment sensoresFragment = new SensoresFragment();
+        Fragment tecnicosFragment = new TecnicosFragment();
 
         BottomNavigationView bottomNav = findViewById(R.id.bottomNav);
 

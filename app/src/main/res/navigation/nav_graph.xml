@@ -24,4 +24,9 @@
         android:name="com.example.orbis.ui.fragments.SensoresFragment"
         android:label="Sensores"/>
 
+    <fragment
+        android:id="@+id/tecnicosFragment"
+        android:name="com.example.orbis.ui.fragments.TecnicosFragment"
+        android:label="Técnicos"/>
+
 </navigation>

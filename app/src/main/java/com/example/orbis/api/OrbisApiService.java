@@ -37,6 +37,12 @@ public interface OrbisApiService {
     @GET("perfil")
     Call<Usuario> getPerfil();
 
+    @GET("usuarios/{id}")
+    Call<Usuario> getUsuario(@Path("id") int id);
+
+    @GET("usuarios")
+    Call<List<Usuario>> getTecnicos();
+
     @PUT("perfil")
     Call<Usuario> updatePerfil(@Body Map<String, Object> body);
 

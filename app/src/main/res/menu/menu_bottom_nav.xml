@@ -23,5 +23,10 @@
         android:title="Sensores"
         android:icon="@drawable/ic_sensores"/>
 
+    <item
+        android:id="@+id/tecnicosFragment"
+        android:title="Técnicos"
+        android:icon="@drawable/ic_tecnicos"/>
+
 
 </menu>
