@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.example.orbis.R;
 import com.example.orbis.adapter.TecnicoAdapter;
 import com.example.orbis.api.OrbisApiService;
+import com.example.orbis.model.TecnicosResponse;
 import com.example.orbis.model.Usuario;
 import com.example.orbis.network.RetrofitClient;
 
@@ -54,22 +55,24 @@ public class TecnicosFragment extends Fragment {
                 .getInstance()
                 .getApi();
 
-        Call<List<Usuario>> call = apiService.getTecnicos();
+        Call<TecnicosResponse> call = apiService.getTecnicos(1, 10);
 
-        call.enqueue(new Callback<List<Usuario>>() {
+        call.enqueue(new Callback<TecnicosResponse>() {
+
             @Override
-            public void onResponse(Call<List<Usuario>> call,
-                                   Response<List<Usuario>> response) {
+            public void onResponse(Call<TecnicosResponse> call,
+                                   Response<TecnicosResponse> response) {
 
                 if (response.isSuccessful() && response.body() != null) {
+
                     listaTecnicos.clear();
-                    listaTecnicos.addAll(response.body());
+                    listaTecnicos.addAll(response.body().getData());
                     adapter.notifyDataSetChanged();
                 }
             }
 
             @Override
-            public void onFailure(Call<List<Usuario>> call, Throwable t) {
+            public void onFailure(Call<TecnicosResponse> call, Throwable t) {
                 Toast.makeText(getContext(),
                         "Erro: " + t.getMessage(),
                         Toast.LENGTH_SHORT).show();

@@ -7,6 +7,7 @@ import com.example.orbis.model.LoginResponse;
 import com.example.orbis.model.Manutencao;
 import com.example.orbis.model.Maquina;
 import com.example.orbis.model.Sensor;
+import com.example.orbis.model.TecnicosResponse;
 import com.example.orbis.model.Usuario;
 
 import java.util.List;
@@ -40,8 +41,11 @@ public interface OrbisApiService {
     @GET("usuarios/{id}")
     Call<Usuario> getUsuario(@Path("id") int id);
 
-    @GET("usuarios")
-    Call<List<Usuario>> getTecnicos();
+    @GET("tecnicos")
+    Call<TecnicosResponse> getTecnicos(
+            @Query("page") int page,
+            @Query("limit") int limit
+    );
 
     @PUT("perfil")
     Call<Usuario> updatePerfil(@Body Map<String, Object> body);

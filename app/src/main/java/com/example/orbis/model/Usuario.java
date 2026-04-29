@@ -13,6 +13,9 @@ public class Usuario {
     private String atualizadoEm;
     private String criadoEm;
 
+    public Usuario() {
+    }
+
 
     public Usuario(int id,String nome, String email, String role, String especialidade, String telefone, String oneSignalId, String atualizadoEm, String criadoEm ,boolean ativo) {
         this.id = id;
