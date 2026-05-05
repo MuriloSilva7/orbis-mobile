@@ -66,7 +66,7 @@ public class TecnicosFragment extends Fragment {
                 if (response.isSuccessful() && response.body() != null) {
 
                     listaTecnicos.clear();
-                    listaTecnicos.addAll(response.body().getData());
+                    listaTecnicos.addAll(response.body().getDados());
                     adapter.notifyDataSetChanged();
                 }
             }

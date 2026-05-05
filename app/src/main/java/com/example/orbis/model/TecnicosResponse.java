@@ -4,13 +4,13 @@ import java.util.List;
 
 public class TecnicosResponse {
 
-    private List<Usuario> data;
+    private List<Usuario> dados;
     private int total;
     private int page;
-    private int limit;
+    private int totalPages;
 
-    public List<Usuario> getData() {
-        return data;
+    public List<Usuario> getDados() {
+        return dados;
     }
 
     public int getTotal() {
@@ -21,8 +21,7 @@ public class TecnicosResponse {
         return page;
     }
 
-    public int getLimit() {
-        return limit;
+    public int getTotalPages() {
+        return totalPages;
     }
-
 }
