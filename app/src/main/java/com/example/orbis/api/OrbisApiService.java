@@ -1,5 +1,6 @@
 package com.example.orbis.api;
 
+import com.example.orbis.model.Alerta;
 import com.example.orbis.model.DashboardResumo;
 import com.example.orbis.model.LeituraRequest;
 import com.example.orbis.model.LoginRequest;
@@ -99,4 +100,9 @@ public interface OrbisApiService {
     // DASHBOARD
     @GET("dashboard/resumo")
     Call<DashboardResumo> getDashboard();
+
+    //ALERTAS
+
+    @GET("alertas")
+    Call<List<Alerta>> getAlertas();
 }

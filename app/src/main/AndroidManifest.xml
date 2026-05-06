@@ -15,6 +15,9 @@
         android:theme="@style/Theme.Orbis"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".ui.main.AlertaDetalheActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.main.SensorDetalheActivity"
             android:exported="false" />
         <activity
