@@ -48,7 +48,7 @@ public class TecnicoDetalheActivity extends AppCompatActivity {
         txtEmailVariavel = findViewById(R.id.txtEmailVariavel);
         txtEstadoVariavel = findViewById(R.id.txtEstadoVariavel);
 
-        // Mesmo nome usado no Adapter
+        // mesmo nome usado no adapter
         int id = getIntent().getIntExtra("id_tecnico", -1);
 
         if (id != -1) {

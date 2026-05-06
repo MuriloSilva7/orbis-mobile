@@ -28,7 +28,7 @@
 
 
     <TextView
-        android:id="@+id/txtId"
+        android:id="@+id/txtIdSensor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
@@ -41,21 +41,21 @@
 
 
     <TextView
-        android:id="@+id/txtIdVariavel"
+        android:id="@+id/txtIdSensorVariavel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="ID do sensor"
         android:textSize="18sp"
-        app:layout_constraintStart_toEndOf="@+id/txtId"
+        app:layout_constraintStart_toEndOf="@+id/txtIdSensor"
         app:layout_constraintTop_toBottomOf="@+id/linha"
         android:layout_marginTop="40dp"/>
 
     <TextView
-        android:id="@+id/txtNome"
+        android:id="@+id/txtIdMaquina"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtId"
+        app:layout_constraintTop_toBottomOf="@+id/txtIdSensor"
         android:text="ID da Máquina: "
         android:textSize="18sp"
         android:textStyle="bold"
@@ -63,35 +63,13 @@
         android:layout_marginTop="9dp"/>
 
     <TextView
-        android:id="@+id/txtNomeVariavel"
+        android:id="@+id/txtIdMaquinaVariavel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="ID da Máquina"
         android:textSize="18sp"
-        app:layout_constraintTop_toBottomOf="@+id/txtId"
-        app:layout_constraintStart_toEndOf="@+id/txtNome"
-        android:layout_marginTop="9dp"/>
-
-    <TextView
-        android:id="@+id/txtSetor"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtNome"
-        android:text="Setor: "
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="9dp"/>
-
-    <TextView
-        android:id="@+id/txtSetorVariavel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Nome do Setor"
-        android:textSize="18sp"
-        app:layout_constraintTop_toBottomOf="@+id/txtNome"
-        app:layout_constraintStart_toEndOf="@+id/txtSetor"
+        app:layout_constraintTop_toBottomOf="@+id/txtIdSensor"
+        app:layout_constraintStart_toEndOf="@+id/txtIdMaquina"
         android:layout_marginTop="9dp"/>
 
     <TextView
@@ -99,7 +77,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtSetor"
+        app:layout_constraintTop_toBottomOf="@+id/txtIdMaquina"
         android:text="Tipo: "
         android:textSize="18sp"
         android:textStyle="bold"
@@ -112,52 +90,96 @@
         android:layout_height="wrap_content"
         android:text="Nome do Tipo"
         android:textSize="18sp"
-        app:layout_constraintTop_toBottomOf="@+id/txtSetor"
+        app:layout_constraintTop_toBottomOf="@+id/txtIdMaquina"
         app:layout_constraintStart_toEndOf="@+id/txtTipo"
         android:layout_marginTop="9dp"/>
 
     <TextView
-        android:id="@+id/txtCriticidade"
+        android:id="@+id/txtUltimaTemperatura"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtTipo"
-        android:text="Criticidade: "
+        android:text="Última Temperatura: "
         android:textSize="18sp"
         android:textStyle="bold"
         android:layout_marginStart="50dp"
         android:layout_marginTop="9dp"/>
 
     <TextView
-        android:id="@+id/txtCriticidadeVariavel"
+        android:id="@+id/txtUltimaTemperaturaVariavel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Criticidade"
+        android:text="ultima temperatura"
         android:textSize="18sp"
         app:layout_constraintTop_toBottomOf="@+id/txtTipo"
-        app:layout_constraintStart_toEndOf="@+id/txtCriticidade"
+        app:layout_constraintStart_toEndOf="@+id/txtUltimaTemperatura"
         android:layout_marginTop="9dp"/>
 
     <TextView
-        android:id="@+id/txtIntegridade"
+        android:id="@+id/txtLimiteTemperatura"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtCriticidade"
-        android:text="Integridade: "
+        app:layout_constraintTop_toBottomOf="@+id/txtUltimaTemperatura"
+        android:text="Limite de Temperatura: "
         android:textSize="18sp"
         android:textStyle="bold"
         android:layout_marginStart="50dp"
         android:layout_marginTop="9dp"/>
 
     <TextView
-        android:id="@+id/txtIntegridadeVariavel"
+        android:id="@+id/txtLimiteTemperaturaVariavel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Integridade"
+        android:text="Limite"
         android:textSize="18sp"
-        app:layout_constraintTop_toBottomOf="@+id/txtCriticidade"
-        app:layout_constraintStart_toEndOf="@+id/txtIntegridade"
+        app:layout_constraintTop_toBottomOf="@+id/txtUltimaTemperatura"
+        app:layout_constraintStart_toEndOf="@+id/txtLimiteTemperatura"
+        android:layout_marginTop="9dp"/>
+
+    <TextView
+        android:id="@+id/txtUltimaVibracao"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtLimiteTemperatura"
+        android:text="Última Vibração: "
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="9dp"/>
+
+    <TextView
+        android:id="@+id/txtUltimaVibracaoVariavel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Vibração"
+        android:textSize="18sp"
+        app:layout_constraintTop_toBottomOf="@+id/txtLimiteTemperatura"
+        app:layout_constraintStart_toEndOf="@+id/txtUltimaVibracao"
+        android:layout_marginTop="9dp"/>
+
+    <TextView
+        android:id="@+id/txtLimiteVibracao"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtUltimaVibracao"
+        android:text="Limite de Vibração: "
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="9dp"/>
+
+    <TextView
+        android:id="@+id/txtLimiteVibracaoVariavel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Limite"
+        android:textSize="18sp"
+        app:layout_constraintTop_toBottomOf="@+id/txtUltimaVibracao"
+        app:layout_constraintStart_toEndOf="@+id/txtLimiteVibracao"
         android:layout_marginTop="9dp"/>
 
     <TextView
@@ -165,12 +187,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtIntegridade"
+        app:layout_constraintTop_toBottomOf="@+id/txtLimiteVibracao"
         android:text="Estado: "
         android:textSize="18sp"
         android:textStyle="bold"
         android:layout_marginStart="50dp"
         android:layout_marginTop="9dp"/>
+
+
 
     <TextView
         android:id="@+id/txtEstadoVariavel"
@@ -178,7 +202,7 @@
         android:layout_height="wrap_content"
         android:text="Ativo ou não"
         android:textSize="18sp"
-        app:layout_constraintTop_toBottomOf="@+id/txtIntegridade"
+        app:layout_constraintTop_toBottomOf="@+id/txtLimiteVibracao"
         app:layout_constraintStart_toEndOf="@+id/txtEstado"
         android:layout_marginTop="9dp"/>
 

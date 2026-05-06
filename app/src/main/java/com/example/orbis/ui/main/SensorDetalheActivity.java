@@ -3,6 +3,7 @@ package com.example.orbis.ui.main;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,6 +14,7 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.orbis.R;
 import com.example.orbis.api.OrbisApiService;
 import com.example.orbis.model.Maquina;
+import com.example.orbis.model.Sensor;
 import com.example.orbis.network.RetrofitClient;
 
 import retrofit2.Call;
@@ -21,12 +23,13 @@ import retrofit2.Response;
 
 public class SensorDetalheActivity extends AppCompatActivity {
 
-    private TextView txtIdVariavel;
-    private TextView txtNomeVariavel;
-    private TextView txtSetorVariavel;
+    private TextView txtIdSensorVariavel;
+    private TextView txtIdMaquinaVariavel;
     private TextView txtTipoVariavel;
-    private TextView txtCriticidadeVariavel;
-    private TextView txtIntegridadeVariavel;
+    private TextView txtUltimaTemperaturaVariavel;
+    private TextView txtLimiteTemperaturaVariavel;
+    private TextView txtUltimaVibracaoVariavel;
+    private TextView txtLimiteVibracaoVariavel;
     private TextView txtEstadoVariavel;
 
     Button btnVoltar;
@@ -42,15 +45,16 @@ public class SensorDetalheActivity extends AppCompatActivity {
             finish();
         });
 
-        txtIdVariavel = findViewById(R.id.txtIdVariavel);
-        txtNomeVariavel = findViewById(R.id.txtNomeVariavel);
-        txtSetorVariavel = findViewById(R.id.txtSetorVariavel);
+        txtIdSensorVariavel = findViewById(R.id.txtIdSensorVariavel);
+        txtIdMaquinaVariavel = findViewById(R.id.txtIdMaquinaVariavel);
         txtTipoVariavel = findViewById(R.id.txtTipoVariavel);
-        txtCriticidadeVariavel = findViewById(R.id.txtCriticidadeVariavel);
-        txtIntegridadeVariavel = findViewById(R.id.txtIntegridadeVariavel);
+        txtUltimaTemperaturaVariavel = findViewById(R.id.txtUltimaTemperaturaVariavel);
+        txtLimiteTemperaturaVariavel = findViewById(R.id.txtLimiteTemperaturaVariavel);
+        txtUltimaVibracaoVariavel = findViewById(R.id.txtUltimaVibracaoVariavel);
+        txtLimiteVibracaoVariavel = findViewById(R.id.txtLimiteVibracaoVariavel);
         txtEstadoVariavel = findViewById(R.id.txtEstadoVariavel);
 
-        int id = getIntent().getIntExtra("id_maquina", -1);
+        int id = getIntent().getIntExtra("id_sensor", -1);
         carregarDetalhes(id);
     }
 
@@ -59,32 +63,31 @@ public class SensorDetalheActivity extends AppCompatActivity {
                 .getInstance()
                 .getApi();
 
-        Call<Maquina> call = apiService.getMaquina(id);
+        Call<Sensor> call = apiService.getSensor(id);
 
-        call.enqueue(new Callback<Maquina>() {
+        call.enqueue(new Callback<Sensor>() {
             @Override
-            public void onResponse(Call<Maquina> call, Response<Maquina> response) {
+            public void onResponse(Call<Sensor> call, Response<Sensor> response) {
                 if (response.isSuccessful() && response.body() != null) {
 
-                    Maquina maquina = response.body();
+                    Sensor sensor = response.body();
 
-                    txtIdVariavel.setText(String.valueOf(maquina.getId()));
-                    txtNomeVariavel.setText(maquina.getNome());
-                    txtSetorVariavel.setText(maquina.getSetor());
-                    txtTipoVariavel.setText(maquina.getTipo());
-                    txtCriticidadeVariavel.setText(maquina.getCriticidade());
-                    txtIntegridadeVariavel.setText(
-                            String.valueOf(maquina.getIntegridade())
-                    );
-                    txtEstadoVariavel.setText(
-                            maquina.isAtivo() ? "Ativo" : "Inativo"
-                    );
+                    txtIdSensorVariavel.setText(String.valueOf(sensor.getId()));
+                    txtIdMaquinaVariavel.setText(String.valueOf(sensor.getMaquinaId()));
+                    txtUltimaTemperaturaVariavel.setText(String.valueOf(sensor.getUltimaTemperatura()));
+                    txtLimiteTemperaturaVariavel.setText(String.valueOf(sensor.getLimiteTemperatura()));
+                    txtUltimaVibracaoVariavel.setText(String.valueOf(sensor.getUltimaVibracao()));
+                    txtLimiteVibracaoVariavel.setText(String.valueOf(sensor.getLimiteVibracao()));
+                    txtTipoVariavel.setText(sensor.getTipo());
+                    txtEstadoVariavel.setText(sensor.getStatus());
                 }
             }
 
             @Override
-            public void onFailure(Call<Maquina> call, Throwable t) {
-
+            public void onFailure(Call<Sensor> call, Throwable t) {
+                Toast.makeText(SensorDetalheActivity.this,
+                        "Erro ao carregar sensor",
+                        Toast.LENGTH_SHORT).show();
             }
         });
     }
