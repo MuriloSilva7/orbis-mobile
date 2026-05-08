@@ -1,9 +1,10 @@
 plugins {
     alias(libs.plugins.android.application)
+    id("com.google.gms.google-services")
 }
 
 android {
-    namespace = "com.example.orbis"
+    namespace = "com.orbis.mobile"
     compileSdk {
         version = release(36) {
             minorApiLevel = 1
@@ -11,7 +12,7 @@ android {
     }
 
     defaultConfig {
-        applicationId = "com.example.orbis"
+        applicationId = "com.orbis.mobile"
         minSdk = 24
         targetSdk = 36
         versionCode = 1
@@ -50,4 +51,5 @@ dependencies {
     implementation("com.squareup.retrofit2:converter-gson:2.11.0")
     implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
     implementation("androidx.recyclerview:recyclerview:1.3.2")
+    implementation("com.onesignal:OneSignal:5.1.30")
 }
