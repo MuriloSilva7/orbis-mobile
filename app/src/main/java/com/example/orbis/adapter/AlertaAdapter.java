@@ -1,5 +1,6 @@
 package com.example.orbis.adapter;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.orbis.R;
 import com.example.orbis.model.Alerta;
+import com.example.orbis.ui.main.AlertaDetalheActivity;
 
 import java.util.List;
 
@@ -54,9 +56,18 @@ public class AlertaAdapter extends RecyclerView.Adapter<AlertaAdapter.ViewHolder
         }
 
         holder.btnVerMais.setOnClickListener(v -> {
-            Toast.makeText(v.getContext(),
-                    "Alerta da máquina: " + holder.txtNomeVariavel.getText(),
-                    Toast.LENGTH_SHORT).show();
+
+            Intent intent = new Intent(
+                    v.getContext(),
+                    AlertaDetalheActivity.class
+            );
+
+            intent.putExtra(
+                    "id_alerta",
+                    alerta.getId()
+            );
+
+            v.getContext().startActivity(intent);
         });
     }
 
