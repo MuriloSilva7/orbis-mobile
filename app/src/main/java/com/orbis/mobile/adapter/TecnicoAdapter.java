@@ -5,11 +5,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.orbis.mobile.R;
 import com.orbis.mobile.model.Usuario;
 import com.orbis.mobile.ui.main.TecnicoDetalheActivity;
@@ -41,6 +43,10 @@ public class TecnicoAdapter extends RecyclerView.Adapter<TecnicoAdapter.TecnicoV
 
         holder.txtNomeVariavel.setText(tecnico.getNome());
 
+        Glide.with(holder.itemView.getContext())
+                .load(tecnico.getFotoPerfil())
+                .into(holder.imgTecnico);
+
         holder.btnVerMais.setOnClickListener(v -> {
             Intent intent = new Intent(v.getContext(), TecnicoDetalheActivity.class);
             intent.putExtra("id_tecnico", tecnico.getId());
@@ -57,12 +63,14 @@ public class TecnicoAdapter extends RecyclerView.Adapter<TecnicoAdapter.TecnicoV
 
         TextView txtNomeVariavel;
         Button btnVerMais;
+        ImageView imgTecnico;
 
         public TecnicoViewHolder(@NonNull View itemView) {
             super(itemView);
 
             txtNomeVariavel = itemView.findViewById(R.id.txtNomeVariavel);
             btnVerMais = itemView.findViewById(R.id.btnVerMais);
+            imgTecnico = itemView.findViewById(R.id.imgTecnico);
         }
     }
 }

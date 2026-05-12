@@ -2,11 +2,13 @@ package com.orbis.mobile.ui.main;
 
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
 import com.orbis.mobile.R;
 import com.orbis.mobile.api.OrbisApiService;
 import com.orbis.mobile.model.Usuario;
@@ -24,6 +26,7 @@ public class TecnicoDetalheActivity extends AppCompatActivity {
     private TextView txtTelefoneVariavel;
     private TextView txtEmailVariavel;
     private TextView txtEstadoVariavel;
+    private ImageView imgTecnico;
 
     Button btnVoltar;
 
@@ -42,6 +45,7 @@ public class TecnicoDetalheActivity extends AppCompatActivity {
         txtTelefoneVariavel = findViewById(R.id.txtTelefoneVariavel);
         txtEmailVariavel = findViewById(R.id.txtEmailVariavel);
         txtEstadoVariavel = findViewById(R.id.txtEstadoVariavel);
+        imgTecnico = findViewById(R.id.imgTecnico);
 
         // mesmo nome usado no adapter
         int id = getIntent().getIntExtra("id_tecnico", -1);
@@ -66,6 +70,12 @@ public class TecnicoDetalheActivity extends AppCompatActivity {
                 if (response.isSuccessful() && response.body() != null) {
 
                     Usuario tecnico = response.body();
+
+                    Glide.with(TecnicoDetalheActivity.this)
+                            .load(tecnico.getFotoPerfil())
+                            .placeholder(R.drawable.ic_launcher_foreground)
+                            .error(R.drawable.ic_launcher_foreground)
+                            .into(imgTecnico);
 
                     txtCargoVariavel.setText(tecnico.getRole());
                     txtNomeVariavel.setText(tecnico.getNome());
