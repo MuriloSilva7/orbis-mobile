@@ -12,12 +12,14 @@ public class Usuario {
     private String oneSignalId;
     private String atualizadoEm;
     private String criadoEm;
+    private String fotoPerfil;
+    private String caminhoFoto;
 
     public Usuario() {
     }
 
 
-    public Usuario(int id,String nome, String email, String role, String especialidade, String telefone, String oneSignalId, String atualizadoEm, String criadoEm ,boolean ativo) {
+    public Usuario(int id,String nome, String email, String role, String especialidade, String telefone, String oneSignalId, String atualizadoEm, String criadoEm ,boolean ativo, String fotoPerfil, String caminhoFoto) {
         this.id = id;
         this.nome = nome;
         this.email = email;
@@ -28,6 +30,8 @@ public class Usuario {
         this.oneSignalId = oneSignalId;
         this.atualizadoEm = atualizadoEm;
         this.criadoEm = criadoEm;
+        this.fotoPerfil = fotoPerfil;
+        this.caminhoFoto = caminhoFoto;
 
     }
 
@@ -40,4 +44,10 @@ public class Usuario {
     public String getTelefone() { return telefone; }
     public String getOneSignalId() { return oneSignalId; }
     public String getCriadoEm() { return criadoEm; }
+    public String getFotoPerfil() {
+        return fotoPerfil;
+    }
+    public String getCaminhoFoto() {
+        return caminhoFoto;
+    }
 }

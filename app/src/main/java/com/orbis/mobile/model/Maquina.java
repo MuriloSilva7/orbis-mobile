@@ -6,8 +6,10 @@ public class Maquina {
     private String nome, setor, tipo, criticidade;
     private float integridade;
     private boolean ativo;
+    private String imagem;
+    private String caminhoImagem;
 
-    public Maquina(int id,String nome, String setor, String tipo, String criticidade, float integridade, boolean ativo) {
+    public Maquina(int id,String nome, String setor, String tipo, String criticidade, float integridade, boolean ativo, String imagem, String caminhoImagem) {
         this.id = id;
         this.nome = nome;
         this.setor = setor;
@@ -15,6 +17,8 @@ public class Maquina {
         this.criticidade = criticidade;
         this.integridade = integridade;
         this.ativo = ativo;
+        this.imagem = imagem;
+        this.caminhoImagem = caminhoImagem;
     }
 
     public int getId() { return id; }
@@ -24,4 +28,10 @@ public class Maquina {
     public String getCriticidade() { return criticidade; }
     public float getIntegridade() { return integridade; }
     public boolean isAtivo() { return ativo; }
+    public String getImagem() {
+        return imagem;
+    }
+    public String getCaminhoImagem() {
+        return caminhoImagem;
+    }
 }

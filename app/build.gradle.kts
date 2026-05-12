@@ -52,4 +52,6 @@ dependencies {
     implementation("com.squareup.okhttp3:logging-interceptor:4.12.0")
     implementation("androidx.recyclerview:recyclerview:1.3.2")
     implementation("com.onesignal:OneSignal:5.1.30")
+    implementation("com.github.bumptech.glide:glide:4.16.0")
+    annotationProcessor("com.github.bumptech.glide:compiler:4.16.0")
 }
