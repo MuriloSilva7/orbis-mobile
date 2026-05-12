@@ -5,11 +5,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.orbis.mobile.R;
 import com.orbis.mobile.model.Maquina;
 import com.orbis.mobile.ui.main.MaquinaDetalheActivity;
@@ -40,6 +42,10 @@ public class MaquinaAdapter extends RecyclerView.Adapter<MaquinaAdapter.MaquinaV
 
         holder.txtNomeVariavel.setText(maquina.getNome());
 
+        Glide.with(holder.itemView.getContext())
+                .load(maquina.getImagem())
+                .into(holder.imgMaquina);
+
         holder.btnVerMais.setOnClickListener(v -> {
             Intent intent = new Intent(v.getContext(), MaquinaDetalheActivity.class);
             intent.putExtra("id_maquina", maquina.getId());
@@ -54,6 +60,7 @@ public class MaquinaAdapter extends RecyclerView.Adapter<MaquinaAdapter.MaquinaV
 
     public static class MaquinaViewHolder extends RecyclerView.ViewHolder {
 
+        ImageView imgMaquina;
         TextView txtNomeVariavel;
         Button btnVerMais;
 
@@ -62,6 +69,7 @@ public class MaquinaAdapter extends RecyclerView.Adapter<MaquinaAdapter.MaquinaV
 
             txtNomeVariavel = itemView.findViewById(R.id.txtNomeVariavel);
             btnVerMais = itemView.findViewById(R.id.btnVerMais);
+            imgMaquina = itemView.findViewById(R.id.imgMaquina);
         }
     }
 }

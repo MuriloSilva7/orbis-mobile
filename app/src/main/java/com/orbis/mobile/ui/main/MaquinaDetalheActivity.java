@@ -2,10 +2,12 @@ package com.orbis.mobile.ui.main;
 
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bumptech.glide.Glide;
 import com.orbis.mobile.R;
 import com.orbis.mobile.api.OrbisApiService;
 import com.orbis.mobile.model.Maquina;
@@ -24,6 +26,7 @@ public class MaquinaDetalheActivity extends AppCompatActivity {
     private TextView txtCriticidadeVariavel;
     private TextView txtIntegridadeVariavel;
     private TextView txtEstadoVariavel;
+    private ImageView imgMaquina;
 
     Button btnVoltar;
 
@@ -45,6 +48,7 @@ public class MaquinaDetalheActivity extends AppCompatActivity {
         txtCriticidadeVariavel = findViewById(R.id.txtCriticidadeVariavel);
         txtIntegridadeVariavel = findViewById(R.id.txtIntegridadeVariavel);
         txtEstadoVariavel = findViewById(R.id.txtEstadoVariavel);
+        imgMaquina = findViewById(R.id.imgMaquina);
 
         int id = getIntent().getIntExtra("id_maquina", -1);
         carregarDetalhes(id);
@@ -63,6 +67,10 @@ public class MaquinaDetalheActivity extends AppCompatActivity {
                 if (response.isSuccessful() && response.body() != null) {
 
                     Maquina maquina = response.body();
+
+                    Glide.with(MaquinaDetalheActivity.this)
+                            .load(maquina.getImagem())
+                            .into(imgMaquina);
 
                     txtIdVariavel.setText(String.valueOf(maquina.getId()));
                     txtNomeVariavel.setText(maquina.getNome());
