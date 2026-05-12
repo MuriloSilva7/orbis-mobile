@@ -7,9 +7,11 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.orbis.mobile.R;
 import com.orbis.mobile.api.OrbisApiService;
 import com.orbis.mobile.model.Usuario;
@@ -28,6 +30,7 @@ public class PerfilFragment extends Fragment {
     private TextView txtAtivo;
     private TextView txtTelefone;
     private TextView txtEspecialidade;
+    private ImageView imgUsuario;
 
     public PerfilFragment() {
 
@@ -45,6 +48,7 @@ public class PerfilFragment extends Fragment {
         txtAtivo = view.findViewById(R.id.txtEstadoVariavel);
         txtTelefone = view.findViewById(R.id.txtTelefoneVariavel);
         txtEspecialidade = view.findViewById(R.id.txtEspecialidadeVariavel);
+        imgUsuario = view.findViewById(R.id.imgUsuario);
 
         carregarPerfil();
 
@@ -64,6 +68,13 @@ public class PerfilFragment extends Fragment {
                 if (response.isSuccessful() && response.body() != null) {
 
                     Usuario usuario = response.body();
+
+                    Glide.with(requireContext())
+                            .load(usuario.getFotoPerfil())
+                            .placeholder(R.drawable.ic_launcher_foreground)
+                            .error(R.drawable.ic_launcher_foreground)
+                            .circleCrop()
+                            .into(imgUsuario);
 
                     txtNome.setText(usuario.getNome());
                     txtEmail.setText(usuario.getEmail());
