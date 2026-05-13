@@ -11,9 +11,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.orbis.mobile.R;
 import com.orbis.mobile.api.OrbisApiService;
 import com.orbis.mobile.model.Alerta;
+import com.orbis.mobile.model.Manutencao;
 import com.orbis.mobile.network.RetrofitClient;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -45,55 +48,83 @@ public class AlertaDetalheActivity extends AppCompatActivity {
         btnVoltar = findViewById(R.id.btnVoltar);
         btnAceitar = findViewById(R.id.btnAceitar);
 
-        btnVoltar.setOnClickListener(v -> {
-            finish();
-        });
+        txtIdAlertaVariavel = findViewById(R.id.txtIdAlertaVariavel);
+        txtIdSensorVariavel = findViewById(R.id.txtIdSensorVariavel);
+        txtIdMaquinaVariavel = findViewById(R.id.txtIdMaquinaVariavel);
+        txtIdTecnicoVariavel = findViewById(R.id.txtIdTecnicoVariavel);
+
+        txtMaquinaVariavel = findViewById(R.id.txtMaquinaVariavel);
+        txtSensorVariavel = findViewById(R.id.txtSensorVariavel);
+        txtCriadoEmVariavel = findViewById(R.id.txtCriadoEmVariavel);
+        txtTipoVariavel = findViewById(R.id.txtTipoVariavel);
+        txtStatusVariavel = findViewById(R.id.txtStatusVariavel);
+        txtMensagemVariavel = findViewById(R.id.txtMensagemVariavel);
+
+        btnVoltar.setOnClickListener(v -> finish());
 
         btnAceitar.setOnClickListener(v -> {
 
-            Toast.makeText(
-                    AlertaDetalheActivity.this,
-                    "Alerta aceito",
-                    Toast.LENGTH_SHORT
-            ).show();
+            int idAlerta = Integer.parseInt(
+                    txtIdAlertaVariavel.getText().toString()
+            );
 
-            // aqui depois você pode chamar a API
-            // para mudar o status para EM_ANDAMENTO
+            criarManutencao(idAlerta);
         });
 
-        txtIdAlertaVariavel =
-                findViewById(R.id.txtIdAlertaVariavel);
-
-        txtIdSensorVariavel =
-                findViewById(R.id.txtIdSensorVariavel);
-
-        txtIdMaquinaVariavel =
-                findViewById(R.id.txtIdMaquinaVariavel);
-
-        txtIdTecnicoVariavel =
-                findViewById(R.id.txtIdTecnicoVariavel);
-
-        txtMaquinaVariavel =
-                findViewById(R.id.txtMaquinaVariavel);
-
-        txtSensorVariavel =
-                findViewById(R.id.txtSensorVariavel);
-
-        txtCriadoEmVariavel =
-                findViewById(R.id.txtCriadoEmVariavel);
-
-        txtTipoVariavel =
-                findViewById(R.id.txtTipoVariavel);
-
-        txtStatusVariavel =
-                findViewById(R.id.txtStatusVariavel);
-
-        txtMensagemVariavel =
-                findViewById(R.id.txtMensagemVariavel);
-
         int id = getIntent().getIntExtra("id_alerta", -1);
-
         carregarDetalhes(id);
+    }
+
+    // ✅ AGORA SIM: FORA DO CALLBACK
+    private void criarManutencao(int idAlerta) {
+
+        OrbisApiService apiService = RetrofitClient
+                .getInstance()
+                .getApi();
+
+        Map<String, Object> body = new HashMap<>();
+        body.put("alertaId", idAlerta);
+        body.put("status", "EM_ANDAMENTO");
+
+        Call<Manutencao> call = apiService.createManutencao(body);
+
+        call.enqueue(new Callback<Manutencao>() {
+
+            @Override
+            public void onResponse(Call<Manutencao> call,
+                                   Response<Manutencao> response) {
+
+                if (response.isSuccessful()) {
+
+                    txtStatusVariavel.setText("EM_ANDAMENTO");
+                    btnAceitar.setVisibility(View.GONE);
+
+                    Toast.makeText(
+                            AlertaDetalheActivity.this,
+                            "Alerta aceito",
+                            Toast.LENGTH_SHORT
+                    ).show();
+
+                } else {
+                    Toast.makeText(
+                            AlertaDetalheActivity.this,
+                            "Erro ao criar manutenção",
+                            Toast.LENGTH_SHORT
+                    ).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Manutencao> call,
+                                  Throwable t) {
+
+                Toast.makeText(
+                        AlertaDetalheActivity.this,
+                        "Erro: " + t.getMessage(),
+                        Toast.LENGTH_SHORT
+                ).show();
+            }
+        });
     }
 
     private void carregarDetalhes(int id) {
@@ -110,76 +141,26 @@ public class AlertaDetalheActivity extends AppCompatActivity {
             public void onResponse(Call<List<Alerta>> call,
                                    Response<List<Alerta>> response) {
 
-                if (response.isSuccessful()
-                        && response.body() != null) {
+                if (response.isSuccessful() && response.body() != null) {
 
                     for (Alerta alerta : response.body()) {
 
                         if (alerta.getId() == id) {
 
-                            txtIdAlertaVariavel.setText(
-                                    String.valueOf(alerta.getId())
-                            );
+                            txtIdAlertaVariavel.setText(String.valueOf(alerta.getId()));
+                            txtIdSensorVariavel.setText(String.valueOf(alerta.getSensor().getId()));
+                            txtIdMaquinaVariavel.setText(String.valueOf(alerta.getMaquina().getId()));
 
-                            txtIdSensorVariavel.setText(
-                                    String.valueOf(
-                                            alerta.getSensor().getId()
-                                    )
-                            );
+                            txtMaquinaVariavel.setText(alerta.getMaquina().getNome());
+                            txtSensorVariavel.setText(alerta.getSensor().getTipo());
+                            txtCriadoEmVariavel.setText(alerta.getCriadoEm());
+                            txtTipoVariavel.setText(alerta.getTipo());
+                            txtStatusVariavel.setText(alerta.getStatus());
+                            txtMensagemVariavel.setText(alerta.getMensagem());
 
-                            txtIdMaquinaVariavel.setText(
-                                    String.valueOf(
-                                            alerta.getMaquina().getId()
-                                    )
-                            );
-
-                            if (alerta.getTecnicoId() != null) {
-
-                                txtIdTecnicoVariavel.setText(
-                                        String.valueOf(
-                                                alerta.getTecnicoId()
-                                        )
-                                );
-
-                            } else {
-
-                                txtIdTecnicoVariavel.setText(
-                                        "Sem técnico"
-                                );
-                            }
-
-                            txtMaquinaVariavel.setText(
-                                    alerta.getMaquina().getNome()
-                            );
-
-                            txtSensorVariavel.setText(
-                                    alerta.getSensor().getTipo()
-                            );
-
-                            txtCriadoEmVariavel.setText(
-                                    alerta.getCriadoEm()
-                            );
-
-                            txtTipoVariavel.setText(
-                                    alerta.getTipo()
-                            );
-
-                            txtStatusVariavel.setText(
-                                    alerta.getStatus()
-                            );
-
-                            txtMensagemVariavel.setText(
-                                    alerta.getMensagem()
-                            );
-
-                            // MOSTRA O BOTÃO APENAS SE O ALERTA ESTIVER ATIVO
-                            if (alerta.getStatus() != null
-                                    && alerta.getStatus().equals("ATIVO")) {
-
+                            if ("ATIVO".equals(alerta.getStatus())) {
                                 btnAceitar.setVisibility(View.VISIBLE);
-
                             } else {
-
                                 btnAceitar.setVisibility(View.GONE);
                             }
 

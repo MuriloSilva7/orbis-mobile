@@ -95,6 +95,12 @@ public interface OrbisApiService {
             @Query("limit") int limit
     );
 
+    @POST("manutencoes")
+    Call<Manutencao> createManutencao(
+            @Body Map<String, Object> body
+    );
+
+
     @PUT("manutencoes/{id}")
     Call<Manutencao> updateManutencao(
             @Path("id") int id,
