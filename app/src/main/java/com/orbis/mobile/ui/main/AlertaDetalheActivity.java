@@ -1,8 +1,10 @@
 package com.orbis.mobile.ui.main;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -33,6 +35,7 @@ public class AlertaDetalheActivity extends AppCompatActivity {
     private TextView txtMensagemVariavel;
 
     private Button btnVoltar;
+    private Button btnAceitar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,9 +43,22 @@ public class AlertaDetalheActivity extends AppCompatActivity {
         setContentView(R.layout.activity_alerta_detalhe);
 
         btnVoltar = findViewById(R.id.btnVoltar);
+        btnAceitar = findViewById(R.id.btnAceitar);
 
         btnVoltar.setOnClickListener(v -> {
             finish();
+        });
+
+        btnAceitar.setOnClickListener(v -> {
+
+            Toast.makeText(
+                    AlertaDetalheActivity.this,
+                    "Alerta aceito",
+                    Toast.LENGTH_SHORT
+            ).show();
+
+            // aqui depois você pode chamar a API
+            // para mudar o status para EM_ANDAMENTO
         });
 
         txtIdAlertaVariavel =
@@ -89,6 +105,7 @@ public class AlertaDetalheActivity extends AppCompatActivity {
         Call<List<Alerta>> call = apiService.getAlertas();
 
         call.enqueue(new Callback<List<Alerta>>() {
+
             @Override
             public void onResponse(Call<List<Alerta>> call,
                                    Response<List<Alerta>> response) {
@@ -155,6 +172,17 @@ public class AlertaDetalheActivity extends AppCompatActivity {
                                     alerta.getMensagem()
                             );
 
+                            // MOSTRA O BOTÃO APENAS SE O ALERTA ESTIVER ATIVO
+                            if (alerta.getStatus() != null
+                                    && alerta.getStatus().equals("ATIVO")) {
+
+                                btnAceitar.setVisibility(View.VISIBLE);
+
+                            } else {
+
+                                btnAceitar.setVisibility(View.GONE);
+                            }
+
                             break;
                         }
                     }
@@ -165,6 +193,11 @@ public class AlertaDetalheActivity extends AppCompatActivity {
             public void onFailure(Call<List<Alerta>> call,
                                   Throwable t) {
 
+                Toast.makeText(
+                        AlertaDetalheActivity.this,
+                        "Erro ao carregar alerta",
+                        Toast.LENGTH_SHORT
+                ).show();
             }
         });
     }

@@ -20,7 +20,7 @@ public class AlertasTabsAdapter extends FragmentStateAdapter {
             case 1:
                 return ListaAlertasFragment.newInstance("EM_ANDAMENTO");
             case 2:
-                return ListaAlertasFragment.newInstance("FINALIZADO"); // ou o que você usa no backend
+                return ListaAlertasFragment.newInstance("RESOLVIDO");
             default:
                 return ListaAlertasFragment.newInstance("ATIVO");
         }
