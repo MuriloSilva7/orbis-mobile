@@ -18,6 +18,7 @@ import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
+import retrofit2.http.Header;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
 import retrofit2.http.Path;
@@ -52,7 +53,10 @@ public interface OrbisApiService {
     Call<Usuario> updatePerfil(@Body Map<String, Object> body);
 
     @POST("perfil/device-token")
-    Call<Void> saveDeviceToken(@Body Map<String, String> body);
+    Call<Void> saveDeviceToken(
+            @Header("Authorization") String token,
+            @Body Map<String, String> body
+    );
 
     // MÁQUINAS
     @GET("maquinas")
