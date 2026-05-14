@@ -6,6 +6,7 @@ import com.orbis.mobile.model.LeituraRequest;
 import com.orbis.mobile.model.LoginRequest;
 import com.orbis.mobile.model.LoginResponse;
 import com.orbis.mobile.model.Manutencao;
+import com.orbis.mobile.model.ManutencoesResponse;
 import com.orbis.mobile.model.Maquina;
 import com.orbis.mobile.model.Sensor;
 import com.orbis.mobile.model.TecnicosResponse;
@@ -90,7 +91,7 @@ public interface OrbisApiService {
 
     // MANUTENÇÕES
     @GET("manutencoes")
-    Call<List<Manutencao>> getManutencoes(
+    Call<ManutencoesResponse> getManutencoes(
             @Query("page") int page,
             @Query("limit") int limit
     );
@@ -99,7 +100,6 @@ public interface OrbisApiService {
     Call<Manutencao> createManutencao(
             @Body Map<String, Object> body
     );
-
 
     @PUT("manutencoes/{id}")
     Call<Manutencao> updateManutencao(
