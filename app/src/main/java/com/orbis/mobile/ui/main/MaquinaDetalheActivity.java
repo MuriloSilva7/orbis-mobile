@@ -56,7 +56,7 @@ public class MaquinaDetalheActivity extends AppCompatActivity {
 
     private void carregarDetalhes(int id) {
         OrbisApiService apiService = RetrofitClient
-                .getInstance()
+                .getInstance(this)
                 .getApi();
 
         Call<Maquina> call = apiService.getMaquina(id);

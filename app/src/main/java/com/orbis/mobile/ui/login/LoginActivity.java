@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.orbis.mobile.R;
 import com.orbis.mobile.model.LoginRequest;
 import com.orbis.mobile.model.LoginResponse;
+import com.orbis.mobile.model.TokenManager;
 import com.orbis.mobile.network.RetrofitClient;
 import com.orbis.mobile.api.OrbisApiService;
 import com.orbis.mobile.ui.main.MainActivity;
@@ -23,7 +24,8 @@ import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
 
-    private EditText etEmail, etSenha;
+    private EditText etEmail;
+    private EditText etSenha;
     private Button btnLogin;
 
     @Override
@@ -39,49 +41,100 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void fazerLogin() {
+
         String email = etEmail.getText().toString().trim();
         String senha = etSenha.getText().toString().trim();
 
         if (email.isEmpty() || senha.isEmpty()) {
-            Toast.makeText(this, "Preencha todos os campos", Toast.LENGTH_SHORT).show();
+
+            Toast.makeText(
+                    this,
+                    "Preencha todos os campos",
+                    Toast.LENGTH_SHORT
+            ).show();
+
             return;
         }
 
-        OrbisApiService api = RetrofitClient.getInstance().getApi();
+        OrbisApiService api =
+                RetrofitClient
+                        .getInstance(this)
+                        .getApi();
 
-        Call<LoginResponse> call = api.login(new LoginRequest(email, senha));
+        Call<LoginResponse> call =
+                api.login(new LoginRequest(email, senha));
 
         call.enqueue(new Callback<LoginResponse>() {
+
             @Override
-            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+            public void onResponse(
+                    Call<LoginResponse> call,
+                    Response<LoginResponse> response
+            ) {
 
-                if (response.isSuccessful() && response.body() != null) {
+                if (response.isSuccessful()
+                        && response.body() != null) {
 
-                    String token = response.body().getAccessToken();
+                    String accessToken =
+                            response.body().getAccessToken();
 
-                    // salvar token
-                    SharedPreferences prefs = getSharedPreferences("orbis_prefs", MODE_PRIVATE);
-                    prefs.edit().putString("access_token", token).apply();
+                    String refreshToken =
+                            response.body().getRefreshToken();
 
+                    Log.d("LOGIN", "Access: " + accessToken);
+                    Log.d("LOGIN", "Refresh: " + refreshToken);
 
-                    RetrofitClient.accessToken = token;
+                    // salva tokens
+                    TokenManager tokenManager =
+                            new TokenManager(LoginActivity.this);
 
-                    Toast.makeText(LoginActivity.this, "Login realizado!", Toast.LENGTH_SHORT).show();
+                    tokenManager.saveTokens(
+                            accessToken,
+                            refreshToken
+                    );
 
-                    // ir para MainActivity
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    Toast.makeText(
+                            LoginActivity.this,
+                            "Login realizado!",
+                            Toast.LENGTH_SHORT
+                    ).show();
+
+                    Intent intent =
+                            new Intent(
+                                    LoginActivity.this,
+                                    MainActivity.class
+                            );
+
                     startActivity(intent);
+
                     finish();
 
                 } else {
-                    Toast.makeText(LoginActivity.this, "Email ou senha inválidos", Toast.LENGTH_SHORT).show();
+
+                    Toast.makeText(
+                            LoginActivity.this,
+                            "Email ou senha inválidos",
+                            Toast.LENGTH_SHORT
+                    ).show();
                 }
             }
 
             @Override
-            public void onFailure(Call<LoginResponse> call, Throwable t) {
-                Log.e("LOGIN", "Erro: " + t.getMessage());
-                Toast.makeText(LoginActivity.this, "Erro de conexão", Toast.LENGTH_SHORT).show();
+            public void onFailure(
+                    Call<LoginResponse> call,
+                    Throwable t
+            ) {
+
+                Log.e(
+                        "LOGIN",
+                        "Erro: " + t.getMessage()
+                );
+
+                Toast.makeText(
+                        LoginActivity.this,
+                        "Erro de conexão",
+                        Toast.LENGTH_SHORT
+                ).show();
             }
         });
     }

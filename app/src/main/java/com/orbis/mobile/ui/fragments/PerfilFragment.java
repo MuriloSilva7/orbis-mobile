@@ -58,7 +58,7 @@ public class PerfilFragment extends Fragment {
     private void carregarPerfil() {
 
         OrbisApiService apiService = RetrofitClient
-                .getInstance()
+                .getInstance(requireContext())
                 .getApi();
 
         apiService.getPerfil().enqueue(new Callback<Usuario>() {

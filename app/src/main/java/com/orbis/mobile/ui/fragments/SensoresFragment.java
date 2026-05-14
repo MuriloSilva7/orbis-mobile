@@ -54,7 +54,7 @@ public class SensoresFragment extends Fragment {
 
     private void carregarSensores() {
         OrbisApiService apiService = RetrofitClient
-                .getInstance()
+                .getInstance(requireContext())
                 .getApi();
 
         Call<List<Sensor>> call = apiService.getSensores();

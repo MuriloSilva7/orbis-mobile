@@ -70,7 +70,7 @@ public class ListaAlertasFragment extends Fragment {
     private void carregarAlertas() {
 
         OrbisApiService apiService = RetrofitClient
-                .getInstance()
+                .getInstance(requireContext())
                 .getApi();
 
         Call<List<Alerta>> call = apiService.getAlertas();

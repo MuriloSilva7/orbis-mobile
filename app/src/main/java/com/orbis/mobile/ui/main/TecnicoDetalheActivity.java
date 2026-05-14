@@ -58,7 +58,7 @@ public class TecnicoDetalheActivity extends AppCompatActivity {
     private void carregarDetalhes(int id) {
 
         OrbisApiService apiService = RetrofitClient
-                .getInstance()
+                .getInstance(this)
                 .getApi();
 
         Call<Usuario> call = apiService.getUsuario(id);

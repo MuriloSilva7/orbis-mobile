@@ -114,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
         body.put("oneSignalId", oneSignalId);
 
         OrbisApiService apiService = RetrofitClient
-                .getInstance()
+                .getInstance(this)
                 .getApi();
 
         Call<Void> call = apiService.saveDeviceToken(

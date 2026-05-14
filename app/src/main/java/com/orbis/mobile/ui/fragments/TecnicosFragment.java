@@ -52,7 +52,7 @@ public class TecnicosFragment extends Fragment {
     private void carregarTecnicos() {
 
         OrbisApiService apiService = RetrofitClient
-                .getInstance()
+                .getInstance(requireContext())
                 .getApi();
 
         Call<TecnicosResponse> call = apiService.getTecnicos(1, 10);

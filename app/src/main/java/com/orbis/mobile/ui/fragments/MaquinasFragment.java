@@ -55,7 +55,7 @@ public class MaquinasFragment extends Fragment {
 
     private void carregarMaquinas() {
         OrbisApiService apiService = RetrofitClient
-                .getInstance()
+                .getInstance(requireContext())
                 .getApi();
 
         Call<List<Maquina>> call = apiService.getMaquinas();

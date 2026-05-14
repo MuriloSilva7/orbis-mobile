@@ -55,7 +55,7 @@ public class SensorDetalheActivity extends AppCompatActivity {
 
     private void carregarDetalhes(int id) {
         OrbisApiService apiService = RetrofitClient
-                .getInstance()
+                .getInstance(this)
                 .getApi();
 
         Call<Sensor> call = apiService.getSensor(id);

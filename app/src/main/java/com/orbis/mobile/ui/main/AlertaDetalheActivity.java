@@ -75,11 +75,10 @@ public class AlertaDetalheActivity extends AppCompatActivity {
         carregarDetalhes(id);
     }
 
-    // ✅ AGORA SIM: FORA DO CALLBACK
     private void criarManutencao(int idAlerta) {
 
         OrbisApiService apiService = RetrofitClient
-                .getInstance()
+                .getInstance(this)
                 .getApi();
 
         Map<String, Object> body = new HashMap<>();
@@ -130,7 +129,7 @@ public class AlertaDetalheActivity extends AppCompatActivity {
     private void carregarDetalhes(int id) {
 
         OrbisApiService apiService = RetrofitClient
-                .getInstance()
+                .getInstance(this)
                 .getApi();
 
         Call<List<Alerta>> call = apiService.getAlertas();
