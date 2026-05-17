@@ -1,207 +1,128 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:fillViewport="true">
 
-    <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/toolbar"
-        android:layout_width="0dp"
-        android:layout_height="?attr/actionBarSize"
-        app:logo="@drawable/orbislogotoolbar"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="0dp"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/white"
+            android:elevation="0dp"
+            app:logo="@drawable/orbislogotoolbar"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
-    </com.google.android.material.appbar.MaterialToolbar>
+        <View
+            android:id="@+id/linha"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:background="@color/border"
+            app:layout_constraintTop_toBottomOf="@id/toolbar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
-    <View
-        android:id="@+id/linha"
-        android:layout_width="0dp"
-        android:layout_height="2dp"
-        android:background="#808080"
-        app:layout_constraintTop_toBottomOf="@id/toolbar"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        <!-- Card de detalhe -->
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardDetalhe"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
+            android:layout_marginEnd="14dp"
+            android:layout_marginTop="14dp"
+            android:layout_marginBottom="14dp"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="0dp"
+            app:cardBackgroundColor="@color/white"
+            app:strokeWidth="1.5dp"
+            app:strokeColor="@color/border"
+            app:layout_constraintTop_toBottomOf="@id/linha"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
 
-    <ImageView
-        android:id="@+id/imgMaquina"
-        android:layout_width="200dp"
-        android:layout_height="180dp"
-        android:src="@drawable/ic_launcher_foreground"
-        android:scaleType="centerCrop"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linha"
-        android:layout_marginTop="20dp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="18dp">
 
-    <TextView
-        android:id="@+id/txtId"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imgMaquina"
-        android:text="ID: "
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:layout_marginTop="40dp"
-        android:layout_marginStart="50dp"/>
+                <!-- Imagem da máquina -->
+                <ImageView
+                    android:id="@+id/imgMaquina"
+                    android:layout_width="match_parent"
+                    android:layout_height="160dp"
+                    android:src="@drawable/ic_launcher_foreground"
+                    android:scaleType="centerCrop"
+                    android:background="@color/imageBackground"
+                    android:layout_marginBottom="16dp" />
 
+                <!-- ID -->
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginBottom="10dp">
+                    <TextView android:id="@+id/txtId" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="ID: " android:textSize="15sp" android:textStyle="bold" android:textColor="@color/black" />
+                    <TextView android:id="@+id/txtIdVariavel" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="ID da Máquina" android:textSize="15sp" android:textColor="@color/darkGray" />
+                </LinearLayout>
 
-    <TextView
-        android:id="@+id/txtIdVariavel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="ID da Máquina"
-        android:textSize="18sp"
-        app:layout_constraintStart_toEndOf="@+id/txtId"
-        app:layout_constraintTop_toBottomOf="@+id/imgMaquina"
-        android:layout_marginTop="40dp"/>
+                <!-- Nome -->
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginBottom="10dp">
+                    <TextView android:id="@+id/txtNome" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Nome: " android:textSize="15sp" android:textStyle="bold" android:textColor="@color/black" />
+                    <TextView android:id="@+id/txtNomeVariavel" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Nome da Máquina" android:textSize="15sp" android:textColor="@color/darkGray" />
+                </LinearLayout>
 
-    <TextView
-        android:id="@+id/txtNome"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtId"
-        android:text="Nome: "
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="9dp"/>
+                <!-- Setor -->
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginBottom="10dp">
+                    <TextView android:id="@+id/txtSetor" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Setor: " android:textSize="15sp" android:textStyle="bold" android:textColor="@color/black" />
+                    <TextView android:id="@+id/txtSetorVariavel" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Nome do Setor" android:textSize="15sp" android:textColor="@color/darkGray" />
+                </LinearLayout>
 
-    <TextView
-        android:id="@+id/txtNomeVariavel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Nome da Máquina"
-        android:textSize="18sp"
-        app:layout_constraintTop_toBottomOf="@+id/txtId"
-        app:layout_constraintStart_toEndOf="@+id/txtNome"
-        android:layout_marginTop="9dp"/>
+                <!-- Tipo -->
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginBottom="10dp">
+                    <TextView android:id="@+id/txtTipo" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Tipo: " android:textSize="15sp" android:textStyle="bold" android:textColor="@color/black" />
+                    <TextView android:id="@+id/txtTipoVariavel" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Nome do Tipo" android:textSize="15sp" android:textColor="@color/darkGray" />
+                </LinearLayout>
 
-    <TextView
-        android:id="@+id/txtSetor"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtNome"
-        android:text="Setor: "
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="9dp"/>
+                <!-- Criticidade -->
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginBottom="10dp">
+                    <TextView android:id="@+id/txtCriticidade" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Criticidade: " android:textSize="15sp" android:textStyle="bold" android:textColor="@color/black" />
+                    <TextView android:id="@+id/txtCriticidadeVariavel" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Criticidade" android:textSize="15sp" android:textColor="@color/darkGray" />
+                </LinearLayout>
 
-    <TextView
-        android:id="@+id/txtSetorVariavel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Nome do Setor"
-        android:textSize="18sp"
-        app:layout_constraintTop_toBottomOf="@+id/txtNome"
-        app:layout_constraintStart_toEndOf="@+id/txtSetor"
-        android:layout_marginTop="9dp"/>
+                <!-- Integridade -->
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginBottom="10dp">
+                    <TextView android:id="@+id/txtIntegridade" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Integridade: " android:textSize="15sp" android:textStyle="bold" android:textColor="@color/black" />
+                    <TextView android:id="@+id/txtIntegridadeVariavel" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Integridade" android:textSize="15sp" android:textColor="@color/darkGray" />
+                </LinearLayout>
 
-    <TextView
-        android:id="@+id/txtTipo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtSetor"
-        android:text="Tipo: "
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="9dp"/>
+                <!-- Estado -->
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginBottom="20dp">
+                    <TextView android:id="@+id/txtEstado" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Estado: " android:textSize="15sp" android:textStyle="bold" android:textColor="@color/black" />
+                    <TextView android:id="@+id/txtEstadoVariavel" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Ativo ou não" android:textSize="15sp" android:textStyle="bold" android:textColor="@color/statusGreen" />
+                </LinearLayout>
 
-    <TextView
-        android:id="@+id/txtTipoVariavel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Nome do Tipo"
-        android:textSize="18sp"
-        app:layout_constraintTop_toBottomOf="@+id/txtSetor"
-        app:layout_constraintStart_toEndOf="@+id/txtTipo"
-        android:layout_marginTop="9dp"/>
+                <!-- Botão Voltar -->
+                <Button
+                    android:id="@+id/btnVoltar"
+                    android:layout_width="180dp"
+                    android:layout_height="wrap_content"
+                    android:text="Voltar"
+                    android:textColor="@color/darkGray"
+                    android:textSize="14sp"
+                    android:backgroundTint="@color/white"
+                    android:layout_gravity="center"
+                    app:strokeWidth="1.5dp"
+                    app:strokeColor="@color/border"
+                    app:cornerRadius="12dp" />
 
-    <TextView
-        android:id="@+id/txtCriticidade"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtTipo"
-        android:text="Criticidade: "
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="9dp"/>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
-    <TextView
-        android:id="@+id/txtCriticidadeVariavel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Criticidade"
-        android:textSize="18sp"
-        app:layout_constraintTop_toBottomOf="@+id/txtTipo"
-        app:layout_constraintStart_toEndOf="@+id/txtCriticidade"
-        android:layout_marginTop="9dp"/>
-
-    <TextView
-        android:id="@+id/txtIntegridade"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtCriticidade"
-        android:text="Integridade: "
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="9dp"/>
-
-    <TextView
-        android:id="@+id/txtIntegridadeVariavel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Integridade"
-        android:textSize="18sp"
-        app:layout_constraintTop_toBottomOf="@+id/txtCriticidade"
-        app:layout_constraintStart_toEndOf="@+id/txtIntegridade"
-        android:layout_marginTop="9dp"/>
-
-    <TextView
-        android:id="@+id/txtEstado"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtIntegridade"
-        android:text="Estado: "
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="9dp"/>
-
-    <TextView
-        android:id="@+id/txtEstadoVariavel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Ativo ou não"
-        android:textSize="18sp"
-        app:layout_constraintTop_toBottomOf="@+id/txtIntegridade"
-        app:layout_constraintStart_toEndOf="@+id/txtEstado"
-        android:layout_marginTop="9dp"/>
-
-    <Button
-        android:id="@+id/btnVoltar"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtEstado"
-        android:layout_width="180dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:text="Voltar"
-        android:layout_gravity="end"
-        app:cornerRadius="12dp"
-        android:backgroundTint="@color/darkGray"/>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

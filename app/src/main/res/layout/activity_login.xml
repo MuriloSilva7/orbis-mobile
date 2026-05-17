@@ -1,133 +1,168 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<ScrollView android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    xmlns:android="http://schemas.android.com/apk/res/android">
-
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:id="@+id/main"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:fillViewport="true">
 
-    <ImageView
-        android:id="@+id/logoP"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/main"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:src="@drawable/orbislogo"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
-
-
-    <TextView
-        android:id="@+id/textLogin"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Login"
-        app:layout_constraintTop_toBottomOf="@id/logoP"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:textColor="@color/purple"
-        android:textStyle="bold"
-        android:textSize="30sp"/>
+        android:paddingBottom="32dp">
 
-    <TextView
-        android:id="@+id/textEmail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Email"
-        app:layout_constraintBottom_toTopOf="@+id/email"
-        android:layout_marginEnd="230dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:textColor="@color/gray"
-        android:textSize="18sp"/>
+        <!-- Logo -->
+        <ImageView
+            android:id="@+id/logoP"
+            android:layout_width="200dp"
+            android:layout_height="80dp"
+            android:src="@drawable/orbislogo"
+            android:scaleType="fitCenter"
+            android:layout_marginTop="56dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/email"
-        android:layout_width="280dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/textLogin"
-        android:layout_marginTop="20dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        app:boxStrokeWidth="2dp"
-        app:boxStrokeWidthFocused="4dp">
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/inputemail"
-            android:layout_width="match_parent"
+        <!-- Título -->
+        <TextView
+            android:id="@+id/textLogin"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="exemplo@gmail.com"
-            android:inputType="textEmailAddress"/>
+            android:text="Login"
+            android:textColor="@color/purple"
+            android:textStyle="bold"
+            android:textSize="32sp"
+            android:layout_marginTop="24dp"
+            app:layout_constraintTop_toBottomOf="@id/logoP"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <TextView
-        android:id="@+id/textSenha"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Senha"
-        app:layout_constraintTop_toBottomOf="@id/email"
-        android:layout_marginTop="25dp"
-        android:layout_marginEnd="220dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:textColor="@color/gray"
-        android:textSize="18sp"/>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/senha"
-        android:layout_width="280dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/email"
-        android:layout_marginTop="50dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        app:boxStrokeWidth="2dp"
-        app:boxStrokeWidthFocused="4dp">
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/inputsenha"
-            android:layout_width="match_parent"
+        <!-- Label Email -->
+        <TextView
+            android:id="@+id/textEmail"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:hint="*********"
-            android:inputType="textPassword"/>
+            android:text="Email"
+            android:textColor="@color/gray"
+            android:textSize="15sp"
+            android:layout_marginTop="28dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
+            app:layout_constraintTop_toBottomOf="@id/textLogin"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
-    </com.google.android.material.textfield.TextInputLayout>
+        <!-- Campo Email -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/email"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
+            app:boxStrokeColor="@color/darkGray"
+            app:boxStrokeWidth="1.5dp"
+            app:boxStrokeWidthFocused="2dp"
+            app:boxCornerRadiusTopStart="8dp"
+            app:boxCornerRadiusTopEnd="8dp"
+            app:boxCornerRadiusBottomStart="8dp"
+            app:boxCornerRadiusBottomEnd="8dp"
+            app:layout_constraintTop_toBottomOf="@id/textEmail"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
 
-    <Button
-        android:id="@+id/btnLogar"
-        android:layout_width="180dp"
-        android:layout_height="wrap_content"
-        android:text="Logar"
-        android:textColor="@color/purpleLight"
-        android:layout_marginTop="30dp"
-        app:layout_constraintTop_toBottomOf="@id/senha"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:backgroundTint="@color/white"
-        app:cornerRadius="4dp"
-        app:strokeWidth="1.5dp"
-        app:strokeColor="@color/purpleLight"/>
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/inputemail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="exemplo@gmail.com"
+                android:textColorHint="@color/gray"
+                android:inputType="textEmailAddress" />
+        </com.google.android.material.textfield.TextInputLayout>
 
+        <!-- Label Senha -->
+        <TextView
+            android:id="@+id/textSenha"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Senha"
+            android:textColor="@color/gray"
+            android:textSize="15sp"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
+            app:layout_constraintTop_toBottomOf="@id/email"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
-    <TextView
-        android:id="@+id/textPrivacidade"
-        android:layout_width="150dp"
-        android:layout_height="wrap_content"
-        android:text="Ao entrar na sua conta você concorda com os termos de privacidade"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnLogar"
-        android:layout_marginTop="140dp"
-        android:textColor="@color/gray"
-        android:textSize="15sp"/>
+        <!-- Campo Senha -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/senha"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
+            app:boxStrokeColor="@color/darkGray"
+            app:boxStrokeWidth="1.5dp"
+            app:boxStrokeWidthFocused="2dp"
+            app:boxCornerRadiusTopStart="8dp"
+            app:boxCornerRadiusTopEnd="8dp"
+            app:boxCornerRadiusBottomStart="8dp"
+            app:boxCornerRadiusBottomEnd="8dp"
+            app:layout_constraintTop_toBottomOf="@id/textSenha"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
 
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/inputsenha"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="*********"
+                android:textColorHint="@color/gray"
+                android:inputType="textPassword" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <!-- Botão Entrar -->
+        <Button
+            android:id="@+id/btnLogar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Entrar"
+            android:textColor="@color/purple"
+            android:textSize="17sp"
+            android:textStyle="bold"
+            android:layout_marginTop="28dp"
+            android:layout_marginStart="80dp"
+            android:layout_marginEnd="80dp"
+            android:backgroundTint="@color/white"
+            app:strokeWidth="2dp"
+            app:strokeColor="@color/purple"
+            app:cornerRadius="10dp"
+            app:layout_constraintTop_toBottomOf="@id/senha"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
+        <!-- Texto privacidade -->
+        <TextView
+            android:id="@+id/textPrivacidade"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Ao entrar na sua conta você concorda com os termos de privacidade"
+            android:textColor="@color/gray"
+            android:textSize="13sp"
+            android:gravity="center"
+            android:lineSpacingMultiplier="1.4"
+            android:layout_marginTop="80dp"
+            android:layout_marginStart="60dp"
+            android:layout_marginEnd="60dp"
+            app:layout_constraintTop_toBottomOf="@id/btnLogar"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

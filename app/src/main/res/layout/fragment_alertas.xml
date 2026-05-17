@@ -1,31 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".ui.fragments.AlertasFragment"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/white"
+    tools:context=".ui.fragments.AlertasFragment">
 
+    <!-- Tabs: Pendentes / Em andamento / Concluídos -->
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        app:tabTextColor="@color/gray"
+        app:tabSelectedTextColor="@color/purple"
+        app:tabIndicatorColor="@color/purple"
+        app:tabIndicatorHeight="2.5dp" />
 
+    <!-- Título -->
     <TextView
         android:id="@+id/text_alertas"
-        android:layout_marginStart="30dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Alertas"
-        android:textSize="30sp"
-        android:textColor="@color/purple"/>
+        android:textSize="32sp"
+        android:textStyle="bold"
+        android:textColor="@color/purple"
+        android:layout_marginStart="22dp"
+        android:layout_marginTop="18dp" />
 
+    <!-- Subtítulo -->
+    <TextView
+        android:id="@+id/textSubAlertas"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Visualize os técnicos e verifique a disponibilidade"
+        android:textSize="14sp"
+        android:textColor="@color/gray"
+        android:lineSpacingMultiplier="1.3"
+        android:layout_marginStart="22dp"
+        android:layout_marginEnd="22dp"
+        android:layout_marginTop="4dp" />
 
+    <!-- ViewPager -->
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"/>
+        android:layout_weight="1"
+        android:layout_marginTop="8dp" />
 
 </LinearLayout>

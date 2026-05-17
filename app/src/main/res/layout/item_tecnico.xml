@@ -1,51 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
-    app:cardCornerRadius="12dp"
-    app:cardElevation="4dp">
+    android:layout_marginBottom="12dp"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="0dp"
+    app:cardBackgroundColor="@color/white"
+    app:strokeWidth="1.5dp"
+    app:strokeColor="@color/border">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:padding="16dp">
+        android:padding="14dp">
 
+        <!-- Avatar circular do técnico -->
         <ImageView
             android:id="@+id/imgTecnico"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+            android:layout_width="68dp"
+            android:layout_height="68dp"
             android:src="@drawable/ic_launcher_foreground"
             android:scaleType="centerCrop"
-            android:layout_gravity="center_vertical"/>
+            android:background="@drawable/circle_purple_bg"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true" />
 
+        <!-- Conteúdo (nome, status, botão) -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_marginStart="16dp">
+            android:layout_toEndOf="@id/imgTecnico"
+            android:layout_marginStart="14dp"
+            android:layout_centerVertical="true">
 
+            <!-- Nome -->
             <TextView
                 android:id="@+id/txtNomeVariavel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Nome do Técnico"
                 android:textSize="20sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold"
+                android:textColor="@color/black" />
 
+            <!-- Botão Ver Mais -->
             <Button
                 android:id="@+id/btnVerMais"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
                 android:text="Ver mais"
-                app:cornerRadius="12dp"
-                android:backgroundTint="@color/darkGray"/>
+                android:textColor="@color/white"
+                android:backgroundTint="@color/darkGray"
+                app:cornerRadius="12dp" />
 
         </LinearLayout>
 
-    </LinearLayout>
+    </RelativeLayout>
 
 </androidx.cardview.widget.CardView>
