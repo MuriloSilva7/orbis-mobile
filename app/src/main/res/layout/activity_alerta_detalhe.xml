@@ -121,41 +121,85 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
+                    android:orientation="vertical"
                     android:gravity="center"
                     android:layout_marginTop="4dp">
 
                     <Button
-                        android:id="@+id/btnVoltar"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/btnVerHistorico"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Voltar"
-                        android:textColor="@color/darkGray"
+                        android:text="Ver Histórico de Manutenção"
+                        android:textColor="@color/purple"
                         android:backgroundTint="@color/white"
-                        android:layout_marginEnd="10dp"
                         app:strokeWidth="1.5dp"
-                        app:strokeColor="@color/border"
+                        app:strokeColor="@color/purple"
+                        android:layout_marginBottom="8dp"
                         app:cornerRadius="12dp" />
 
                     <Button
-                        android:id="@+id/btnAceitar"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/btnCriarManutencao"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Aceitar Alerta"
+                        android:text="Relatar Manutenção"
                         android:textColor="@color/white"
                         android:backgroundTint="@color/purple"
                         android:visibility="gone"
+                        android:layout_marginBottom="8dp"
                         app:cornerRadius="12dp" />
 
-                    <Button
-                        android:id="@+id/btnConcluir"
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Concluir Alerta"
-                        android:textColor="@color/white"
-                        android:backgroundTint="@color/statusGreen"
-                        android:visibility="gone"
-                        app:cornerRadius="12dp" />
+                        android:orientation="horizontal"
+                        android:gravity="center">
+
+                        <Button
+                            android:id="@+id/btnVoltar"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Voltar"
+                            android:textColor="@color/darkGray"
+                            android:backgroundTint="@color/white"
+                            android:layout_marginEnd="10dp"
+                            app:strokeWidth="1.5dp"
+                            app:strokeColor="@color/border"
+                            app:cornerRadius="12dp" />
+
+                        <Button
+                            android:id="@+id/btnAceitar"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1.5"
+                            android:text="Aceitar Alerta"
+                            android:textColor="@color/white"
+                            android:backgroundTint="@color/purple"
+                            android:visibility="gone"
+                            app:cornerRadius="12dp" />
+
+                        <Button
+                            android:id="@+id/btnConcluir"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1.5"
+                            android:text="Concluir"
+                            android:textColor="@color/white"
+                            android:backgroundTint="@color/statusGreen"
+                            android:visibility="gone"
+                            app:cornerRadius="12dp" />
+
+                        <Button
+                            android:id="@+id/btnCancelar"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1.5"
+                            android:text="Cancelar"
+                            android:textColor="@color/white"
+                            android:backgroundTint="@color/statusRed"
+                            android:visibility="gone"
+                            app:cornerRadius="12dp" />
+                    </LinearLayout>
 
                 </LinearLayout>
 
