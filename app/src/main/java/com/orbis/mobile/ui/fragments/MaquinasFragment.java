@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import com.orbis.mobile.R;
 import com.orbis.mobile.adapter.MaquinaAdapter;
@@ -30,6 +31,7 @@ public class MaquinasFragment extends Fragment {
     private RecyclerView recyclerMaquinas;
     private MaquinaAdapter adapter;
     private List<Maquina> listaMaquinas;
+    private ProgressBar progressBar;
 
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container,
@@ -38,6 +40,7 @@ public class MaquinasFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_maquinas, container, false);
 
         recyclerMaquinas = view.findViewById(R.id.recyclerMaquinas);
+        progressBar = view.findViewById(R.id.progressMaquinas);
 
         recyclerMaquinas.setLayoutManager(
                 new LinearLayoutManager(getContext())
@@ -54,6 +57,8 @@ public class MaquinasFragment extends Fragment {
     }
 
     private void carregarMaquinas() {
+        if (progressBar != null) progressBar.setVisibility(View.VISIBLE);
+
         OrbisApiService apiService = RetrofitClient
                 .getInstance(requireContext())
                 .getApi();
@@ -64,6 +69,7 @@ public class MaquinasFragment extends Fragment {
             @Override
             public void onResponse(Call<List<Maquina>> call,
                                    Response<List<Maquina>> response) {
+                if (progressBar != null) progressBar.setVisibility(View.GONE);
 
                 if (response.isSuccessful() && response.body() != null) {
 
@@ -77,7 +83,7 @@ public class MaquinasFragment extends Fragment {
             @Override
             public void onFailure(Call<List<Maquina>> call,
                                   Throwable t) {
-
+                if (progressBar != null) progressBar.setVisibility(View.GONE);
                 Log.e("ERRO_API", t.getMessage());
             }
         });

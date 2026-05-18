@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import com.orbis.mobile.R;
 import com.orbis.mobile.adapter.SensorAdapter;
@@ -29,6 +30,7 @@ public class SensoresFragment extends Fragment {
     private RecyclerView recyclerSensores;
     private SensorAdapter adapter;
     private List<Sensor> listaSensores;
+    private ProgressBar progressBar;
 
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container,
@@ -37,6 +39,7 @@ public class SensoresFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_sensores, container, false);
 
         recyclerSensores = view.findViewById(R.id.recyclerSensores);
+        progressBar = view.findViewById(R.id.progressSensores);
 
         recyclerSensores.setLayoutManager(
                 new LinearLayoutManager(getContext())
@@ -53,6 +56,8 @@ public class SensoresFragment extends Fragment {
     }
 
     private void carregarSensores() {
+        if (progressBar != null) progressBar.setVisibility(View.VISIBLE);
+
         OrbisApiService apiService = RetrofitClient
                 .getInstance(requireContext())
                 .getApi();
@@ -63,6 +68,7 @@ public class SensoresFragment extends Fragment {
             @Override
             public void onResponse(Call<List<Sensor>> call,
                                    Response<List<Sensor>> response) {
+                if (progressBar != null) progressBar.setVisibility(View.GONE);
 
                 if (response.isSuccessful() && response.body() != null) {
 
@@ -76,7 +82,7 @@ public class SensoresFragment extends Fragment {
             @Override
             public void onFailure(Call<List<Sensor>> call,
                                   Throwable t) {
-
+                if (progressBar != null) progressBar.setVisibility(View.GONE);
                 Log.e("ERRO_API", t.getMessage());
             }
         });

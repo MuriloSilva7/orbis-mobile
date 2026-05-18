@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.orbis.mobile.R;
@@ -31,6 +32,7 @@ public class TecnicosFragment extends Fragment {
     private RecyclerView recyclerTecnicos;
     private TecnicoAdapter adapter;
     private List<Usuario> listaTecnicos = new ArrayList<>();
+    private ProgressBar progressBar;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -39,6 +41,8 @@ public class TecnicosFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_tecnicos, container, false);
 
         recyclerTecnicos = view.findViewById(R.id.recyclerTecnicos);
+        progressBar = view.findViewById(R.id.progressTecnicos);
+        
         recyclerTecnicos.setLayoutManager(new LinearLayoutManager(getContext()));
 
         adapter = new TecnicoAdapter(listaTecnicos);
@@ -50,6 +54,7 @@ public class TecnicosFragment extends Fragment {
     }
 
     private void carregarTecnicos() {
+        if (progressBar != null) progressBar.setVisibility(View.VISIBLE);
 
         OrbisApiService apiService = RetrofitClient
                 .getInstance(requireContext())
@@ -62,9 +67,9 @@ public class TecnicosFragment extends Fragment {
             @Override
             public void onResponse(Call<TecnicosResponse> call,
                                    Response<TecnicosResponse> response) {
+                if (progressBar != null) progressBar.setVisibility(View.GONE);
 
                 if (response.isSuccessful() && response.body() != null) {
-
                     listaTecnicos.clear();
                     listaTecnicos.addAll(response.body().getDados());
                     adapter.notifyDataSetChanged();
@@ -73,6 +78,7 @@ public class TecnicosFragment extends Fragment {
 
             @Override
             public void onFailure(Call<TecnicosResponse> call, Throwable t) {
+                if (progressBar != null) progressBar.setVisibility(View.GONE);
                 Toast.makeText(getContext(),
                         "Erro: " + t.getMessage(),
                         Toast.LENGTH_SHORT).show();

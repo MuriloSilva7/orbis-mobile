@@ -1,11 +1,12 @@
 package com.orbis.mobile.ui.login;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -27,6 +28,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText etEmail;
     private EditText etSenha;
     private Button btnLogin;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +38,7 @@ public class LoginActivity extends AppCompatActivity {
         etEmail = findViewById(R.id.inputemail);
         etSenha = findViewById(R.id.inputsenha);
         btnLogin = findViewById(R.id.btnLogar);
+        progressBar = findViewById(R.id.progressBarLogin);
 
         btnLogin.setOnClickListener(v -> fazerLogin());
     }
@@ -46,95 +49,44 @@ public class LoginActivity extends AppCompatActivity {
         String senha = etSenha.getText().toString().trim();
 
         if (email.isEmpty() || senha.isEmpty()) {
-
-            Toast.makeText(
-                    this,
-                    "Preencha todos os campos",
-                    Toast.LENGTH_SHORT
-            ).show();
-
+            Toast.makeText(this, "Preencha todos os campos", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        OrbisApiService api =
-                RetrofitClient
-                        .getInstance(this)
-                        .getApi();
+        // Mostrar loading e desativar botão
+        progressBar.setVisibility(View.VISIBLE);
+        btnLogin.setEnabled(false);
 
-        Call<LoginResponse> call =
-                api.login(new LoginRequest(email, senha));
+        OrbisApiService api = RetrofitClient.getInstance(this).getApi();
+        Call<LoginResponse> call = api.login(new LoginRequest(email, senha));
 
         call.enqueue(new Callback<LoginResponse>() {
-
             @Override
-            public void onResponse(
-                    Call<LoginResponse> call,
-                    Response<LoginResponse> response
-            ) {
+            public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {
+                progressBar.setVisibility(View.GONE);
+                btnLogin.setEnabled(true);
 
-                if (response.isSuccessful()
-                        && response.body() != null) {
-
-                    String accessToken =
-                            response.body().getAccessToken();
-
-                    String refreshToken =
-                            response.body().getRefreshToken();
-
-                    Log.d("LOGIN", "Access: " + accessToken);
-                    Log.d("LOGIN", "Refresh: " + refreshToken);
-
-                    // salva tokens
-                    TokenManager tokenManager =
-                            new TokenManager(LoginActivity.this);
-
+                if (response.isSuccessful() && response.body() != null) {
+                    TokenManager tokenManager = new TokenManager(LoginActivity.this);
                     tokenManager.saveTokens(
-                            accessToken,
-                            refreshToken
+                            response.body().getAccessToken(),
+                            response.body().getRefreshToken()
                     );
 
-                    Toast.makeText(
-                            LoginActivity.this,
-                            "Login realizado!",
-                            Toast.LENGTH_SHORT
-                    ).show();
-
-                    Intent intent =
-                            new Intent(
-                                    LoginActivity.this,
-                                    MainActivity.class
-                            );
-
-                    startActivity(intent);
-
+                    Toast.makeText(LoginActivity.this, "Login realizado!", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(LoginActivity.this, MainActivity.class));
                     finish();
-
                 } else {
-
-                    Toast.makeText(
-                            LoginActivity.this,
-                            "Email ou senha inválidos",
-                            Toast.LENGTH_SHORT
-                    ).show();
+                    Toast.makeText(LoginActivity.this, "Email ou senha inválidos", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
-            public void onFailure(
-                    Call<LoginResponse> call,
-                    Throwable t
-            ) {
-
-                Log.e(
-                        "LOGIN",
-                        "Erro: " + t.getMessage()
-                );
-
-                Toast.makeText(
-                        LoginActivity.this,
-                        "Erro de conexão",
-                        Toast.LENGTH_SHORT
-                ).show();
+            public void onFailure(Call<LoginResponse> call, Throwable t) {
+                progressBar.setVisibility(View.GONE);
+                btnLogin.setEnabled(true);
+                Log.e("LOGIN", "Erro: " + t.getMessage());
+                Toast.makeText(LoginActivity.this, "Erro de conexão", Toast.LENGTH_SHORT).show();
             }
         });
     }
