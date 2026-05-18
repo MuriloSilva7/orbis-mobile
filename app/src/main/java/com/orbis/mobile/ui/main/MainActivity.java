@@ -1,17 +1,21 @@
 package com.orbis.mobile.ui.main;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.MenuItem;
 
 import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.graphics.Insets;
+import androidx.core.view.GravityCompat;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -26,7 +30,9 @@ import com.onesignal.OSDeviceState;
 import com.onesignal.OneSignal;
 import com.orbis.mobile.R;
 import com.orbis.mobile.api.OrbisApiService;
+import com.orbis.mobile.model.TokenManager;
 import com.orbis.mobile.network.RetrofitClient;
+import com.orbis.mobile.ui.login.LoginActivity;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -75,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
 
         NavController navController = navHostFragment.getNavController();
 
-        // Configura os destinos de nível superior (onde o ícone de hambúrguer aparece)
+        // Configura os destinos de nível superior
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.maquinasFragment, R.id.alertasFragment, R.id.perfilFragment,
                 R.id.sensoresFragment, R.id.tecnicosFragment)
@@ -84,6 +90,27 @@ public class MainActivity extends AppCompatActivity {
 
         NavigationUI.setupWithNavController(toolbar, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+        // Custom listener para o logout e navegação de activities
+        navigationView.setNavigationItemSelectedListener(item -> {
+            int id = item.getItemId();
+            
+            if (id == R.id.nav_logout) {
+                confirmarLogout();
+                return true;
+            } else if (id == R.id.manutencaoActivity) {
+                startActivity(new Intent(this, ManutencaoActivity.class));
+                drawerLayout.closeDrawer(GravityCompat.START);
+                return true;
+            }
+            
+            // Permite que o NavigationUI lide com os fragmentos padrão
+            boolean handled = NavigationUI.onNavDestinationSelected(item, navController);
+            if (handled) {
+                drawerLayout.closeDrawer(GravityCompat.START);
+            }
+            return handled;
+        });
 
         // ONESIGNAL
         new Handler().postDelayed(() -> {
@@ -96,6 +123,25 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }, 5000);
+    }
+
+    private void confirmarLogout() {
+        new android.app.AlertDialog.Builder(this)
+                .setTitle("Sair")
+                .setMessage("Deseja realmente sair do aplicativo?")
+                .setPositiveButton("Sim", (dialog, which) -> realizarLogout())
+                .setNegativeButton("Não", null)
+                .show();
+    }
+
+    private void realizarLogout() {
+        TokenManager tokenManager = new TokenManager(this);
+        tokenManager.clearTokens();
+
+        Intent intent = new Intent(this, LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        finish();
     }
 
     @Override
