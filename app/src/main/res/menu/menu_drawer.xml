@@ -26,11 +26,6 @@
             android:id="@+id/tecnicosFragment"
             android:title="Técnicos"
             android:icon="@drawable/ic_tecnicos"/>
-
-        <item
-            android:id="@+id/manutencaoActivity"
-            android:title="Manutenções"
-            android:icon="@drawable/ic_alertas" />
     </group>
 
     <item android:title="Sair">

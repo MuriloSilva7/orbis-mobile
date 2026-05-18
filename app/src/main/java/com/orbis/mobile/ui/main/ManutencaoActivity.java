@@ -33,14 +33,16 @@ public class ManutencaoActivity extends AppCompatActivity {
     private ProgressBar progressBar;
     private TextView txtSemManutencoes;
     private int filtroMaquinaId = -1;
+    private int filtroAlertaId = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manutencao);
 
-        // Captura o ID da máquina para filtro, se existir
+        // Captura os IDs para filtro, se existirem
         filtroMaquinaId = getIntent().getIntExtra("maquina_id", -1);
+        filtroAlertaId = getIntent().getIntExtra("alerta_id", -1);
 
         // Toolbar
         androidx.appcompat.widget.Toolbar toolbar = findViewById(R.id.toolbarManutencao);
@@ -50,6 +52,8 @@ public class ManutencaoActivity extends AppCompatActivity {
             toolbar.setNavigationOnClickListener(v -> finish());
             if (filtroMaquinaId != -1) {
                 getSupportActionBar().setTitle("Histórico da Máquina");
+            } else if (filtroAlertaId != -1) {
+                getSupportActionBar().setTitle("Histórico do Alerta");
             }
         }
 
@@ -76,16 +80,23 @@ public class ManutencaoActivity extends AppCompatActivity {
                 progressBar.setVisibility(View.GONE);
                 if (response.isSuccessful() && response.body() != null) {
                     listaManutencoes.clear();
-                    
+
                     List<Manutencao> dadosBrutos = response.body().getDados();
-                    
+
                     if (dadosBrutos != null) {
-                        if (filtroMaquinaId != -1) {
+                        if (filtroAlertaId != -1) {
+                            // Filtra apenas as manutenções daquele alerta específico
+                            for (Manutencao m : dadosBrutos) {
+                                if (m.getAlertaId() == filtroAlertaId) {
+                                    listaManutencoes.add(m);
+                                }
+                            }
+                        } else if (filtroMaquinaId != -1) {
                             // Filtra apenas as manutenções daquela máquina
                             for (Manutencao m : dadosBrutos) {
-                                if (m.getAlerta() != null && 
-                                    m.getAlerta().getMaquina() != null && 
-                                    m.getAlerta().getMaquina().getId() == filtroMaquinaId) {
+                                if (m.getAlerta() != null &&
+                                        m.getAlerta().getMaquina() != null &&
+                                        m.getAlerta().getMaquina().getId() == filtroMaquinaId) {
                                     listaManutencoes.add(m);
                                 }
                             }
@@ -98,9 +109,13 @@ public class ManutencaoActivity extends AppCompatActivity {
 
                     if (listaManutencoes.isEmpty()) {
                         txtSemManutencoes.setVisibility(View.VISIBLE);
-                        txtSemManutencoes.setText(filtroMaquinaId != -1 ? 
-                            "Nenhum histórico para esta máquina." : 
-                            "Nenhuma manutenção encontrada.");
+                        if (filtroAlertaId != -1) {
+                            txtSemManutencoes.setText("Nenhum histórico para este alerta.");
+                        } else if (filtroMaquinaId != -1) {
+                            txtSemManutencoes.setText("Nenhum histórico para esta máquina.");
+                        } else {
+                            txtSemManutencoes.setText("Nenhuma manutenção encontrada.");
+                        }
                     } else {
                         txtSemManutencoes.setVisibility(View.GONE);
                     }

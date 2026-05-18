@@ -98,10 +98,6 @@ public class MainActivity extends AppCompatActivity {
             if (id == R.id.nav_logout) {
                 confirmarLogout();
                 return true;
-            } else if (id == R.id.manutencaoActivity) {
-                startActivity(new Intent(this, ManutencaoActivity.class));
-                drawerLayout.closeDrawer(GravityCompat.START);
-                return true;
             }
             
             // Permite que o NavigationUI lide com os fragmentos padrão

@@ -53,6 +53,7 @@ public class AlertaDetalheActivity extends AppCompatActivity {
     // ID da manutenção relacionada ao alerta
     private int manutencaoId = -1;
     private int maquinaId = -1;
+    private int alertaId = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,9 +103,13 @@ public class AlertaDetalheActivity extends AppCompatActivity {
         });
 
         btnVerHistorico.setOnClickListener(v -> {
-            Intent intent = new Intent(this, ManutencaoActivity.class);
-            intent.putExtra("maquina_id", maquinaId);
-            startActivity(intent);
+            if (alertaId != -1) {
+                Intent intent = new Intent(this, ManutencaoActivity.class);
+                intent.putExtra("alerta_id", alertaId);
+                startActivity(intent);
+            } else {
+                Toast.makeText(this, "Carregando dados do alerta...", Toast.LENGTH_SHORT).show();
+            }
         });
 
         btnCancelar.setOnClickListener(v -> {
@@ -115,8 +120,8 @@ public class AlertaDetalheActivity extends AppCompatActivity {
             }
         });
 
-        int id = getIntent().getIntExtra("id_alerta", -1);
-        carregarDetalhes(id);
+        alertaId = getIntent().getIntExtra("id_alerta", -1);
+        carregarDetalhes(alertaId);
     }
 
     private void mostrarDialogRelato() {
