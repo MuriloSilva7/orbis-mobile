@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 
 import com.orbis.mobile.R;
@@ -40,6 +41,9 @@ public class SensoresFragment extends Fragment {
 
         recyclerSensores = view.findViewById(R.id.recyclerSensores);
         progressBar = view.findViewById(R.id.progressSensores);
+
+        ImageButton btnRefresh = view.findViewById(R.id.btnRefreshSensores);
+        btnRefresh.setOnClickListener(v -> carregarSensores());
 
         recyclerSensores.setLayoutManager(
                 new LinearLayoutManager(getContext())

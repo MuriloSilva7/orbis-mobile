@@ -70,7 +70,7 @@ public class ListaAlertasFragment extends Fragment {
         return view;
     }
 
-    private void carregarAlertas() {
+    public void carregarAlertas() {
         if (progressBar != null) progressBar.setVisibility(View.VISIBLE);
         OrbisApiService apiService = RetrofitClient
                 .getInstance(requireContext())

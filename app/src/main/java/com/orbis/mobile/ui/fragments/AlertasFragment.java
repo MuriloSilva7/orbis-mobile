@@ -8,11 +8,14 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager2.widget.ViewPager2;
 
 import android.view.View;
+import android.widget.ImageButton;
 
 import com.orbis.mobile.R;
 import com.orbis.mobile.adapter.AlertasTabsAdapter;
 import com.google.android.material.tabs.TabLayout;
 import com.google.android.material.tabs.TabLayoutMediator;
+
+import java.util.List;
 
 public class AlertasFragment extends Fragment {
 
@@ -41,5 +44,14 @@ public class AlertasFragment extends Fragment {
             }
         }).attach();
 
+        ImageButton btnRefresh = view.findViewById(R.id.btnRefreshAlertas);
+        btnRefresh.setOnClickListener(v -> {
+            List<Fragment> fragments = getChildFragmentManager().getFragments();
+            for (Fragment fragment : fragments) {
+                if (fragment instanceof ListaAlertasFragment) {
+                    ((ListaAlertasFragment) fragment).carregarAlertas();
+                }
+            }
+        });
     }
 }

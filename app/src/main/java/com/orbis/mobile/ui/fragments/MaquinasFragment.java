@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 
 import com.orbis.mobile.R;
@@ -41,6 +42,9 @@ public class MaquinasFragment extends Fragment {
 
         recyclerMaquinas = view.findViewById(R.id.recyclerMaquinas);
         progressBar = view.findViewById(R.id.progressMaquinas);
+
+        ImageButton btnRefresh = view.findViewById(R.id.btnRefreshMaquinas);
+        btnRefresh.setOnClickListener(v -> carregarMaquinas());
 
         recyclerMaquinas.setLayoutManager(
                 new LinearLayoutManager(getContext())

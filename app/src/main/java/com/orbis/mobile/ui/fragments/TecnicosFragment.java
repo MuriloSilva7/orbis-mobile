@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -43,6 +44,9 @@ public class TecnicosFragment extends Fragment {
         recyclerTecnicos = view.findViewById(R.id.recyclerTecnicos);
         progressBar = view.findViewById(R.id.progressTecnicos);
         
+        ImageButton btnRefresh = view.findViewById(R.id.btnRefreshTecnicos);
+        btnRefresh.setOnClickListener(v -> carregarTecnicos());
+
         recyclerTecnicos.setLayoutManager(new LinearLayoutManager(getContext()));
 
         adapter = new TecnicoAdapter(listaTecnicos);

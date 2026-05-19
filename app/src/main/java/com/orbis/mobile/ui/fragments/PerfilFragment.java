@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -72,6 +73,9 @@ public class PerfilFragment extends Fragment {
         imgUsuario = view.findViewById(R.id.imgUsuario);
         btnAlterarFoto = view.findViewById(R.id.btnAlterarFoto);
         progressBar = view.findViewById(R.id.progressPerfil);
+
+        ImageButton btnRefresh = view.findViewById(R.id.btnRefreshPerfil);
+        btnRefresh.setOnClickListener(v -> carregarPerfil());
 
         btnAlterarFoto.setOnClickListener(v -> imagePickerLauncher.launch("image/*"));
 
