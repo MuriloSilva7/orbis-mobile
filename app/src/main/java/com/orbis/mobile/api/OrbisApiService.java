@@ -107,6 +107,9 @@ public interface OrbisApiService {
             @Body Map<String, Object> body
     );
 
+    @GET("manutencoes/alerta/{id}")
+    Call<List<Manutencao>> getManutencoesByAlerta(@Path("id") int alertaId);
+
     // DASHBOARD
     @GET("dashboard/resumo")
     Call<DashboardResumo> getDashboard();

@@ -232,7 +232,7 @@ public class AlertaDetalheActivity extends AppCompatActivity {
     private void cancelarAlerta(int idManutencao) {
         OrbisApiService apiService = RetrofitClient.getInstance(this).getApi();
         Map<String, Object> body = new HashMap<>();
-        body.put("status", "CANCELADO");
+        body.put("status", "ENCERRADO_SEM_SOLUCAO");
 
         apiService.updateManutencao(idManutencao, body).enqueue(new Callback<Manutencao>() {
             @Override
@@ -257,24 +257,38 @@ public class AlertaDetalheActivity extends AppCompatActivity {
     }
 
     private void carregarManutencaoDoAlerta(int idAlerta) {
+        // Desabilita o botão até ter certeza que carregou
+        btnConcluir.setEnabled(false);
+        btnCriarManutencao.setEnabled(false);
+        btnCancelar.setEnabled(false);
+
         OrbisApiService apiService = RetrofitClient.getInstance(this).getApi();
-        Call<ManutencoesResponse> call = apiService.getManutencoes(1, 100);
-        call.enqueue(new Callback<ManutencoesResponse>() {
+        // Usa o endpoint dedicado por alerta, não a lista geral
+        Call<List<Manutencao>> call = apiService.getManutencoesByAlerta(idAlerta);
+        call.enqueue(new Callback<List<Manutencao>>() {
             @Override
-            public void onResponse(Call<ManutencoesResponse> call, Response<ManutencoesResponse> response) {
+            public void onResponse(Call<List<Manutencao>> call, Response<List<Manutencao>> response) {
                 if (response.isSuccessful() && response.body() != null) {
-                    List<Manutencao> manutencoes = response.body().getDados();
-                    for (Manutencao manutencao : manutencoes) {
-                        if (manutencao.getAlertaId() == idAlerta && !"CANCELADO".equals(manutencao.getStatus())) {
+                    for (Manutencao manutencao : response.body()) {
+                        if ("EM_ANDAMENTO".equals(manutencao.getStatus())) {
                             manutencaoId = manutencao.getId();
                             break;
                         }
                     }
                 }
+                // Reabilita os botões só depois que o dado chegou
+                btnConcluir.setEnabled(true);
+                btnCriarManutencao.setEnabled(true);
+                btnCancelar.setEnabled(true);
             }
 
             @Override
-            public void onFailure(Call<ManutencoesResponse> call, Throwable t) {
+            public void onFailure(Call<List<Manutencao>> call, Throwable t) {
+                btnConcluir.setEnabled(true);
+                btnCriarManutencao.setEnabled(true);
+                btnCancelar.setEnabled(true);
+                Toast.makeText(AlertaDetalheActivity.this,
+                        "Erro ao carregar manutenção", Toast.LENGTH_SHORT).show();
             }
         });
     }
