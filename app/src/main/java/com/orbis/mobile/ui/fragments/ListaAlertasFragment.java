@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 
 import com.orbis.mobile.R;
 import com.orbis.mobile.adapter.AlertaAdapter;
@@ -30,6 +31,7 @@ public class ListaAlertasFragment extends Fragment {
 
     private String statusFiltro;
     private RecyclerView recyclerView;
+    private ProgressBar progressBar;
     private AlertaAdapter adapter;
     private List<Alerta> listaFiltrada = new ArrayList<>();
 
@@ -57,6 +59,7 @@ public class ListaAlertasFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_lista_alertas, container, false);
 
         recyclerView = view.findViewById(R.id.recyclerAlertas);
+        progressBar = view.findViewById(R.id.progressListaAlertas);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         adapter = new AlertaAdapter(listaFiltrada);
@@ -68,7 +71,7 @@ public class ListaAlertasFragment extends Fragment {
     }
 
     private void carregarAlertas() {
-
+        if (progressBar != null) progressBar.setVisibility(View.VISIBLE);
         OrbisApiService apiService = RetrofitClient
                 .getInstance(requireContext())
                 .getApi();
@@ -79,7 +82,7 @@ public class ListaAlertasFragment extends Fragment {
             @Override
             public void onResponse(Call<List<Alerta>> call,
                                    Response<List<Alerta>> response) {
-
+                if (progressBar != null) progressBar.setVisibility(View.GONE);
                 if (response.isSuccessful() && response.body() != null) {
 
                     listaFiltrada.clear();
@@ -98,7 +101,7 @@ public class ListaAlertasFragment extends Fragment {
             @Override
             public void onFailure(Call<List<Alerta>> call,
                                   Throwable t) {
-
+                if (progressBar != null) progressBar.setVisibility(View.GONE);
                 Log.e("ERRO_API", t.getMessage());
             }
         });

@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,6 +40,7 @@ public class PerfilFragment extends Fragment {
     private TextView txtNome, txtEmail, txtRole, txtAtivo, txtTelefone, txtEspecialidade;
     private ImageView imgUsuario;
     private Button btnAlterarFoto;
+    private ProgressBar progressBar;
     private ActivityResultLauncher<String> imagePickerLauncher;
 
     public PerfilFragment() {}
@@ -69,6 +71,7 @@ public class PerfilFragment extends Fragment {
         txtEspecialidade = view.findViewById(R.id.txtEspecialidadeVariavel);
         imgUsuario = view.findViewById(R.id.imgUsuario);
         btnAlterarFoto = view.findViewById(R.id.btnAlterarFoto);
+        progressBar = view.findViewById(R.id.progressPerfil);
 
         btnAlterarFoto.setOnClickListener(v -> imagePickerLauncher.launch("image/*"));
 
@@ -105,6 +108,7 @@ public class PerfilFragment extends Fragment {
     }
 
     private void salvarNoServidor(String base64Image) {
+        if (progressBar != null) progressBar.setVisibility(View.VISIBLE);
         OrbisApiService apiService = RetrofitClient.getInstance(requireContext()).getApi();
 
         Map<String, Object> body = new HashMap<>();
@@ -115,6 +119,7 @@ public class PerfilFragment extends Fragment {
         apiService.updatePerfil(body).enqueue(new Callback<Usuario>() {
             @Override
             public void onResponse(Call<Usuario> call, Response<Usuario> response) {
+                if (progressBar != null) progressBar.setVisibility(View.GONE);
                 if (response.isSuccessful()) {
                     Toast.makeText(getContext(), "Foto salva com sucesso!", Toast.LENGTH_SHORT).show();
                     carregarPerfil(); // Recarrega para ver se o servidor salvou mesmo
@@ -135,16 +140,19 @@ public class PerfilFragment extends Fragment {
 
             @Override
             public void onFailure(Call<Usuario> call, Throwable t) {
+                if (progressBar != null) progressBar.setVisibility(View.GONE);
                 Toast.makeText(getContext(), "Erro de conexão", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     private void carregarPerfil() {
+        if (progressBar != null) progressBar.setVisibility(View.VISIBLE);
         OrbisApiService apiService = RetrofitClient.getInstance(requireContext()).getApi();
         apiService.getPerfil().enqueue(new Callback<Usuario>() {
             @Override
             public void onResponse(Call<Usuario> call, Response<Usuario> response) {
+                if (progressBar != null) progressBar.setVisibility(View.GONE);
                 if (response.isSuccessful() && response.body() != null) {
                     Usuario usuario = response.body();
                     Glide.with(requireContext())
@@ -167,6 +175,7 @@ public class PerfilFragment extends Fragment {
 
             @Override
             public void onFailure(Call<Usuario> call, Throwable t) {
+                if (progressBar != null) progressBar.setVisibility(View.GONE);
                 Toast.makeText(getContext(), "Erro ao carregar perfil", Toast.LENGTH_SHORT).show();
             }
         });
