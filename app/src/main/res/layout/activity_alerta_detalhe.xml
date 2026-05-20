@@ -1,210 +1,210 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    android:fillViewport="true"
+    android:background="#F8F9FA"
     tools:context=".ui.main.AlertaDetalheActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        app:elevation="0dp"
+        app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbar"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/white"
-            android:elevation="0dp"
             app:logo="@drawable/orbislogotoolbar"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:navigationIcon="@drawable/ic_voltar" />
 
         <View
-            android:id="@+id/linha"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/border"
-            app:layout_constraintTop_toBottomOf="@id/toolbar"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            android:background="@color/border" />
+    </com.google.android.material.appbar.AppBarLayout>
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardAlertaDetalhe"
-            android:layout_width="0dp"
+    <ProgressBar
+        android:id="@+id/progressAlerta"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/appBarLayout"
+        android:layout_marginTop="-4dp"
+        android:indeterminateTint="@color/purple" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintTop_toBottomOf="@id/appBarLayout"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="14dp"
-            android:layout_marginEnd="14dp"
-            android:layout_marginTop="14dp"
-            android:layout_marginBottom="14dp"
-            app:cardCornerRadius="20dp"
-            app:cardElevation="0dp"
-            app:cardBackgroundColor="@color/white"
-            app:strokeWidth="1.5dp"
-            app:strokeColor="@color/border"
-            app:layout_constraintTop_toBottomOf="@id/linha"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+            android:orientation="vertical"
+            android:padding="20dp">
 
-            <LinearLayout
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardAlerta"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="20dp">
+                app:cardCornerRadius="20dp"
+                app:cardElevation="0dp"
+                app:strokeWidth="1.5dp"
+                app:strokeColor="@color/border">
 
-                <!-- ID do Alerta -->
-                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginBottom="10dp">
-                    <TextView android:id="@+id/txtIdAlerta" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="ID do Alerta:" android:textStyle="bold" android:textSize="15sp" android:textColor="@color/black" />
-                    <TextView android:id="@+id/txtIdAlertaVariavel" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="alertaidvariavel" android:textSize="15sp" android:textColor="@color/darkGray" android:layout_marginStart="8dp" />
-                </LinearLayout>
-
-                <!-- ID do Sensor -->
-                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginBottom="10dp">
-                    <TextView android:id="@+id/txtIdSensor" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="ID do Sensor:" android:textStyle="bold" android:textSize="15sp" android:textColor="@color/black" />
-                    <TextView android:id="@+id/txtIdSensorVariavel" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="sensoridvariavel" android:textSize="15sp" android:textColor="@color/darkGray" android:layout_marginStart="8dp" />
-                </LinearLayout>
-
-                <!-- ID da Máquina -->
-                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginBottom="10dp">
-                    <TextView android:id="@+id/txtIdMaquina" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="ID da Máquina:" android:textStyle="bold" android:textSize="15sp" android:textColor="@color/black" />
-                    <TextView android:id="@+id/txtIdMaquinaVariavel" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="maquinaidvariavel" android:textSize="15sp" android:textColor="@color/darkGray" android:layout_marginStart="8dp" />
-                </LinearLayout>
-
-                <!-- ID do Técnico -->
-                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginBottom="10dp">
-                    <TextView android:id="@+id/txtIdTecnico" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="ID do Técnico:" android:textStyle="bold" android:textSize="15sp" android:textColor="@color/black" />
-                    <TextView android:id="@+id/txtIdTecnicoVariavel" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="tecnicoidvariavel" android:textSize="15sp" android:textColor="@color/darkGray" android:layout_marginStart="8dp" />
-                </LinearLayout>
-
-                <!-- Máquina -->
-                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginBottom="10dp">
-                    <TextView android:id="@+id/txtMaquina" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Máquina:" android:textStyle="bold" android:textSize="15sp" android:textColor="@color/black" />
-                    <TextView android:id="@+id/txtMaquinaVariavel" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="maquinavariavel" android:textSize="15sp" android:textColor="@color/darkGray" android:layout_marginStart="8dp" />
-                </LinearLayout>
-
-                <!-- Sensor -->
-                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginBottom="10dp">
-                    <TextView android:id="@+id/txtSensor" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Sensor:" android:textStyle="bold" android:textSize="15sp" android:textColor="@color/black" />
-                    <TextView android:id="@+id/txtSensorVariavel" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="sensorvariavel" android:textSize="15sp" android:textColor="@color/darkGray" android:layout_marginStart="8dp" />
-                </LinearLayout>
-
-                <!-- Criado em -->
-                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginBottom="10dp">
-                    <TextView android:id="@+id/txtCriadoEm" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Criado em:" android:textStyle="bold" android:textSize="15sp" android:textColor="@color/black" />
-                    <TextView android:id="@+id/txtCriadoEmVariavel" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="criadoemvariavel" android:textSize="15sp" android:textColor="@color/darkGray" android:layout_marginStart="8dp" />
-                </LinearLayout>
-
-                <!-- Tipo -->
-                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginBottom="10dp">
-                    <TextView android:id="@+id/txtTipo" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Tipo:" android:textStyle="bold" android:textSize="15sp" android:textColor="@color/black" />
-                    <TextView android:id="@+id/txtTipoVariavel" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="tipovariavel" android:textSize="15sp" android:textColor="@color/darkGray" android:layout_marginStart="8dp" />
-                </LinearLayout>
-
-                <!-- Status -->
-                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginBottom="10dp">
-                    <TextView android:id="@+id/txtStatus" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Status:" android:textStyle="bold" android:textSize="15sp" android:textColor="@color/black" />
-                    <TextView android:id="@+id/txtStatusVariavel" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="statusvariavel" android:textSize="15sp" android:textStyle="bold" android:textColor="@color/statusRed" android:layout_marginStart="8dp" />
-                </LinearLayout>
-
-                <!-- Mensagem -->
-                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginBottom="20dp">
-                    <TextView android:id="@+id/txtMensagem" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Mensagem:" android:textStyle="bold" android:textSize="15sp" android:textColor="@color/black" />
-                    <TextView android:id="@+id/txtMensagemVariavel" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="mensagemvariavel" android:textSize="15sp" android:textColor="@color/darkGray" android:layout_marginStart="8dp" />
-                </LinearLayout>
-
-                <!-- Botões -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:gravity="center"
-                    android:layout_marginTop="4dp">
+                    android:padding="24dp">
 
-                    <Button
-                        android:id="@+id/btnVerHistorico"
+                    <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Ver Histórico de Manutenção"
-                        android:textColor="@color/purple"
-                        android:backgroundTint="@color/white"
-                        app:strokeWidth="1.5dp"
-                        app:strokeColor="@color/purple"
-                        android:layout_marginBottom="8dp"
-                        app:cornerRadius="12dp" />
+                        android:layout_marginBottom="28dp">
 
-                    <Button
-                        android:id="@+id/btnCriarManutencao"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Relatar Manutenção"
-                        android:textColor="@color/white"
-                        android:backgroundTint="@color/purple"
-                        android:visibility="gone"
-                        android:layout_marginBottom="8dp"
-                        app:cornerRadius="12dp" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Ocorrência"
+                            android:textSize="22sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/black" />
 
+                        <com.google.android.material.card.MaterialCardView
+                            android:id="@+id/cardStatusBadge"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentEnd="true"
+                            app:cardCornerRadius="8dp"
+                            app:cardElevation="0dp"
+                            app:strokeWidth="1.5dp"
+                            app:strokeColor="@color/statusRed">
+                            <TextView
+                                android:id="@+id/txtStatusVariavel"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingHorizontal="12dp"
+                                android:paddingVertical="6dp"
+                                android:text="--"
+                                android:textColor="@color/statusRed"
+                                android:textSize="12sp"
+                                android:textStyle="bold" />
+                        </com.google.android.material.card.MaterialCardView>
+                    </RelativeLayout>
+
+                    <!-- Informações Estilo Perfil -->
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="MÁQUINA" android:textColor="@color/gray" android:textSize="11sp" android:textStyle="bold" android:letterSpacing="0.05" />
+                    <TextView android:id="@+id/txtMaquinaVariavel" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="--" android:textSize="14sp" android:textColor="@color/black" android:padding="11dp" android:background="@drawable/badge_outline_gray" android:layout_marginTop="4dp" android:layout_marginBottom="16dp" />
+
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="SENSOR" android:textColor="@color/gray" android:textSize="11sp" android:textStyle="bold" android:letterSpacing="0.05" />
+                    <TextView android:id="@+id/txtSensorVariavel" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="--" android:textSize="14sp" android:textColor="@color/black" android:padding="11dp" android:background="@drawable/badge_outline_gray" android:layout_marginTop="4dp" android:layout_marginBottom="16dp" />
+
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="DATA DE ABERTURA" android:textColor="@color/gray" android:textSize="11sp" android:textStyle="bold" android:letterSpacing="0.05" />
+                    <TextView android:id="@+id/txtCriadoEmVariavel" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="--" android:textSize="14sp" android:textColor="@color/black" android:padding="11dp" android:background="@drawable/badge_outline_gray" android:layout_marginTop="4dp" android:layout_marginBottom="24dp" />
+
+                    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/border" android:layout_marginBottom="20dp" />
+
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="MENSAGEM" android:textColor="@color/gray" android:textSize="11sp" android:textStyle="bold" android:layout_marginBottom="8dp"/>
+                    <TextView android:id="@+id/txtMensagemVariavel" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="--" android:textColor="@color/darkGray" android:textSize="15sp" android:lineSpacingExtra="5dp" android:layout_marginBottom="32dp" />
+
+                    <!-- ÁREA DE AÇÕES REFINADA -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center">
+                        android:orientation="vertical">
 
-                        <Button
-                            android:id="@+id/btnVoltar"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Voltar"
-                            android:textColor="@color/darkGray"
-                            android:backgroundTint="@color/white"
-                            android:layout_marginEnd="10dp"
-                            app:strokeWidth="1.5dp"
-                            app:strokeColor="@color/border"
-                            app:cornerRadius="12dp" />
-
-                        <Button
+                        <com.google.android.material.button.MaterialButton
                             android:id="@+id/btnAceitar"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1.5"
+                            android:layout_width="match_parent"
+                            android:layout_height="54dp"
                             android:text="Aceitar Alerta"
-                            android:textColor="@color/white"
                             android:backgroundTint="@color/purple"
+                            android:textStyle="bold"
                             android:visibility="gone"
+                            android:layout_marginBottom="12dp"
                             app:cornerRadius="12dp" />
 
-                        <Button
-                            android:id="@+id/btnConcluir"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1.5"
-                            android:text="Concluir"
-                            android:textColor="@color/white"
-                            android:backgroundTint="@color/statusGreen"
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnCriarManutencao"
+                            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                            android:layout_width="match_parent"
+                            android:layout_height="54dp"
+                            android:text="Relatar Manutenção"
+                            android:textColor="@color/purple"
+                            app:strokeColor="@color/purple"
+                            android:textStyle="bold"
                             android:visibility="gone"
-                            app:cornerRadius="12dp" />
+                            android:layout_marginBottom="12dp"
+                            app:cornerRadius="12dp"
+                            android:insetTop="0dp"
+                            android:insetBottom="0dp" />
 
-                        <Button
-                            android:id="@+id/btnCancelar"
-                            android:layout_width="0dp"
+                        <LinearLayout
+                            android:id="@+id/layoutAcoesAndamento"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1.5"
-                            android:text="Cancelar"
-                            android:textColor="@color/white"
-                            android:backgroundTint="@color/statusRed"
+                            android:orientation="horizontal"
                             android:visibility="gone"
-                            app:cornerRadius="12dp" />
+                            android:layout_marginBottom="12dp">
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btnCancelar"
+                                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                                android:layout_width="0dp"
+                                android:layout_height="52dp"
+                                android:layout_weight="1"
+                                android:text="Cancelar"
+                                android:textColor="@color/statusRed"
+                                app:strokeColor="@color/statusRed"
+                                android:layout_marginEnd="10dp"
+                                app:cornerRadius="12dp"
+                                android:insetTop="0dp"
+                                android:insetBottom="0dp" />
+
+                            <com.google.android.material.button.MaterialButton
+                                android:id="@+id/btnConcluir"
+                                android:layout_width="0dp"
+                                android:layout_height="52dp"
+                                android:layout_weight="1"
+                                android:text="Concluir"
+                                android:backgroundTint="@color/statusGreen"
+                                android:textStyle="bold"
+                                app:cornerRadius="12dp"
+                                android:insetTop="0dp"
+                                android:insetBottom="0dp" />
+                        </LinearLayout>
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnVerHistorico"
+                            style="@style/Widget.MaterialComponents.Button.TextButton"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Ver Histórico de Manutenção"
+                            android:textColor="@color/purple"
+                            android:layout_marginBottom="8dp" />
                     </LinearLayout>
 
                 </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
 
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
+            <!-- IDs Necessários Ocultos -->
+            <TextView android:id="@+id/txtIdAlertaVariavel" android:layout_width="0dp" android:layout_height="0dp" android:visibility="gone" />
+            <TextView android:id="@+id/txtIdSensorVariavel" android:layout_width="0dp" android:layout_height="0dp" android:visibility="gone" />
+            <TextView android:id="@+id/txtIdMaquinaVariavel" android:layout_width="0dp" android:layout_height="0dp" android:visibility="gone" />
+            <TextView android:id="@+id/txtIdTecnicoVariavel" android:layout_width="0dp" android:layout_height="0dp" android:visibility="gone" />
+            <TextView android:id="@+id/txtTipoVariavel" android:layout_width="0dp" android:layout_height="0dp" android:visibility="gone" />
+            <Button android:id="@+id/btnVoltar" android:layout_width="0dp" android:layout_height="0dp" android:visibility="gone" />
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>
+        </LinearLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
