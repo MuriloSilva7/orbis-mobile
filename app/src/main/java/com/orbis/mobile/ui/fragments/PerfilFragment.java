@@ -1,10 +1,7 @@
 package com.orbis.mobile.ui.fragments;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,8 +26,6 @@ import com.orbis.mobile.network.RetrofitClient;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
-import java.util.HashMap;
-import java.util.Map;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -86,17 +81,21 @@ public class PerfilFragment extends Fragment {
         return view;
     }
 
-
     private void processarESalvarFoto(Uri uri) {
         try {
+            // Preview local imediato para feedback ao usuário
             Glide.with(this).load(uri).circleCrop().into(imgUsuario);
 
             InputStream inputStream = requireContext().getContentResolver().openInputStream(uri);
             byte[] byteArray = lerBytes(inputStream);
+            
+            // Detecta o tipo real do arquivo (ex: image/png, image/jpeg)
+            String mimeType = requireContext().getContentResolver().getType(uri);
+            if (mimeType == null) mimeType = "image/jpeg";
 
-            salvarNoServidor(byteArray);
+            salvarNoServidor(byteArray, mimeType);
         } catch (Exception e) {
-            Log.e("PERFIL_FOTO", "Erro ao processar", e);
+            Log.e("PERFIL_FOTO", "Erro ao processar imagem", e);
             Toast.makeText(getContext(), "Erro ao processar imagem", Toast.LENGTH_SHORT).show();
         }
     }
@@ -111,34 +110,35 @@ public class PerfilFragment extends Fragment {
         return buffer.toByteArray();
     }
 
-    private void salvarNoServidor(byte[] imageBytes) {
+    private void salvarNoServidor(byte[] imageBytes, String mimeType) {
         if (progressBar != null) progressBar.setVisibility(View.VISIBLE);
         OrbisApiService apiService = RetrofitClient.getInstance(requireContext()).getApi();
 
         RequestBody requestBody = RequestBody.create(
-                MediaType.parse("image/jpeg"), imageBytes
+                MediaType.parse(mimeType), imageBytes
         );
-        MultipartBody.Part part = MultipartBody.Part.createFormData("imagem", "foto.jpg", requestBody);
+        
+        // "imagem" é o nome do campo multipart esperado pela rota PUT /perfil/foto no seu backend
+        MultipartBody.Part part = MultipartBody.Part.createFormData("imagem", "perfil.jpg", requestBody);
 
         apiService.updateFotoPerfil(part).enqueue(new Callback<Usuario>() {
             @Override
             public void onResponse(Call<Usuario> call, Response<Usuario> response) {
                 if (progressBar != null) progressBar.setVisibility(View.GONE);
                 if (response.isSuccessful()) {
-                    Toast.makeText(getContext(), "Foto salva com sucesso!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Foto de perfil atualizada!", Toast.LENGTH_SHORT).show();
+                    // Recarrega o perfil para sincronizar a nova URL da imagem e limpar cache do Glide
                     carregarPerfil();
                 } else {
-                    try {
-                        String errorMsg = response.errorBody().string();
-                        Log.e("API_ERROR", "Status: " + response.code() + " | " + errorMsg);
-                        Toast.makeText(getContext(), "Erro " + response.code() + " no servidor.", Toast.LENGTH_SHORT).show();
-                    } catch (Exception e) { e.printStackTrace(); }
+                    Log.e("API_ERROR", "Erro ao subir foto. Status: " + response.code());
+                    Toast.makeText(getContext(), "Erro ao salvar foto no servidor", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<Usuario> call, Throwable t) {
                 if (progressBar != null) progressBar.setVisibility(View.GONE);
+                Log.e("API_ERROR", "Falha na conexão", t);
                 Toast.makeText(getContext(), "Erro de conexão", Toast.LENGTH_SHORT).show();
             }
         });
@@ -153,6 +153,8 @@ public class PerfilFragment extends Fragment {
                 if (progressBar != null) progressBar.setVisibility(View.GONE);
                 if (response.isSuccessful() && response.body() != null) {
                     Usuario usuario = response.body();
+                    
+                    // Glide configurado para ignorar cache e mostrar a nova foto imediatamente
                     Glide.with(requireContext())
                             .load(usuario.getFotoPerfil())
                             .placeholder(R.drawable.ic_launcher_foreground)
