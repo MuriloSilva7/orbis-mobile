@@ -32,6 +32,9 @@ import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
 
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -86,58 +89,49 @@ public class PerfilFragment extends Fragment {
 
     private void processarESalvarFoto(Uri uri) {
         try {
-            // Preview local para o usuário sentir que funcionou
             Glide.with(this).load(uri).circleCrop().into(imgUsuario);
 
             InputStream inputStream = requireContext().getContentResolver().openInputStream(uri);
-            Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
+            byte[] byteArray = lerBytes(inputStream);
 
-            // REDUÇÃO PARA TAMANHO MÍNIMO (100x100)
-            // Isso gera uma string Base64 bem pequena que qualquer servidor aceita
-            Bitmap resizedBitmap = Bitmap.createScaledBitmap(bitmap, 100, 100, true);
-
-            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-            resizedBitmap.compress(Bitmap.CompressFormat.JPEG, 50, outputStream); // 50% de qualidade
-            byte[] byteArray = outputStream.toByteArray();
-
-            // Converte SEM prefixo e SEM quebras de linha
-            String base64Image = Base64.encodeToString(byteArray, Base64.NO_WRAP);
-
-            salvarNoServidor(base64Image);
-
+            salvarNoServidor(byteArray);
         } catch (Exception e) {
             Log.e("PERFIL_FOTO", "Erro ao processar", e);
             Toast.makeText(getContext(), "Erro ao processar imagem", Toast.LENGTH_SHORT).show();
         }
     }
 
-    private void salvarNoServidor(String base64Image) {
+    private byte[] lerBytes(InputStream inputStream) throws Exception {
+        ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+        byte[] chunk = new byte[4096];
+        int bytesRead;
+        while ((bytesRead = inputStream.read(chunk)) != -1) {
+            buffer.write(chunk, 0, bytesRead);
+        }
+        return buffer.toByteArray();
+    }
+
+    private void salvarNoServidor(byte[] imageBytes) {
         if (progressBar != null) progressBar.setVisibility(View.VISIBLE);
         OrbisApiService apiService = RetrofitClient.getInstance(requireContext()).getApi();
 
-        Map<String, Object> body = new HashMap<>();
-        // Tentamos os dois nomes mais comuns de campo
-        body.put("fotoPerfil", base64Image);
-        body.put("foto", base64Image);
+        RequestBody requestBody = RequestBody.create(
+                MediaType.parse("image/jpeg"), imageBytes
+        );
+        MultipartBody.Part part = MultipartBody.Part.createFormData("imagem", "foto.jpg", requestBody);
 
-        apiService.updatePerfil(body).enqueue(new Callback<Usuario>() {
+        apiService.updateFotoPerfil(part).enqueue(new Callback<Usuario>() {
             @Override
             public void onResponse(Call<Usuario> call, Response<Usuario> response) {
                 if (progressBar != null) progressBar.setVisibility(View.GONE);
                 if (response.isSuccessful()) {
                     Toast.makeText(getContext(), "Foto salva com sucesso!", Toast.LENGTH_SHORT).show();
-                    carregarPerfil(); // Recarrega para ver se o servidor salvou mesmo
+                    carregarPerfil();
                 } else {
                     try {
                         String errorMsg = response.errorBody().string();
                         Log.e("API_ERROR", "Status: " + response.code() + " | " + errorMsg);
-
-                        // Se o erro for 413, o servidor bloqueou por tamanho
-                        if (response.code() == 413) {
-                            Toast.makeText(getContext(), "Imagem ainda é muito grande para o servidor.", Toast.LENGTH_LONG).show();
-                        } else {
-                            Toast.makeText(getContext(), "Erro " + response.code() + " no servidor.", Toast.LENGTH_SHORT).show();
-                        }
+                        Toast.makeText(getContext(), "Erro " + response.code() + " no servidor.", Toast.LENGTH_SHORT).show();
                     } catch (Exception e) { e.printStackTrace(); }
                 }
             }
