@@ -17,7 +17,7 @@
         android:theme="@style/Theme.Orbis"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".model.IaActivity"
+            android:name=".ui.main.IaActivity"
             android:exported="false" />
         <activity
             android:name=".ui.main.ManutencaoActivity"
