@@ -2,6 +2,8 @@ package com.orbis.mobile.api;
 
 import com.orbis.mobile.model.Alerta;
 import com.orbis.mobile.model.DashboardResumo;
+import com.orbis.mobile.model.IaRequest;
+import com.orbis.mobile.model.IaResponse;
 import com.orbis.mobile.model.LeituraRequest;
 import com.orbis.mobile.model.LoginRequest;
 import com.orbis.mobile.model.LoginResponse;
@@ -125,4 +127,10 @@ public interface OrbisApiService {
 
     @GET("alertas")
     Call<List<Alerta>> getAlertas();
+
+    //IA
+
+    @POST("dashboard-ai/perguntar")
+    Call<IaResponse> perguntarIa(@Body IaRequest body);
 }
+

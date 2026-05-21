@@ -56,6 +56,21 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/linha" />
 
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabIa"
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:layout_margin="50dp"
+            app:srcCompat="@drawable/ic_smart_toy"
+            android:scaleType="centerInside"
+            android:tint="@android:color/white"
+            app:maxImageSize="20dp"
+            app:backgroundTint="@color/purple"
+            app:borderWidth="0dp"
+            app:elevation="6dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.navigation.NavigationView

@@ -25,11 +25,13 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.onesignal.OSDeviceState;
 import com.onesignal.OneSignal;
 import com.orbis.mobile.R;
 import com.orbis.mobile.api.OrbisApiService;
+import com.orbis.mobile.model.IaActivity;
 import com.orbis.mobile.model.TokenManager;
 import com.orbis.mobile.network.RetrofitClient;
 import com.orbis.mobile.ui.login.LoginActivity;
@@ -91,6 +93,17 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(toolbar, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
+        FloatingActionButton fabIa =
+                findViewById(R.id.fabIa);
+
+        fabIa.setOnClickListener(v -> {
+
+            Intent intent =
+                    new Intent(this, IaActivity.class);
+
+            startActivity(intent);
+        });
+
         // Custom listener para o logout e navegação de activities
         navigationView.setNavigationItemSelectedListener(item -> {
             int id = item.getItemId();
@@ -120,6 +133,8 @@ public class MainActivity extends AppCompatActivity {
             }
         }, 5000);
     }
+
+
 
     private void confirmarLogout() {
         new android.app.AlertDialog.Builder(this)
