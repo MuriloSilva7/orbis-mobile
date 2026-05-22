@@ -1,122 +1,134 @@
-<?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    android:fillViewport="true">
+    android:background="@color/background"
+    tools:context=".ui.main.SensorDetalheActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        app:elevation="0dp"
+        app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbar"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/white"
-            android:elevation="0dp"
             app:logo="@drawable/orbislogotoolbar"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:navigationIcon="@drawable/ic_voltar"
+            app:navigationIconTint="@color/black" />
+    </com.google.android.material.appbar.AppBarLayout>
 
-        <View
-            android:id="@+id/linha"
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:background="@color/border"
-            app:layout_constraintTop_toBottomOf="@id/toolbar"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintTop_toBottomOf="@id/appBarLayout"
+        app:layout_constraintBottom_toBottomOf="parent">
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardSensorDetalhe"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="14dp"
-            android:layout_marginEnd="14dp"
-            android:layout_marginTop="14dp"
-            android:layout_marginBottom="14dp"
-            app:cardCornerRadius="20dp"
-            app:cardElevation="0dp"
-            app:cardBackgroundColor="@color/white"
-            app:strokeWidth="1.5dp"
-            app:strokeColor="@color/border"
-            app:layout_constraintTop_toBottomOf="@id/linha"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+            android:orientation="vertical"
+            android:padding="20dp">
 
-            <LinearLayout
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardSensor"
+                style="@style/ModernCard"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="20dp">
+                android:layout_height="wrap_content">
 
-                <!-- ID do Sensor -->
-                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginBottom="10dp">
-                    <TextView android:id="@+id/txtIdSensor" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="ID do Sensor: " android:textSize="15sp" android:textStyle="bold" android:textColor="@color/black" />
-                    <TextView android:id="@+id/txtIdSensorVariavel" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="ID do sensor" android:textSize="15sp" android:textColor="@color/darkGray" />
-                </LinearLayout>
-
-                <!-- ID da Máquina -->
-                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginBottom="10dp">
-                    <TextView android:id="@+id/txtIdMaquina" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="ID da Máquina: " android:textSize="15sp" android:textStyle="bold" android:textColor="@color/black" />
-                    <TextView android:id="@+id/txtIdMaquinaVariavel" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="ID da Máquina" android:textSize="15sp" android:textColor="@color/darkGray" />
-                </LinearLayout>
-
-                <!-- Tipo -->
-                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginBottom="10dp">
-                    <TextView android:id="@+id/txtTipo" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Tipo: " android:textSize="15sp" android:textStyle="bold" android:textColor="@color/black" />
-                    <TextView android:id="@+id/txtTipoVariavel" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Nome do Tipo" android:textSize="15sp" android:textColor="@color/darkGray" />
-                </LinearLayout>
-
-                <!-- Última Temperatura -->
-                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginBottom="10dp">
-                    <TextView android:id="@+id/txtUltimaTemperatura" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Última Temperatura: " android:textSize="15sp" android:textStyle="bold" android:textColor="@color/black" />
-                    <TextView android:id="@+id/txtUltimaTemperaturaVariavel" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="ultima temperatura" android:textSize="15sp" android:textColor="@color/darkGray" />
-                </LinearLayout>
-
-                <!-- Limite de Temperatura -->
-                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginBottom="10dp">
-                    <TextView android:id="@+id/txtLimiteTemperatura" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Limite de Temperatura: " android:textSize="15sp" android:textStyle="bold" android:textColor="@color/black" />
-                    <TextView android:id="@+id/txtLimiteTemperaturaVariavel" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Limite" android:textSize="15sp" android:textColor="@color/darkGray" />
-                </LinearLayout>
-
-                <!-- Última Vibração -->
-                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginBottom="10dp">
-                    <TextView android:id="@+id/txtUltimaVibracao" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Última Vibração: " android:textSize="15sp" android:textStyle="bold" android:textColor="@color/black" />
-                    <TextView android:id="@+id/txtUltimaVibracaoVariavel" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Vibração" android:textSize="15sp" android:textColor="@color/darkGray" />
-                </LinearLayout>
-
-                <!-- Limite de Vibração -->
-                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginBottom="10dp">
-                    <TextView android:id="@+id/txtLimiteVibracao" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Limite de Vibração: " android:textSize="15sp" android:textStyle="bold" android:textColor="@color/black" />
-                    <TextView android:id="@+id/txtLimiteVibracaoVariavel" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Limite" android:textSize="15sp" android:textColor="@color/darkGray" />
-                </LinearLayout>
-
-                <!-- Estado -->
-                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginBottom="20dp">
-                    <TextView android:id="@+id/txtEstado" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Estado: " android:textSize="15sp" android:textStyle="bold" android:textColor="@color/black" />
-                    <TextView android:id="@+id/txtEstadoVariavel" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Ativo ou não" android:textSize="15sp" android:textStyle="bold" android:textColor="@color/statusGreen" />
-                </LinearLayout>
-
-                <!-- Botão Voltar -->
-                <Button
-                    android:id="@+id/btnVoltar"
-                    android:layout_width="180dp"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Voltar"
-                    android:textColor="@color/darkGray"
-                    android:backgroundTint="@color/white"
-                    android:layout_gravity="center"
-                    app:strokeWidth="1.5dp"
-                    app:strokeColor="@color/border"
-                    app:cornerRadius="12dp" />
+                    android:orientation="vertical"
+                    android:padding="24dp">
 
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="24dp">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>
+                        <TextView
+                            android:id="@+id/txtTipoVariavel"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:text="Tipo de Sensor"
+                            android:textSize="24sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/black"
+                            android:layout_marginEnd="16dp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toStartOf="@id/txtEstadoVariavel"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/txtEstadoVariavel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="ATIVO"
+                            style="@style/BadgeText"
+                            android:textColor="@color/statusGreen"
+                            android:background="@drawable/badge_outline_green"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="@id/txtTipoVariavel"
+                            app:layout_constraintBottom_toBottomOf="@id/txtTipoVariavel" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <!-- Detalhes -->
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="ID DO SENSOR" android:textColor="@color/gray" android:textSize="11sp" android:textStyle="bold" android:letterSpacing="0.05" />
+                    <TextView android:id="@+id/txtIdSensorVariavel" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="--" android:textSize="16sp" android:textColor="@color/black" android:layout_marginTop="4dp" android:layout_marginBottom="16dp" />
+
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="ID DA MÁQUINA" android:textColor="@color/gray" android:textSize="11sp" android:textStyle="bold" android:letterSpacing="0.05" />
+                    <TextView android:id="@+id/txtIdMaquinaVariavel" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="--" android:textSize="16sp" android:textColor="@color/black" android:layout_marginTop="4dp" android:layout_marginBottom="24dp" />
+
+                    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/border" android:layout_marginBottom="24dp" />
+
+                    <!-- Grid de Leituras -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:baselineAligned="false">
+
+                        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical">
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="ÚLT. TEMP." android:textColor="@color/gray" android:textSize="11sp" android:textStyle="bold" android:letterSpacing="0.05" />
+                            <TextView android:id="@+id/txtUltimaTemperaturaVariavel" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="--" android:textSize="18sp" android:textStyle="bold" android:textColor="@color/black" android:layout_marginTop="4dp" />
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="LIMITE" android:textColor="@color/gray" android:textSize="10sp" android:layout_marginTop="8dp" />
+                            <TextView android:id="@+id/txtLimiteTemperaturaVariavel" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="--" android:textSize="14sp" android:textColor="@color/darkGray" />
+                        </LinearLayout>
+
+                        <View android:layout_width="1dp" android:layout_height="match_parent" android:background="@color/border" android:layout_marginHorizontal="16dp" />
+
+                        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical">
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="ÚLT. VIBR." android:textColor="@color/gray" android:textSize="11sp" android:textStyle="bold" android:letterSpacing="0.05" />
+                            <TextView android:id="@+id/txtUltimaVibracaoVariavel" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="--" android:textSize="18sp" android:textStyle="bold" android:textColor="@color/black" android:layout_marginTop="4dp" />
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="LIMITE" android:textColor="@color/gray" android:textSize="10sp" android:layout_marginTop="8dp" />
+                            <TextView android:id="@+id/txtLimiteVibracaoVariavel" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="--" android:textSize="14sp" android:textColor="@color/darkGray" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/border" android:layout_marginTop="24dp" android:layout_marginBottom="24dp" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnVerGraficos"
+                        style="@style/PrimaryButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Ver Gráficos de Telemetria"
+                        android:backgroundTint="@color/purple" />
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <Button android:id="@+id/btnVoltar" android:layout_width="0dp" android:layout_height="0dp" android:visibility="gone" />
+
+        </LinearLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

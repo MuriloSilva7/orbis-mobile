@@ -2,15 +2,19 @@
 <resources>
     <color name="purple">#5E17EB</color>
     <color name="purpleLight">#8141FF</color>
+    <color name="purpleDark">#4310A3</color>
     <color name="white">#FFFFFF</color>
+    <color name="background">#F8F9FA</color>
+    <color name="surface">#FFFFFF</color>
     <color name="black">#111111</color>
-    <color name="gray">#808080</color>
-    <color name="darkGray">#1A1A1A</color>
-    <color name="border">#E0E0E0</color>
-    <color name="imageBackground">#CCCCCC</color>
-    <color name="statusGreen">#22C55E</color>
-    <color name="statusOrange">#F59E0B</color>
-    <color name="statusRed">#EF4444</color>
+    <color name="gray">#8E8E93</color>
+    <color name="lightGray">#F2F2F7</color>
+    <color name="darkGray">#1C1C1E</color>
+    <color name="border">#E5E5EA</color>
+    <color name="statusGreen">#34C759</color>
+    <color name="statusOrange">#FF9500</color>
+    <color name="statusRed">#FF3B30</color>
+    <color name="statusBlue">#007AFF</color>
     <color name="colorPrimary">#5E17EB</color>
     <color name="colorPrimaryDark">#3A0099</color>
     <color name="colorAccent">#5E17EB</color>

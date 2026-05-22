@@ -1,140 +1,134 @@
-<?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    android:fillViewport="true">
+    android:background="@color/background"
+    tools:context=".ui.main.MaquinaDetalheActivity">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        app:elevation="0dp"
+        app:layout_constraintTop_toTopOf="parent">
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/toolbar"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            android:background="@color/white"
-            android:elevation="0dp"
             app:logo="@drawable/orbislogotoolbar"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:navigationIcon="@drawable/ic_voltar"
+            app:navigationIconTint="@color/black" />
+    </com.google.android.material.appbar.AppBarLayout>
 
-        <View
-            android:id="@+id/linha"
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:background="@color/border"
-            app:layout_constraintTop_toBottomOf="@id/toolbar"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:fillViewport="true"
+        app:layout_constraintTop_toBottomOf="@id/appBarLayout"
+        app:layout_constraintBottom_toBottomOf="parent">
 
-        <!-- Card de detalhe -->
-        <androidx.cardview.widget.CardView
-            android:id="@+id/cardDetalhe"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="14dp"
-            android:layout_marginEnd="14dp"
-            android:layout_marginTop="14dp"
-            android:layout_marginBottom="14dp"
-            app:cardCornerRadius="20dp"
-            app:cardElevation="0dp"
-            app:cardBackgroundColor="@color/white"
-            app:strokeWidth="1.5dp"
-            app:strokeColor="@color/border"
-            app:layout_constraintTop_toBottomOf="@id/linha"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent">
+            android:orientation="vertical"
+            android:padding="20dp">
 
-            <LinearLayout
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardMaquina"
+                style="@style/ModernCard"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="18dp">
+                android:layout_height="wrap_content">
 
-                <!-- Imagem da máquina -->
-                <com.google.android.material.card.MaterialCardView
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="20dp"
-                    app:cardCornerRadius="12dp"
-                    app:cardElevation="0dp"
-                    app:strokeWidth="0dp">
+                    android:orientation="vertical"
+                    android:padding="24dp">
 
-                    <ImageView
+                    <com.google.android.material.imageview.ShapeableImageView
                         android:id="@+id/imgMaquina"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="200dp"
                         android:src="@drawable/ic_launcher_foreground"
-                        android:scaleType="fitCenter"
-                        android:adjustViewBounds="true"
-                        android:minHeight="160dp"
-                        android:maxHeight="300dp"
-                        android:background="@color/imageBackground" />
+                        android:scaleType="centerCrop"
+                        android:background="@color/lightGray"
+                        android:layout_marginBottom="24dp"
+                        app:shapeAppearanceOverlay="@style/RoundedImageView" />
 
-                </com.google.android.material.card.MaterialCardView>
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="24dp">
 
-                <!-- ID -->
-                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginBottom="10dp">
-                    <TextView android:id="@+id/txtId" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="ID: " android:textSize="15sp" android:textStyle="bold" android:textColor="@color/black" />
-                    <TextView android:id="@+id/txtIdVariavel" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="ID da Máquina" android:textSize="15sp" android:textColor="@color/darkGray" />
+                        <TextView
+                            android:id="@+id/txtNomeVariavel"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:text="Nome da Máquina"
+                            android:textSize="24sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/black"
+                            android:layout_marginEnd="16dp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toStartOf="@id/txtEstadoVariavel"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/txtEstadoVariavel"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="ATIVO"
+                            style="@style/BadgeText"
+                            android:textColor="@color/statusGreen"
+                            android:background="@drawable/badge_outline_green"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="@id/txtNomeVariavel"
+                            app:layout_constraintBottom_toBottomOf="@id/txtNomeVariavel" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <!-- Detalhes -->
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="SETOR" android:textColor="@color/gray" android:textSize="11sp" android:textStyle="bold" android:letterSpacing="0.05" />
+                    <TextView android:id="@+id/txtSetorVariavel" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="--" android:textSize="16sp" android:textColor="@color/black" android:layout_marginTop="4dp" android:layout_marginBottom="16dp" />
+
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="TIPO" android:textColor="@color/gray" android:textSize="11sp" android:textStyle="bold" android:letterSpacing="0.05" />
+                    <TextView android:id="@+id/txtTipoVariavel" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="--" android:textSize="16sp" android:textColor="@color/black" android:layout_marginTop="4dp" android:layout_marginBottom="16dp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:baselineAligned="false">
+                        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical">
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="CRITICIDADE" android:textColor="@color/gray" android:textSize="11sp" android:textStyle="bold" android:letterSpacing="0.05" />
+                            <TextView android:id="@+id/txtCriticidadeVariavel" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="--" android:textSize="16sp" android:textColor="@color/black" android:layout_marginTop="4dp" />
+                        </LinearLayout>
+                        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical">
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="INTEGRIDADE" android:textColor="@color/gray" android:textSize="11sp" android:textStyle="bold" android:letterSpacing="0.05" />
+                            <TextView android:id="@+id/txtIntegridadeVariavel" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="--" android:textSize="16sp" android:textColor="@color/black" android:layout_marginTop="4dp" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/border" android:layout_marginTop="24dp" android:layout_marginBottom="24dp" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnVerSensores"
+                        style="@style/PrimaryButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Ver Sensores Instalados"
+                        android:backgroundTint="@color/purple"
+                        android:layout_marginBottom="12dp" />
+
                 </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
 
-                <!-- Nome -->
-                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginBottom="10dp">
-                    <TextView android:id="@+id/txtNome" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Nome: " android:textSize="15sp" android:textStyle="bold" android:textColor="@color/black" />
-                    <TextView android:id="@+id/txtNomeVariavel" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Nome da Máquina" android:textSize="15sp" android:textColor="@color/darkGray" />
-                </LinearLayout>
+            <TextView android:id="@+id/txtIdVariavel" android:layout_width="0dp" android:layout_height="0dp" android:visibility="gone" />
+            <Button android:id="@+id/btnVoltar" android:layout_width="0dp" android:layout_height="0dp" android:visibility="gone" />
 
-                <!-- Setor -->
-                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginBottom="10dp">
-                    <TextView android:id="@+id/txtSetor" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Setor: " android:textSize="15sp" android:textStyle="bold" android:textColor="@color/black" />
-                    <TextView android:id="@+id/txtSetorVariavel" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Nome do Setor" android:textSize="15sp" android:textColor="@color/darkGray" />
-                </LinearLayout>
-
-                <!-- Tipo -->
-                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginBottom="10dp">
-                    <TextView android:id="@+id/txtTipo" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Tipo: " android:textSize="15sp" android:textStyle="bold" android:textColor="@color/black" />
-                    <TextView android:id="@+id/txtTipoVariavel" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Nome do Tipo" android:textSize="15sp" android:textColor="@color/darkGray" />
-                </LinearLayout>
-
-                <!-- Criticidade -->
-                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginBottom="10dp">
-                    <TextView android:id="@+id/txtCriticidade" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Criticidade: " android:textSize="15sp" android:textStyle="bold" android:textColor="@color/black" />
-                    <TextView android:id="@+id/txtCriticidadeVariavel" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Criticidade" android:textSize="15sp" android:textColor="@color/darkGray" />
-                </LinearLayout>
-
-                <!-- Integridade -->
-                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginBottom="10dp">
-                    <TextView android:id="@+id/txtIntegridade" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Integridade: " android:textSize="15sp" android:textStyle="bold" android:textColor="@color/black" />
-                    <TextView android:id="@+id/txtIntegridadeVariavel" android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:text="Integridade" android:textSize="15sp" android:textColor="@color/darkGray" />
-                </LinearLayout>
-
-                <!-- Estado -->
-                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginBottom="20dp">
-                    <TextView android:id="@+id/txtEstado" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Estado: " android:textSize="15sp" android:textStyle="bold" android:textColor="@color/black" />
-                    <TextView android:id="@+id/txtEstadoVariavel" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Ativo ou não" android:textSize="15sp" android:textStyle="bold" android:textColor="@color/statusGreen" />
-                </LinearLayout>
-
-                <!-- Botão Voltar -->
-                <Button
-                    android:id="@+id/btnVoltar"
-                    android:layout_width="180dp"
-                    android:layout_height="wrap_content"
-                    android:text="Voltar"
-                    android:textColor="@color/darkGray"
-                    android:textSize="14sp"
-                    android:backgroundTint="@color/white"
-                    android:layout_gravity="center"
-                    app:strokeWidth="1.5dp"
-                    app:strokeColor="@color/border"
-                    app:cornerRadius="12dp" />
-
-            </LinearLayout>
-        </androidx.cardview.widget.CardView>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>
+        </LinearLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

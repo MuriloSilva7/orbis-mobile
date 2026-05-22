@@ -6,6 +6,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.bumptech.glide.Glide;
 import com.orbis.mobile.R;
@@ -35,11 +36,10 @@ public class MaquinaDetalheActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maquina_detalhe);
 
-        btnVoltar = findViewById(R.id.btnVoltar);
+        setupToolbar();
 
-        btnVoltar.setOnClickListener(v -> {
-            finish();
-        });
+        btnVoltar = findViewById(R.id.btnVoltar);
+        btnVoltar.setOnClickListener(v -> finish());
 
         txtIdVariavel = findViewById(R.id.txtIdVariavel);
         txtNomeVariavel = findViewById(R.id.txtNomeVariavel);
@@ -52,6 +52,15 @@ public class MaquinaDetalheActivity extends AppCompatActivity {
 
         int id = getIntent().getIntExtra("id_maquina", -1);
         carregarDetalhes(id);
+    }
+
+    private void setupToolbar() {
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+        }
+        toolbar.setNavigationOnClickListener(v -> finish());
     }
 
     private void carregarDetalhes(int id) {
@@ -80,9 +89,14 @@ public class MaquinaDetalheActivity extends AppCompatActivity {
                     txtIntegridadeVariavel.setText(
                             String.valueOf(maquina.getIntegridade())
                     );
-                    txtEstadoVariavel.setText(
-                            maquina.isAtivo() ? "Ativo" : "Inativo"
-                    );
+                    txtEstadoVariavel.setText(maquina.isAtivo() ? "ATIVO" : "INATIVO");
+                    if (maquina.isAtivo()) {
+                        txtEstadoVariavel.setTextColor(getColor(R.color.statusGreen));
+                        txtEstadoVariavel.setBackgroundResource(R.drawable.badge_outline_green);
+                    } else {
+                        txtEstadoVariavel.setTextColor(getColor(R.color.statusRed));
+                        txtEstadoVariavel.setBackgroundResource(R.drawable.badge_outline_red);
+                    }
                 }
             }
 

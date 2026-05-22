@@ -8,6 +8,10 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+import com.bumptech.glide.Glide;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -90,6 +94,8 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(toolbar, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
+        setupNavHeader(navigationView);
+
         FloatingActionButton fabIa =
                 findViewById(R.id.fabIa);
 
@@ -132,6 +138,29 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+
+    private void setupNavHeader(NavigationView navigationView) {
+        View headerView = navigationView.getHeaderView(0);
+        ImageView imgPerfil = headerView.findViewById(R.id.imgPerfilHeader);
+        TextView txtNome = headerView.findViewById(R.id.txtNomeHeader);
+        TextView txtEmail = headerView.findViewById(R.id.txtEmailHeader);
+
+        SharedPreferences prefs = getSharedPreferences("orbis_prefs", MODE_PRIVATE);
+        String nome = prefs.getString("user_nome", "Usuário Orbis");
+        String email = prefs.getString("user_email", "usuario@orbis.com");
+        String foto = prefs.getString("user_foto", "");
+
+        txtNome.setText(nome);
+        txtEmail.setText(email);
+
+        if (!foto.isEmpty()) {
+            Glide.with(this)
+                    .load(foto)
+                    .placeholder(R.drawable.ic_perfil)
+                    .circleCrop()
+                    .into(imgPerfil);
+        }
+    }
 
     private void confirmarLogout() {
         new android.app.AlertDialog.Builder(this)

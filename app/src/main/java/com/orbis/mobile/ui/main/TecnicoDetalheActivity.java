@@ -7,6 +7,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.bumptech.glide.Glide;
 import com.orbis.mobile.R;
@@ -35,8 +36,9 @@ public class TecnicoDetalheActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tecnico_detalhe);
 
-        btnVoltar = findViewById(R.id.btnVoltar);
+        setupToolbar();
 
+        btnVoltar = findViewById(R.id.btnVoltar);
         btnVoltar.setOnClickListener(v -> finish());
 
         txtCargoVariavel = findViewById(R.id.txtCargoVariavel);
@@ -53,6 +55,15 @@ public class TecnicoDetalheActivity extends AppCompatActivity {
         if (id != -1) {
             carregarDetalhes(id);
         }
+    }
+
+    private void setupToolbar() {
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+        }
+        toolbar.setNavigationOnClickListener(v -> finish());
     }
 
     private void carregarDetalhes(int id) {
@@ -83,9 +94,14 @@ public class TecnicoDetalheActivity extends AppCompatActivity {
                     txtTelefoneVariavel.setText(tecnico.getTelefone());
                     txtEmailVariavel.setText(tecnico.getEmail());
 
-                    txtEstadoVariavel.setText(
-                            tecnico.isAtivo() ? "Ativo" : "Inativo"
-                    );
+                    txtEstadoVariavel.setText(tecnico.isAtivo() ? "ATIVO" : "INATIVO");
+                    if (tecnico.isAtivo()) {
+                        txtEstadoVariavel.setTextColor(getColor(R.color.statusGreen));
+                        txtEstadoVariavel.setBackgroundResource(R.drawable.badge_outline_green);
+                    } else {
+                        txtEstadoVariavel.setTextColor(getColor(R.color.statusRed));
+                        txtEstadoVariavel.setBackgroundResource(R.drawable.badge_outline_red);
+                    }
                 }
             }
 

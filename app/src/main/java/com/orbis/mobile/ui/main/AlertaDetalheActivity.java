@@ -148,8 +148,32 @@ public class AlertaDetalheActivity extends AppCompatActivity {
         txtSensorVariavel.setText(alerta.getSensor().getTipo());
         txtCriadoEmVariavel.setText(alerta.getCriadoEm());
         txtTipoVariavel.setText(alerta.getTipo());
-        txtStatusVariavel.setText(alerta.getStatus());
         txtMensagemVariavel.setText(alerta.getMensagem());
+        
+        atualizarStatusUI(alerta.getStatus());
+    }
+
+    private void atualizarStatusUI(String status) {
+        txtStatusVariavel.setText(status);
+        
+        switch (status) {
+            case "ATIVO":
+                txtStatusVariavel.setTextColor(getColor(R.color.statusRed));
+                txtStatusVariavel.setBackgroundResource(R.drawable.badge_outline_red);
+                break;
+            case "EM_ANDAMENTO":
+                txtStatusVariavel.setTextColor(getColor(R.color.statusOrange));
+                txtStatusVariavel.setBackgroundResource(R.drawable.badge_outline_purple);
+                break;
+            case "RESOLVIDO":
+                txtStatusVariavel.setTextColor(getColor(R.color.statusGreen));
+                txtStatusVariavel.setBackgroundResource(R.drawable.badge_outline_green);
+                break;
+            default:
+                txtStatusVariavel.setTextColor(getColor(R.color.gray));
+                txtStatusVariavel.setBackgroundResource(R.drawable.badge_outline_gray);
+                break;
+        }
     }
 
     private void atualizarInterfacePorStatus(String status) {
@@ -176,7 +200,7 @@ public class AlertaDetalheActivity extends AppCompatActivity {
             public void onResponse(Call<Manutencao> call, Response<Manutencao> response) {
                 if (response.isSuccessful() && response.body() != null) {
                     manutencaoId = response.body().getId();
-                    txtStatusVariavel.setText("EM_ANDAMENTO");
+                    atualizarStatusUI("EM_ANDAMENTO");
                     atualizarInterfacePorStatus("EM_ANDAMENTO");
                     Toast.makeText(AlertaDetalheActivity.this, "Alerta aceito!", Toast.LENGTH_SHORT).show();
                 }
@@ -198,7 +222,7 @@ public class AlertaDetalheActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<Manutencao> call, Response<Manutencao> response) {
                 if (response.isSuccessful()) {
-                    txtStatusVariavel.setText("RESOLVIDO");
+                    atualizarStatusUI("RESOLVIDO");
                     atualizarInterfacePorStatus("RESOLVIDO");
                     Toast.makeText(AlertaDetalheActivity.this, "Alerta concluído!", Toast.LENGTH_SHORT).show();
                 }
@@ -220,7 +244,7 @@ public class AlertaDetalheActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<Manutencao> call, Response<Manutencao> response) {
                 if (response.isSuccessful()) {
-                    txtStatusVariavel.setText("ATIVO");
+                    atualizarStatusUI("ATIVO");
                     atualizarInterfacePorStatus("ATIVO");
                     Toast.makeText(AlertaDetalheActivity.this, "Alerta cancelado", Toast.LENGTH_SHORT).show();
                 }

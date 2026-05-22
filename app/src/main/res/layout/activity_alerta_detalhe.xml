@@ -1,10 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F8F9FA"
+    android:background="@color/background"
     tools:context=".ui.main.AlertaDetalheActivity">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -20,12 +19,8 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:logo="@drawable/orbislogotoolbar"
-            app:navigationIcon="@drawable/ic_voltar" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/border" />
+            app:navigationIcon="@drawable/ic_voltar"
+            app:navigationIconTint="@color/black" />
     </com.google.android.material.appbar.AppBarLayout>
 
     <ProgressBar
@@ -54,12 +49,9 @@
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cardAlerta"
+                style="@style/ModernCard"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:cardCornerRadius="20dp"
-                app:cardElevation="0dp"
-                app:strokeWidth="1.5dp"
-                app:strokeColor="@color/border">
+                android:layout_height="wrap_content">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -67,57 +59,52 @@
                     android:orientation="vertical"
                     android:padding="24dp">
 
-                    <RelativeLayout
+                    <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="28dp">
+                        android:layout_marginBottom="24dp">
 
                         <TextView
+                            android:id="@+id/lblOcorrencia"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Ocorrência"
-                            android:textSize="22sp"
+                            android:textSize="24sp"
                             android:textStyle="bold"
-                            android:textColor="@color/black" />
+                            android:textColor="@color/black"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
 
-                        <com.google.android.material.card.MaterialCardView
-                            android:id="@+id/cardStatusBadge"
+                        <TextView
+                            android:id="@+id/txtStatusVariavel"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_alignParentEnd="true"
-                            app:cardCornerRadius="8dp"
-                            app:cardElevation="0dp"
-                            app:strokeWidth="1.5dp"
-                            app:strokeColor="@color/statusRed">
-                            <TextView
-                                android:id="@+id/txtStatusVariavel"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:paddingHorizontal="12dp"
-                                android:paddingVertical="6dp"
-                                android:text="--"
-                                android:textColor="@color/statusRed"
-                                android:textSize="12sp"
-                                android:textStyle="bold" />
-                        </com.google.android.material.card.MaterialCardView>
-                    </RelativeLayout>
+                            android:text="--"
+                            style="@style/BadgeText"
+                            android:textColor="@color/statusRed"
+                            android:background="@drawable/badge_outline_red"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="@id/lblOcorrencia"
+                            app:layout_constraintBottom_toBottomOf="@id/lblOcorrencia" />
 
-                    <!-- Informações Estilo Perfil -->
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <!-- Seção de Informações -->
                     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="MÁQUINA" android:textColor="@color/gray" android:textSize="11sp" android:textStyle="bold" android:letterSpacing="0.05" />
-                    <TextView android:id="@+id/txtMaquinaVariavel" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="--" android:textSize="14sp" android:textColor="@color/black" android:padding="11dp" android:background="@drawable/badge_outline_gray" android:layout_marginTop="4dp" android:layout_marginBottom="16dp" />
+                    <TextView android:id="@+id/txtMaquinaVariavel" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="--" android:textSize="16sp" android:textStyle="bold" android:textColor="@color/black" android:layout_marginTop="4dp" android:layout_marginBottom="16dp" />
 
                     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="SENSOR" android:textColor="@color/gray" android:textSize="11sp" android:textStyle="bold" android:letterSpacing="0.05" />
-                    <TextView android:id="@+id/txtSensorVariavel" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="--" android:textSize="14sp" android:textColor="@color/black" android:padding="11dp" android:background="@drawable/badge_outline_gray" android:layout_marginTop="4dp" android:layout_marginBottom="16dp" />
+                    <TextView android:id="@+id/txtSensorVariavel" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="--" android:textSize="16sp" android:textColor="@color/black" android:layout_marginTop="4dp" android:layout_marginBottom="16dp" />
 
                     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="DATA DE ABERTURA" android:textColor="@color/gray" android:textSize="11sp" android:textStyle="bold" android:letterSpacing="0.05" />
-                    <TextView android:id="@+id/txtCriadoEmVariavel" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="--" android:textSize="14sp" android:textColor="@color/black" android:padding="11dp" android:background="@drawable/badge_outline_gray" android:layout_marginTop="4dp" android:layout_marginBottom="24dp" />
+                    <TextView android:id="@+id/txtCriadoEmVariavel" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="--" android:textSize="16sp" android:textColor="@color/black" android:layout_marginTop="4dp" android:layout_marginBottom="24dp" />
 
                     <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/border" android:layout_marginBottom="20dp" />
 
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="MENSAGEM" android:textColor="@color/gray" android:textSize="11sp" android:textStyle="bold" android:layout_marginBottom="8dp"/>
-                    <TextView android:id="@+id/txtMensagemVariavel" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="--" android:textColor="@color/darkGray" android:textSize="15sp" android:lineSpacingExtra="5dp" android:layout_marginBottom="32dp" />
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="DESCRIÇÃO DO PROBLEMA" android:textColor="@color/gray" android:textSize="11sp" android:textStyle="bold" android:layout_marginBottom="8dp"/>
+                    <TextView android:id="@+id/txtMensagemVariavel" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="--" android:textColor="@color/darkGray" android:textSize="15sp" android:lineSpacingExtra="6dp" android:layout_marginBottom="32dp" />
 
-                    <!-- ÁREA DE AÇÕES REFINADA -->
+                    <!-- ÁREA DE AÇÕES -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -125,29 +112,25 @@
 
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/btnAceitar"
+                            style="@style/PrimaryButton"
                             android:layout_width="match_parent"
-                            android:layout_height="54dp"
+                            android:layout_height="wrap_content"
                             android:text="Aceitar Alerta"
                             android:backgroundTint="@color/purple"
-                            android:textStyle="bold"
                             android:visibility="gone"
-                            android:layout_marginBottom="12dp"
-                            app:cornerRadius="12dp" />
+                            android:layout_marginBottom="12dp" />
 
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/btnCriarManutencao"
-                            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                            style="@style/Widget.Material3.Button.TonalButton"
                             android:layout_width="match_parent"
-                            android:layout_height="54dp"
+                            android:layout_height="56dp"
                             android:text="Relatar Manutenção"
                             android:textColor="@color/purple"
-                            app:strokeColor="@color/purple"
                             android:textStyle="bold"
                             android:visibility="gone"
                             android:layout_marginBottom="12dp"
-                            app:cornerRadius="12dp"
-                            android:insetTop="0dp"
-                            android:insetBottom="0dp" />
+                            app:cornerRadius="16dp" />
 
                         <LinearLayout
                             android:id="@+id/layoutAcoesAndamento"
@@ -159,39 +142,35 @@
 
                             <com.google.android.material.button.MaterialButton
                                 android:id="@+id/btnCancelar"
-                                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                                style="@style/Widget.Material3.Button.OutlinedButton"
                                 android:layout_width="0dp"
-                                android:layout_height="52dp"
+                                android:layout_height="56dp"
                                 android:layout_weight="1"
                                 android:text="Cancelar"
                                 android:textColor="@color/statusRed"
                                 app:strokeColor="@color/statusRed"
                                 android:layout_marginEnd="10dp"
-                                app:cornerRadius="12dp"
-                                android:insetTop="0dp"
-                                android:insetBottom="0dp" />
+                                app:cornerRadius="16dp" />
 
                             <com.google.android.material.button.MaterialButton
                                 android:id="@+id/btnConcluir"
                                 android:layout_width="0dp"
-                                android:layout_height="52dp"
+                                android:layout_height="56dp"
                                 android:layout_weight="1"
                                 android:text="Concluir"
                                 android:backgroundTint="@color/statusGreen"
+                                android:textColor="@color/white"
                                 android:textStyle="bold"
-                                app:cornerRadius="12dp"
-                                android:insetTop="0dp"
-                                android:insetBottom="0dp" />
+                                app:cornerRadius="16dp" />
                         </LinearLayout>
 
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/btnVerHistorico"
-                            style="@style/Widget.MaterialComponents.Button.TextButton"
+                            style="@style/Widget.Material3.Button.TextButton"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="Ver Histórico de Manutenção"
-                            android:textColor="@color/purple"
-                            android:layout_marginBottom="8dp" />
+                            android:textColor="@color/purple" />
                     </LinearLayout>
 
                 </LinearLayout>

@@ -1,81 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
+<com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="12dp"
-    app:cardCornerRadius="16dp"
-    app:cardElevation="0dp"
-    app:cardBackgroundColor="@color/white"
-    app:strokeWidth="1.5dp"
-    app:strokeColor="@color/border">
+    android:layout_marginHorizontal="16dp"
+    android:layout_marginBottom="16dp"
+    style="@style/ModernCard">
 
-    <RelativeLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="16dp">
 
-        <!-- Avatar circular do técnico -->
-        <ImageView
+        <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/imgTecnico"
-            android:layout_width="64dp"
-            android:layout_height="64dp"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
             android:src="@drawable/ic_launcher_foreground"
             android:scaleType="centerCrop"
             android:background="@drawable/circle_purple_bg"
-            android:layout_alignParentStart="true"
-            android:layout_centerVertical="true" />
+            app:shapeAppearanceOverlay="@style/CircleImageView"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
 
-        <!-- Conteúdo (nome, status, botão) -->
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:layout_toEndOf="@id/imgTecnico"
-            android:layout_marginStart="14dp"
-            android:layout_centerVertical="true">
+            android:layout_marginStart="16dp"
+            app:layout_constraintStart_toEndOf="@id/imgTecnico"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
 
-            <!-- Badge de cargo -->
             <TextView
                 android:id="@+id/txtCargoVariavel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Técnico"
-                android:textSize="10sp"
-                android:textStyle="bold"
+                android:text="TÉCNICO"
+                style="@style/BadgeText"
                 android:textColor="@color/purple"
                 android:background="@drawable/badge_outline_purple"
-                android:paddingHorizontal="8dp"
-                android:paddingVertical="3dp"
                 android:layout_marginBottom="6dp" />
 
-            <!-- Nome -->
             <TextView
                 android:id="@+id/txtNomeVariavel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Nome do Técnico"
-                android:textSize="17sp"
+                android:textSize="18sp"
                 android:textStyle="bold"
                 android:textColor="@color/black"
                 android:layout_marginBottom="12dp" />
 
-            <!-- Botão Ver Mais -->
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnVerMais"
+                style="@style/Widget.Material3.Button.TonalButton"
                 android:layout_width="wrap_content"
-                android:layout_height="36dp"
-                android:text="Ver mais"
-                android:textColor="@color/white"
+                android:layout_height="40dp"
+                android:text="Ver perfil"
                 android:textSize="12sp"
-                android:backgroundTint="@color/purple"
+                android:textColor="@color/purple"
+                app:cornerRadius="16dp"
                 android:insetTop="0dp"
-                android:insetBottom="0dp"
-                app:cornerRadius="10dp" />
+                android:insetBottom="0dp" />
 
         </LinearLayout>
 
-    </RelativeLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-</androidx.cardview.widget.CardView>
+</com.google.android.material.card.MaterialCardView>

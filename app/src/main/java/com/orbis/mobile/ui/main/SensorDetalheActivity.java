@@ -6,6 +6,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import com.orbis.mobile.R;
 import com.orbis.mobile.api.OrbisApiService;
@@ -34,11 +35,10 @@ public class SensorDetalheActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sensor_detalhe);
 
-        btnVoltar = findViewById(R.id.btnVoltar);
+        setupToolbar();
 
-        btnVoltar.setOnClickListener(v -> {
-            finish();
-        });
+        btnVoltar = findViewById(R.id.btnVoltar);
+        btnVoltar.setOnClickListener(v -> finish());
 
         txtIdSensorVariavel = findViewById(R.id.txtIdSensorVariavel);
         txtIdMaquinaVariavel = findViewById(R.id.txtIdMaquinaVariavel);
@@ -51,6 +51,15 @@ public class SensorDetalheActivity extends AppCompatActivity {
 
         int id = getIntent().getIntExtra("id_sensor", -1);
         carregarDetalhes(id);
+    }
+
+    private void setupToolbar() {
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+        }
+        toolbar.setNavigationOnClickListener(v -> finish());
     }
 
     private void carregarDetalhes(int id) {
@@ -74,7 +83,16 @@ public class SensorDetalheActivity extends AppCompatActivity {
                     txtUltimaVibracaoVariavel.setText(String.valueOf(sensor.getUltimaVibracao()));
                     txtLimiteVibracaoVariavel.setText(String.valueOf(sensor.getLimiteVibracao()));
                     txtTipoVariavel.setText(sensor.getTipo());
-                    txtEstadoVariavel.setText(sensor.getStatus());
+                    
+                    String status = sensor.getStatus();
+                    txtEstadoVariavel.setText(status);
+                    if ("ATIVO".equalsIgnoreCase(status)) {
+                        txtEstadoVariavel.setTextColor(getColor(R.color.statusGreen));
+                        txtEstadoVariavel.setBackgroundResource(R.drawable.badge_outline_green);
+                    } else {
+                        txtEstadoVariavel.setTextColor(getColor(R.color.statusRed));
+                        txtEstadoVariavel.setBackgroundResource(R.drawable.badge_outline_red);
+                    }
                 }
             }
 
