@@ -130,7 +130,7 @@ public interface OrbisApiService {
 
     //IA
 
-    @POST("dashboard-ai/perguntar")
+    @POST("dashboard/ia/perguntar")
     Call<IaResponse> perguntarIa(@Body IaRequest body);
 }
 

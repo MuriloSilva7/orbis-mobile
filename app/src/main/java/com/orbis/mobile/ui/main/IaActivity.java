@@ -1,6 +1,7 @@
 package com.orbis.mobile.ui.main;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -68,52 +69,126 @@ public class IaActivity extends AppCompatActivity {
     }
 
     private void enviarPergunta() {
+
         String pergunta = edtPergunta.getText().toString().trim();
 
         if (pergunta.isEmpty()) {
             return;
         }
 
-        // Adicionar mensagem do usuário ao chat
+        // COPIA DO HISTORICO SEM A MENSAGEM ATUAL
+        List<ChatMessage> historicoEnvio =
+                new ArrayList<>(historico);
+
+        // ADICIONAR MENSAGEM NA TELA
         historico.add(new ChatMessage("user", pergunta));
+
         adapter.notifyItemInserted(historico.size() - 1);
+
         recyclerChat.scrollToPosition(historico.size() - 1);
-        
-        // Limpar campo de texto
+
+        // LIMPAR INPUT
         edtPergunta.setText("");
 
-        // Mostrar loading
+        // LOADING
         progressBar.setVisibility(View.VISIBLE);
+
         btnEnviar.setEnabled(false);
 
-        IaRequest request = new IaRequest(pergunta, historico);
+        // REQUEST
+        IaRequest request =
+                new IaRequest(pergunta, historicoEnvio);
 
-        OrbisApiService api = RetrofitClient.getInstance(this).getApi();
+        OrbisApiService api =
+                RetrofitClient
+                        .getInstance(this)
+                        .getApi();
 
-        api.perguntarIa(request).enqueue(new Callback<IaResponse>() {
-            @Override
-            public void onResponse(Call<IaResponse> call, Response<IaResponse> response) {
-                progressBar.setVisibility(View.GONE);
-                btnEnviar.setEnabled(true);
+        api.perguntarIa(request)
+                .enqueue(new Callback<IaResponse>() {
 
-                if (response.isSuccessful() && response.body() != null) {
-                    String respostaIa = response.body().getResposta();
+                    @Override
+                    public void onResponse(
+                            Call<IaResponse> call,
+                            Response<IaResponse> response
+                    ) {
 
-                    // Adicionar resposta da IA ao chat
-                    historico.add(new ChatMessage("assistant", respostaIa));
-                    adapter.notifyItemInserted(historico.size() - 1);
-                    recyclerChat.scrollToPosition(historico.size() - 1);
-                } else {
-                    Toast.makeText(IaActivity.this, "Erro ao consultar IA", Toast.LENGTH_SHORT).show();
-                }
-            }
+                        progressBar.setVisibility(View.GONE);
 
-            @Override
-            public void onFailure(Call<IaResponse> call, Throwable t) {
-                progressBar.setVisibility(View.GONE);
-                btnEnviar.setEnabled(true);
-                Toast.makeText(IaActivity.this, "Erro de conexão: " + t.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
+                        btnEnviar.setEnabled(true);
+
+                        if (response.isSuccessful()
+                                && response.body() != null) {
+
+                            String respostaIa =
+                                    response.body().getResposta();
+
+                            historico.add(
+                                    new ChatMessage(
+                                            "assistant",
+                                            respostaIa
+                                    )
+                            );
+
+                            adapter.notifyItemInserted(
+                                    historico.size() - 1
+                            );
+
+                            recyclerChat.scrollToPosition(
+                                    historico.size() - 1
+                            );
+
+                        } else {
+
+                            try {
+
+                                String erro =
+                                        response.errorBody() != null
+                                                ? response.errorBody().string()
+                                                : "Erro desconhecido";
+
+                                Log.e(
+                                        "IA_DEBUG",
+                                        "CODE: "
+                                                + response.code()
+                                                + " BODY: "
+                                                + erro
+                                );
+
+                                Toast.makeText(
+                                        IaActivity.this,
+                                        "Erro: " + response.code(),
+                                        Toast.LENGTH_LONG
+                                ).show();
+
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(
+                            Call<IaResponse> call,
+                            Throwable t
+                    ) {
+
+                        progressBar.setVisibility(View.GONE);
+
+                        btnEnviar.setEnabled(true);
+
+                        Log.e(
+                                "IA_FAILURE",
+                                t.getMessage(),
+                                t
+                        );
+
+                        Toast.makeText(
+                                IaActivity.this,
+                                "Falha: " + t.getMessage(),
+                                Toast.LENGTH_LONG
+                        ).show();
+                    }
+                });
     }
 }
