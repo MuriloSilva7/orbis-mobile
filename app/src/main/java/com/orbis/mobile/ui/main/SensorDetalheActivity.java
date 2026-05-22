@@ -32,6 +32,7 @@ public class SensorDetalheActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTitle("");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sensor_detalhe);
 

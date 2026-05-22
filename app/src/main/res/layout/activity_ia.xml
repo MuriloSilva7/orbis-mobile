@@ -8,22 +8,42 @@
     tools:context=".ui.main.IaActivity">
 
     <!-- Toolbar -->
-    <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/toolbarIa"
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
+        android:layout_height="wrap_content"
         android:background="@color/white"
-        app:navigationIcon="@drawable/ic_voltar"
-        app:title="Orbis AI"
-        app:titleTextColor="@color/purple"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:fitsSystemWindows="true"
+        app:elevation="0dp"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbarIa"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/white"
+            app:navigationIcon="@drawable/ic_voltar"
+            app:navigationIconTint="@color/black"
+            app:title="">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:layout_gravity="end"
+                android:layout_marginEnd="16dp"
+                android:adjustViewBounds="true"
+                android:src="@drawable/orbislogotoolbar"
+                android:contentDescription="Orbis Logo" />
+
+        </com.google.android.material.appbar.MaterialToolbar>
+    </com.google.android.material.appbar.AppBarLayout>
 
     <View
         android:id="@+id/lineIa"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="@color/border"
-        app:layout_constraintTop_toBottomOf="@id/toolbarIa" />
+        app:layout_constraintTop_toBottomOf="@id/appBarLayout" />
 
     <!-- Chat Messages -->
     <androidx.recyclerview.widget.RecyclerView
@@ -33,7 +53,7 @@
         android:clipToPadding="false"
         android:padding="16dp"
         app:layout_constraintBottom_toTopOf="@+id/layoutInput"
-        app:layout_constraintTop_toBottomOf="@id/lineIa" />
+        app:layout_constraintTop_toBottomOf="@id/appBarLayout" />
 
     <!-- Loading Indicator -->
     <ProgressBar

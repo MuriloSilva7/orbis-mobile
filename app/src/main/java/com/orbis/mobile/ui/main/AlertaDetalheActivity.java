@@ -40,6 +40,7 @@ public class AlertaDetalheActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTitle("");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_alerta_detalhe);
 

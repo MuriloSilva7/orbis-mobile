@@ -7,26 +7,26 @@
     <fragment
         android:id="@+id/maquinasFragment"
         android:name="com.orbis.mobile.ui.fragments.MaquinasFragment"
-        android:label="Maquinas"/>
+        android:label="" />
 
     <fragment
         android:id="@+id/alertasFragment"
         android:name="com.orbis.mobile.ui.fragments.AlertasFragment"
-        android:label="Alertas"/>
+        android:label="" />
 
     <fragment
         android:id="@+id/perfilFragment"
         android:name="com.orbis.mobile.ui.fragments.PerfilFragment"
-        android:label="Perfil"/>
+        android:label="" />
 
     <fragment
         android:id="@+id/sensoresFragment"
         android:name="com.orbis.mobile.ui.fragments.SensoresFragment"
-        android:label="Sensores"/>
+        android:label="" />
 
     <fragment
         android:id="@+id/tecnicosFragment"
         android:name="com.orbis.mobile.ui.fragments.TecnicosFragment"
-        android:label="Técnicos"/>
+        android:label="" />
 
 </navigation>

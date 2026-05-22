@@ -40,6 +40,7 @@ public class IaActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTitle(""); // Previne o flash do título do manifesto
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ia);
 
@@ -54,6 +55,7 @@ public class IaActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setTitle(""); // Título vazio para manter apenas a logo à direita
             toolbar.setNavigationOnClickListener(v -> finish());
         }
 

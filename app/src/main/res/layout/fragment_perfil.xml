@@ -171,7 +171,7 @@
                     style="@style/PrimaryButton"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Editar Perfil" />
+                    android:text="Alterar Foto" />
 
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>

@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -11,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
+        android:fitsSystemWindows="true"
         app:elevation="0dp"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -18,10 +20,31 @@
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:logo="@drawable/orbislogotoolbar"
             app:navigationIcon="@drawable/ic_voltar"
-            app:navigationIconTint="@color/black" />
+            app:navigationIconTint="@color/black"
+            app:title="">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:layout_gravity="end"
+                android:layout_marginEnd="16dp"
+                android:adjustViewBounds="true"
+                android:src="@drawable/orbislogotoolbar" />
+
+        </com.google.android.material.appbar.MaterialToolbar>
     </com.google.android.material.appbar.AppBarLayout>
+
+    <ProgressBar
+        android:id="@+id/progressTecnico"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        android:visibility="gone"
+        app:layout_constraintTop_toBottomOf="@id/appBarLayout"
+        android:layout_marginTop="-4dp"
+        android:indeterminateTint="@color/purple" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -36,8 +59,55 @@
             android:orientation="vertical"
             android:padding="20dp">
 
+            <!-- Card do Perfil do Técnico -->
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/cardTecnico"
+                style="@style/ModernCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="32dp">
+
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/imgTecnicoVariavel"
+                        android:layout_width="120dp"
+                        android:layout_height="120dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/ic_perfil"
+                        app:shapeAppearanceOverlay="@style/CircleImageView"
+                        app:strokeColor="@color/purple"
+                        app:strokeWidth="4dp" />
+
+                    <TextView
+                        android:id="@+id/txtNomeVariavel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:text="Nome do Técnico"
+                        android:textColor="@color/black"
+                        android:textSize="22sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/txtEspecialidadeVariavel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:text="Especialidade"
+                        android:textColor="@color/purple"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Card de Contatos -->
+            <com.google.android.material.card.MaterialCardView
                 style="@style/ModernCard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -46,88 +116,78 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="24dp"
-                    android:gravity="center">
+                    android:padding="24dp">
 
-                    <!-- Avatar -->
-                    <com.google.android.material.imageview.ShapeableImageView
-                        android:id="@+id/imgTecnico"
-                        android:layout_width="120dp"
-                        android:layout_height="120dp"
-                        android:src="@drawable/ic_launcher_foreground"
-                        android:scaleType="centerCrop"
-                        android:background="@color/lightGray"
-                        android:layout_marginBottom="16dp"
-                        app:shapeAppearanceOverlay="@style/CircleImageView" />
-
-                    <!-- Nome -->
                     <TextView
-                        android:id="@+id/txtNomeVariavel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Nome do Técnico"
-                        android:textSize="24sp"
+                        android:text="INFORMAÇÕES DE CONTATO"
+                        android:textColor="@color/gray"
+                        android:textSize="11sp"
                         android:textStyle="bold"
-                        android:textColor="@color/black"
-                        android:gravity="center"
-                        android:layout_marginBottom="8dp" />
+                        android:letterSpacing="0.05"
+                        android:layout_marginBottom="20dp"/>
 
-                    <!-- Cargo -->
-                    <TextView
-                        android:id="@+id/txtCargoVariavel"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="CARGO"
-                        style="@style/BadgeText"
-                        android:textColor="@color/purple"
-                        android:background="@drawable/badge_outline_purple"
-                        android:layout_marginBottom="24dp" />
-
-                    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/border" android:layout_marginBottom="24dp" />
-
-                    <!-- Informações em Grid -->
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:gravity="start">
-
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="ESPECIALIDADE" android:textColor="@color/gray" android:textSize="11sp" android:textStyle="bold" android:letterSpacing="0.05" />
-                        <TextView android:id="@+id/txtEspecialidadeVariavel" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="--" android:textSize="16sp" android:textColor="@color/black" android:layout_marginTop="4dp" android:layout_marginBottom="16dp" />
-
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="STATUS" android:textColor="@color/gray" android:textSize="11sp" android:textStyle="bold" android:letterSpacing="0.05" />
-                        <TextView android:id="@+id/txtEstadoVariavel" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="--" android:textSize="14sp" android:textStyle="bold" android:layout_marginTop="4dp" android:layout_marginBottom="16dp" style="@style/BadgeText" />
-
-                        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="CONTATO" android:textColor="@color/gray" android:textSize="11sp" android:textStyle="bold" android:letterSpacing="0.05" />
-
-                        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginTop="8dp" android:gravity="center_vertical">
-                            <TextView android:layout_width="80dp" android:layout_height="wrap_content" android:text="Telefone:" android:textColor="@color/darkGray" android:textSize="14sp" />
-                            <TextView android:id="@+id/txtTelefoneVariavel" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="--" android:textSize="14sp" android:textColor="@color/black" android:textStyle="bold" />
-                        </LinearLayout>
-
-                        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginTop="8dp" android:gravity="center_vertical">
-                            <TextView android:layout_width="80dp" android:layout_height="wrap_content" android:text="Email:" android:textColor="@color/darkGray" android:textSize="14sp" />
-                            <TextView android:id="@+id/txtEmailVariavel" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="--" android:textSize="14sp" android:textColor="@color/black" android:textStyle="bold" />
-                        </LinearLayout>
-
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="16dp">
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@android:drawable/ic_dialog_email"
+                            app:tint="@color/gray" />
+                        <TextView
+                            android:id="@+id/txtEmailVariavel"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="12dp"
+                            android:text="email@orbis.com"
+                            android:textColor="@color/black"
+                            android:textSize="16sp" />
                     </LinearLayout>
 
-                    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/border" android:layout_marginTop="24dp" android:layout_marginBottom="24dp" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@android:drawable/ic_menu_call"
+                            app:tint="@color/gray" />
+                        <TextView
+                            android:id="@+id/txtTelefoneVariavel"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="12dp"
+                            android:text="(00) 00000-0000"
+                            android:textColor="@color/black"
+                            android:textSize="16sp" />
+                    </LinearLayout>
 
                     <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btnVerHistoricoTecnico"
-                        style="@style/Widget.Material3.Button.TonalButton"
+                        android:id="@+id/btnEntrarContato"
+                        style="@style/PrimaryButton"
                         android:layout_width="match_parent"
-                        android:layout_height="56dp"
-                        android:text="Ver Manutenções Realizadas"
-                        android:textColor="@color/purple"
-                        app:cornerRadius="16dp" />
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="32dp"
+                        android:text="Entrar em Contato"
+                        android:backgroundTint="@color/purple" />
 
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
-            <Button android:id="@+id/btnVoltar" android:layout_width="0dp" android:layout_height="0dp" android:visibility="gone" />
+            <Button
+                android:id="@+id/btnVoltar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone" />
 
         </LinearLayout>
     </ScrollView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

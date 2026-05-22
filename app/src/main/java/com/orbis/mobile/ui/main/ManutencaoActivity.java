@@ -37,6 +37,7 @@ public class ManutencaoActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTitle("");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manutencao);
 
@@ -49,12 +50,8 @@ public class ManutencaoActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setTitle(""); // Título vazio para manter apenas a logo à direita
             toolbar.setNavigationOnClickListener(v -> finish());
-            if (filtroMaquinaId != -1) {
-                getSupportActionBar().setTitle("Histórico da Máquina");
-            } else if (filtroAlertaId != -1) {
-                getSupportActionBar().setTitle("Histórico do Alerta");
-            }
         }
 
         // Views

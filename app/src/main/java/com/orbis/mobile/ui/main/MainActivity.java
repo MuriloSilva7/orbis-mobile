@@ -16,10 +16,7 @@ import com.bumptech.glide.Glide;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
-import androidx.core.graphics.Insets;
 import androidx.core.view.GravityCompat;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
@@ -51,6 +48,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTitle(""); // Previne o flash do título do manifesto antes do carregamento
         super.onCreate(savedInstanceState);
 
         EdgeToEdge.enable(this);
@@ -60,13 +58,8 @@ public class MainActivity extends AppCompatActivity {
         NavigationView navigationView = findViewById(R.id.nav_view);
         MaterialToolbar toolbar = findViewById(R.id.toolbar);
 
-        setSupportActionBar(toolbar);
-
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.drawer_layout), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+        // Não usamos mais setSupportActionBar para evitar que o título da Activity interfira na Toolbar
+        toolbar.setTitle("");
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             if (checkSelfPermission(Manifest.permission.POST_NOTIFICATIONS)
@@ -91,32 +84,29 @@ public class MainActivity extends AppCompatActivity {
                 .setOpenableLayout(drawerLayout)
                 .build();
 
+        // NavigationUI configurado diretamente com a Toolbar
         NavigationUI.setupWithNavController(toolbar, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
+        // Força o título vazio em cada mudança de destino (evita fallback do NavigationUI)
+        navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
+            toolbar.setTitle("");
+        });
+
         setupNavHeader(navigationView);
 
-        FloatingActionButton fabIa =
-                findViewById(R.id.fabIa);
-
+        FloatingActionButton fabIa = findViewById(R.id.fabIa);
         fabIa.setOnClickListener(v -> {
-
-            Intent intent =
-                    new Intent(this, IaActivity.class);
-
-            startActivity(intent);
+            startActivity(new Intent(this, IaActivity.class));
         });
 
         // Custom listener para o logout e navegação de activities
         navigationView.setNavigationItemSelectedListener(item -> {
             int id = item.getItemId();
-            
             if (id == R.id.nav_logout) {
                 confirmarLogout();
                 return true;
             }
-            
-            // Permite que o NavigationUI lide com os fragmentos padrão
             boolean handled = NavigationUI.onNavDestinationSelected(item, navController);
             if (handled) {
                 drawerLayout.closeDrawer(GravityCompat.START);
@@ -137,7 +127,12 @@ public class MainActivity extends AppCompatActivity {
         }, 5000);
     }
 
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MaterialToolbar toolbar = findViewById(R.id.toolbar);
+        if (toolbar != null) toolbar.setTitle("");
+    }
 
     private void setupNavHeader(NavigationView navigationView) {
         View headerView = navigationView.getHeaderView(0);
@@ -174,44 +169,24 @@ public class MainActivity extends AppCompatActivity {
     private void realizarLogout() {
         TokenManager tokenManager = new TokenManager(this);
         tokenManager.clearTokens();
-
         Intent intent = new Intent(this, LoginActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
         finish();
     }
 
-    @Override
-    public boolean onSupportNavigateUp() {
-        NavHostFragment navHostFragment = (NavHostFragment)
-                getSupportFragmentManager().findFragmentById(R.id.nav_host);
-        NavController navController = navHostFragment.getNavController();
-        return NavigationUI.navigateUp(navController, mAppBarConfiguration)
-                || super.onSupportNavigateUp();
-    }
-
     private void enviarOneSignalId(String oneSignalId) {
         SharedPreferences prefs = getSharedPreferences("orbis_prefs", MODE_PRIVATE);
         String token = prefs.getString("access_token", "");
-
         Map<String, String> body = new HashMap<>();
         body.put("oneSignalId", oneSignalId);
-
-        OrbisApiService apiService = RetrofitClient
-                .getInstance(this)
-                .getApi();
-
-        Call<Void> call = apiService.saveDeviceToken(
-                "Bearer " + token,
-                body
-        );
-
+        OrbisApiService apiService = RetrofitClient.getInstance(this).getApi();
+        Call<Void> call = apiService.saveDeviceToken("Bearer " + token, body);
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 Log.d("API", "OneSignal ID enviado");
             }
-
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
                 Log.e("API", t.getMessage());
