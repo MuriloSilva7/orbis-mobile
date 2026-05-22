@@ -70,6 +70,16 @@
                     android:orientation="vertical"
                     android:padding="24dp">
 
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/imgMaquinaAlerta"
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:src="@drawable/ic_launcher_foreground"
+                        android:scaleType="centerCrop"
+                        android:background="@color/lightGray"
+                        android:layout_marginBottom="24dp"
+                        app:shapeAppearanceOverlay="@style/RoundedImageView" />
+
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

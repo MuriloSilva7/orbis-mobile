@@ -13,6 +13,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import android.widget.ImageView;
+import com.bumptech.glide.Glide;
 import com.orbis.mobile.R;
 import com.orbis.mobile.api.OrbisApiService;
 import com.orbis.mobile.model.Alerta;
@@ -32,6 +34,7 @@ public class AlertaDetalheActivity extends AppCompatActivity {
     private TextView txtIdAlertaVariavel, txtMaquinaVariavel, txtSensorVariavel, 
                      txtCriadoEmVariavel, txtTipoVariavel, txtStatusVariavel, txtMensagemVariavel;
     
+    private ImageView imgMaquinaAlerta;
     private Button btnVoltar, btnAceitar, btnConcluir, btnCriarManutencao, btnVerHistorico, btnCancelar;
     private LinearLayout layoutAcoesAndamento;
 
@@ -66,6 +69,7 @@ public class AlertaDetalheActivity extends AppCompatActivity {
         txtTipoVariavel = findViewById(R.id.txtTipoVariavel);
         txtStatusVariavel = findViewById(R.id.txtStatusVariavel);
         txtMensagemVariavel = findViewById(R.id.txtMensagemVariavel);
+        imgMaquinaAlerta = findViewById(R.id.imgMaquinaAlerta);
 
         btnVoltar = findViewById(R.id.btnVoltar);
         btnAceitar = findViewById(R.id.btnAceitar);
@@ -150,6 +154,13 @@ public class AlertaDetalheActivity extends AppCompatActivity {
         txtCriadoEmVariavel.setText(alerta.getCriadoEm());
         txtTipoVariavel.setText(alerta.getTipo());
         txtMensagemVariavel.setText(alerta.getMensagem());
+
+        if (alerta.getMaquina().getImagem() != null && !alerta.getMaquina().getImagem().isEmpty()) {
+            Glide.with(this)
+                    .load(alerta.getMaquina().getImagem())
+                    .placeholder(R.drawable.ic_launcher_foreground)
+                    .into(imgMaquinaAlerta);
+        }
         
         atualizarStatusUI(alerta.getStatus());
     }

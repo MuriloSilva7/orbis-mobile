@@ -6,7 +6,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
+import com.bumptech.glide.Glide;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -28,12 +30,14 @@ public class AlertaAdapter extends RecyclerView.Adapter<AlertaAdapter.ViewHolder
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView txtNomeVariavel;
         Button btnVerMais;
+        ImageView imgAlerta;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
             txtNomeVariavel = itemView.findViewById(R.id.txtNomeVariavel);
             btnVerMais = itemView.findViewById(R.id.btnVerMais);
+            imgAlerta = itemView.findViewById(R.id.imgAlerta);
         }
     }
 
@@ -51,6 +55,13 @@ public class AlertaAdapter extends RecyclerView.Adapter<AlertaAdapter.ViewHolder
 
         if (alerta.getMaquina() != null) {
             holder.txtNomeVariavel.setText(alerta.getMaquina().getNome());
+
+            if (alerta.getMaquina().getImagem() != null && !alerta.getMaquina().getImagem().isEmpty()) {
+                Glide.with(holder.itemView.getContext())
+                        .load(alerta.getMaquina().getImagem())
+                        .placeholder(R.drawable.ic_launcher_foreground)
+                        .into(holder.imgAlerta);
+            }
         } else {
             holder.txtNomeVariavel.setText("Máquina desconhecida");
         }
