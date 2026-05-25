@@ -1,6 +1,7 @@
 package com.orbis.mobile.ui.login;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -15,6 +16,7 @@ import com.orbis.mobile.R;
 import com.orbis.mobile.model.LoginRequest;
 import com.orbis.mobile.model.LoginResponse;
 import com.orbis.mobile.model.TokenManager;
+import com.orbis.mobile.model.Usuario;
 import com.orbis.mobile.network.RetrofitClient;
 import com.orbis.mobile.api.OrbisApiService;
 import com.orbis.mobile.ui.main.MainActivity;
@@ -72,6 +74,17 @@ public class LoginActivity extends AppCompatActivity {
                             response.body().getAccessToken(),
                             response.body().getRefreshToken()
                     );
+
+                    // Salva informações do usuário para o Drawer
+                    Usuario usuario = response.body().getUsuario();
+                    if (usuario != null) {
+                        SharedPreferences prefs = getSharedPreferences("orbis_prefs", MODE_PRIVATE);
+                        prefs.edit()
+                                .putString("user_nome", usuario.getNome())
+                                .putString("user_email", usuario.getEmail())
+                                .putString("user_foto", usuario.getFotoPerfil())
+                                .apply();
+                    }
 
                     Toast.makeText(LoginActivity.this, "Login realizado!", Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(LoginActivity.this, MainActivity.class));

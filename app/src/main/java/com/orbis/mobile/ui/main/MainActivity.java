@@ -31,6 +31,7 @@ import com.onesignal.OneSignal;
 import com.orbis.mobile.R;
 import com.orbis.mobile.api.OrbisApiService;
 import com.orbis.mobile.model.TokenManager;
+import com.orbis.mobile.model.Usuario;
 import com.orbis.mobile.network.RetrofitClient;
 import com.orbis.mobile.ui.login.LoginActivity;
 
@@ -45,20 +46,20 @@ public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
     private DrawerLayout drawerLayout;
+    private NavigationView navigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setTitle(""); // Previne o flash do título do manifesto antes do carregamento
+        setTitle(""); 
         super.onCreate(savedInstanceState);
 
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 
         drawerLayout = findViewById(R.id.drawer_layout);
-        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView = findViewById(R.id.nav_view);
         MaterialToolbar toolbar = findViewById(R.id.toolbar);
 
-        // Não usamos mais setSupportActionBar para evitar que o título da Activity interfira na Toolbar
         toolbar.setTitle("");
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
@@ -77,30 +78,27 @@ public class MainActivity extends AppCompatActivity {
 
         NavController navController = navHostFragment.getNavController();
 
-        // Configura os destinos de nível superior
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.maquinasFragment, R.id.alertasFragment, R.id.perfilFragment,
                 R.id.sensoresFragment, R.id.tecnicosFragment)
                 .setOpenableLayout(drawerLayout)
                 .build();
 
-        // NavigationUI configurado diretamente com a Toolbar
         NavigationUI.setupWithNavController(toolbar, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
-        // Força o título vazio em cada mudança de destino (evita fallback do NavigationUI)
         navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
             toolbar.setTitle("");
         });
 
-        setupNavHeader(navigationView);
+        setupNavHeader();
+        carregarPerfilAtualizado();
 
         FloatingActionButton fabIa = findViewById(R.id.fabIa);
         fabIa.setOnClickListener(v -> {
             startActivity(new Intent(this, IaActivity.class));
         });
 
-        // Custom listener para o logout e navegação de activities
         navigationView.setNavigationItemSelectedListener(item -> {
             int id = item.getItemId();
             if (id == R.id.nav_logout) {
@@ -114,13 +112,11 @@ public class MainActivity extends AppCompatActivity {
             return handled;
         });
 
-        // ONESIGNAL
         new Handler().postDelayed(() -> {
             OSDeviceState deviceState = OneSignal.getDeviceState();
             if (deviceState != null) {
                 String oneSignalId = deviceState.getUserId();
                 if (oneSignalId != null) {
-                    Log.d("ONESIGNAL_ID", oneSignalId);
                     enviarOneSignalId(oneSignalId);
                 }
             }
@@ -132,9 +128,10 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         MaterialToolbar toolbar = findViewById(R.id.toolbar);
         if (toolbar != null) toolbar.setTitle("");
+        carregarPerfilAtualizado(); // Garante que atualiza se o usuário mudar o perfil
     }
 
-    private void setupNavHeader(NavigationView navigationView) {
+    private void setupNavHeader() {
         View headerView = navigationView.getHeaderView(0);
         ImageView imgPerfil = headerView.findViewById(R.id.imgPerfilHeader);
         TextView txtNome = headerView.findViewById(R.id.txtNomeHeader);
@@ -148,13 +145,42 @@ public class MainActivity extends AppCompatActivity {
         txtNome.setText(nome);
         txtEmail.setText(email);
 
-        if (!foto.isEmpty()) {
+        if (foto != null && !foto.isEmpty()) {
             Glide.with(this)
                     .load(foto)
                     .placeholder(R.drawable.ic_perfil)
+                    .error(R.drawable.ic_perfil)
                     .circleCrop()
                     .into(imgPerfil);
         }
+    }
+
+    private void carregarPerfilAtualizado() {
+        OrbisApiService apiService = RetrofitClient.getInstance(this).getApi();
+        apiService.getPerfil().enqueue(new Callback<Usuario>() {
+            @Override
+            public void onResponse(Call<Usuario> call, Response<Usuario> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    Usuario usuario = response.body();
+                    
+                    // Salva os dados atualizados
+                    SharedPreferences prefs = getSharedPreferences("orbis_prefs", MODE_PRIVATE);
+                    prefs.edit()
+                            .putString("user_nome", usuario.getNome())
+                            .putString("user_email", usuario.getEmail())
+                            .putString("user_foto", usuario.getFotoPerfil())
+                            .apply();
+                    
+                    // Atualiza a UI do Header
+                    setupNavHeader();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Usuario> call, Throwable t) {
+                Log.e("MainActivity", "Erro ao carregar perfil: " + t.getMessage());
+            }
+        });
     }
 
     private void confirmarLogout() {
@@ -169,6 +195,11 @@ public class MainActivity extends AppCompatActivity {
     private void realizarLogout() {
         TokenManager tokenManager = new TokenManager(this);
         tokenManager.clearTokens();
+        
+        // Limpa as preferências do usuário ao sair
+        SharedPreferences prefs = getSharedPreferences("orbis_prefs", MODE_PRIVATE);
+        prefs.edit().clear().apply();
+
         Intent intent = new Intent(this, LoginActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
