@@ -84,10 +84,20 @@
                         app:strokeWidth="4dp" />
 
                     <TextView
+                        android:id="@+id/txtCargoVariavel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
+                        android:text="TÉCNICO"
+                        style="@style/BadgeText"
+                        android:textColor="@color/purple"
+                        android:background="@drawable/badge_outline_purple" />
+
+                    <TextView
                         android:id="@+id/txtNomeVariavel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
+                        android:layout_marginTop="12dp"
                         android:text="Nome do Técnico"
                         android:textColor="@color/black"
                         android:textSize="22sp"
@@ -99,9 +109,18 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
                         android:text="Especialidade"
-                        android:textColor="@color/purple"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
+                        android:textColor="@color/gray"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/txtEstadoVariavel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:text="ATIVO"
+                        style="@style/BadgeText"
+                        android:textColor="@color/statusGreen"
+                        android:background="@drawable/badge_outline_green" />
 
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
@@ -168,15 +187,6 @@
                             android:textColor="@color/black"
                             android:textSize="16sp" />
                     </LinearLayout>
-
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btnEntrarContato"
-                        style="@style/PrimaryButton"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="32dp"
-                        android:text="Entrar em Contato"
-                        android:backgroundTint="@color/purple" />
 
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>

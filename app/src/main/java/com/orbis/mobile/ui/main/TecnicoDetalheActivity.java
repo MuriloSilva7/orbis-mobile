@@ -48,7 +48,7 @@ public class TecnicoDetalheActivity extends AppCompatActivity {
         txtTelefoneVariavel = findViewById(R.id.txtTelefoneVariavel);
         txtEmailVariavel = findViewById(R.id.txtEmailVariavel);
         txtEstadoVariavel = findViewById(R.id.txtEstadoVariavel);
-        imgTecnico = findViewById(R.id.imgTecnico);
+        imgTecnico = findViewById(R.id.imgTecnicoVariavel);
 
         // mesmo nome usado no adapter
         int id = getIntent().getIntExtra("id_tecnico", -1);
