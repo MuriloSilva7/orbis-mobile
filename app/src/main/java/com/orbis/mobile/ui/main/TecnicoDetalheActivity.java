@@ -1,8 +1,10 @@
 package com.orbis.mobile.ui.main;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -28,6 +30,7 @@ public class TecnicoDetalheActivity extends AppCompatActivity {
     private TextView txtEmailVariavel;
     private TextView txtEstadoVariavel;
     private ImageView imgTecnico;
+    private ProgressBar progressTecnico;
 
     Button btnVoltar;
 
@@ -49,8 +52,8 @@ public class TecnicoDetalheActivity extends AppCompatActivity {
         txtEmailVariavel = findViewById(R.id.txtEmailVariavel);
         txtEstadoVariavel = findViewById(R.id.txtEstadoVariavel);
         imgTecnico = findViewById(R.id.imgTecnicoVariavel);
+        progressTecnico = findViewById(R.id.progressTecnico);
 
-        // mesmo nome usado no adapter
         int id = getIntent().getIntExtra("id_tecnico", -1);
 
         if (id != -1) {
@@ -67,8 +70,14 @@ public class TecnicoDetalheActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(v -> finish());
     }
 
-    private void carregarDetalhes(int id) {
+    private void setLoading(boolean isLoading) {
+        if (progressTecnico != null) {
+            progressTecnico.setVisibility(isLoading ? View.VISIBLE : View.GONE);
+        }
+    }
 
+    private void carregarDetalhes(int id) {
+        setLoading(true);
         OrbisApiService apiService = RetrofitClient
                 .getInstance(this)
                 .getApi();
@@ -78,7 +87,7 @@ public class TecnicoDetalheActivity extends AppCompatActivity {
         call.enqueue(new Callback<Usuario>() {
             @Override
             public void onResponse(Call<Usuario> call, Response<Usuario> response) {
-
+                setLoading(false);
                 if (response.isSuccessful() && response.body() != null) {
 
                     Usuario tecnico = response.body();
@@ -108,7 +117,7 @@ public class TecnicoDetalheActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Usuario> call, Throwable t) {
-
+                setLoading(false);
                 Toast.makeText(
                         TecnicoDetalheActivity.this,
                         "Erro ao carregar técnico: " + t.getMessage(),

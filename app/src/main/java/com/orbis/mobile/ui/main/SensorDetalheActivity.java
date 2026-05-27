@@ -1,7 +1,9 @@
 package com.orbis.mobile.ui.main;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,6 +29,7 @@ public class SensorDetalheActivity extends AppCompatActivity {
     private TextView txtUltimaVibracaoVariavel;
     private TextView txtLimiteVibracaoVariavel;
     private TextView txtEstadoVariavel;
+    private ProgressBar progressSensor;
 
     Button btnVoltar;
 
@@ -49,6 +52,7 @@ public class SensorDetalheActivity extends AppCompatActivity {
         txtUltimaVibracaoVariavel = findViewById(R.id.txtUltimaVibracaoVariavel);
         txtLimiteVibracaoVariavel = findViewById(R.id.txtLimiteVibracaoVariavel);
         txtEstadoVariavel = findViewById(R.id.txtEstadoVariavel);
+        progressSensor = findViewById(R.id.progressSensor);
 
         int id = getIntent().getIntExtra("id_sensor", -1);
         carregarDetalhes(id);
@@ -63,7 +67,14 @@ public class SensorDetalheActivity extends AppCompatActivity {
         toolbar.setNavigationOnClickListener(v -> finish());
     }
 
+    private void setLoading(boolean isLoading) {
+        if (progressSensor != null) {
+            progressSensor.setVisibility(isLoading ? View.VISIBLE : View.GONE);
+        }
+    }
+
     private void carregarDetalhes(int id) {
+        setLoading(true);
         OrbisApiService apiService = RetrofitClient
                 .getInstance(this)
                 .getApi();
@@ -73,6 +84,7 @@ public class SensorDetalheActivity extends AppCompatActivity {
         call.enqueue(new Callback<Sensor>() {
             @Override
             public void onResponse(Call<Sensor> call, Response<Sensor> response) {
+                setLoading(false);
                 if (response.isSuccessful() && response.body() != null) {
 
                     Sensor sensor = response.body();
@@ -99,6 +111,7 @@ public class SensorDetalheActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Sensor> call, Throwable t) {
+                setLoading(false);
                 Toast.makeText(SensorDetalheActivity.this,
                         "Erro ao carregar sensor",
                         Toast.LENGTH_SHORT).show();
