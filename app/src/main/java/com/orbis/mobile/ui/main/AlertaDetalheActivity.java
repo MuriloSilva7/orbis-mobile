@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,6 +38,7 @@ public class AlertaDetalheActivity extends AppCompatActivity {
     private ImageView imgMaquinaAlerta;
     private Button btnVoltar, btnAceitar, btnConcluir, btnCriarManutencao, btnVerHistorico, btnCancelar;
     private LinearLayout layoutAcoesAndamento;
+    private ProgressBar progressAlerta;
 
     private int manutencaoId = -1;
     private int alertaId = -1;
@@ -70,6 +72,7 @@ public class AlertaDetalheActivity extends AppCompatActivity {
         txtStatusVariavel = findViewById(R.id.txtStatusVariavel);
         txtMensagemVariavel = findViewById(R.id.txtMensagemVariavel);
         imgMaquinaAlerta = findViewById(R.id.imgMaquinaAlerta);
+        progressAlerta = findViewById(R.id.progressAlerta);
 
         btnVoltar = findViewById(R.id.btnVoltar);
         btnAceitar = findViewById(R.id.btnAceitar);
@@ -121,11 +124,23 @@ public class AlertaDetalheActivity extends AppCompatActivity {
         });
     }
 
+    private void setLoading(boolean isLoading) {
+        if (progressAlerta != null) {
+            progressAlerta.setVisibility(isLoading ? View.VISIBLE : View.GONE);
+        }
+        btnAceitar.setEnabled(!isLoading);
+        btnConcluir.setEnabled(!isLoading);
+        btnCancelar.setEnabled(!isLoading);
+        btnCriarManutencao.setEnabled(!isLoading);
+    }
+
     private void carregarDetalhes(int id) {
+        setLoading(true);
         OrbisApiService apiService = RetrofitClient.getInstance(this).getApi();
         apiService.getAlertas().enqueue(new Callback<List<Alerta>>() {
             @Override
             public void onResponse(Call<List<Alerta>> call, Response<List<Alerta>> response) {
+                setLoading(false);
                 if (response.isSuccessful() && response.body() != null) {
                     for (Alerta alerta : response.body()) {
                         if (alerta.getId() == id) {
@@ -142,6 +157,7 @@ public class AlertaDetalheActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<Alerta>> call, Throwable t) {
+                setLoading(false);
                 Toast.makeText(AlertaDetalheActivity.this, "Erro ao carregar detalhes", Toast.LENGTH_SHORT).show();
             }
         });
@@ -202,6 +218,7 @@ public class AlertaDetalheActivity extends AppCompatActivity {
     }
 
     private void aceitarAlerta(int idAlerta) {
+        setLoading(true);
         OrbisApiService apiService = RetrofitClient.getInstance(this).getApi();
         Map<String, Object> body = new HashMap<>();
         body.put("alertaId", idAlerta);
@@ -210,6 +227,7 @@ public class AlertaDetalheActivity extends AppCompatActivity {
         apiService.createManutencao(body).enqueue(new Callback<Manutencao>() {
             @Override
             public void onResponse(Call<Manutencao> call, Response<Manutencao> response) {
+                setLoading(false);
                 if (response.isSuccessful() && response.body() != null) {
                     manutencaoId = response.body().getId();
                     atualizarStatusUI("EM_ANDAMENTO");
@@ -220,12 +238,14 @@ public class AlertaDetalheActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Manutencao> call, Throwable t) {
+                setLoading(false);
                 Toast.makeText(AlertaDetalheActivity.this, "Erro ao aceitar alerta", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     private void concluirAlerta(int idManutencao) {
+        setLoading(true);
         OrbisApiService apiService = RetrofitClient.getInstance(this).getApi();
         Map<String, Object> body = new HashMap<>();
         body.put("status", "RESOLVIDO");
@@ -233,6 +253,7 @@ public class AlertaDetalheActivity extends AppCompatActivity {
         apiService.updateManutencao(idManutencao, body).enqueue(new Callback<Manutencao>() {
             @Override
             public void onResponse(Call<Manutencao> call, Response<Manutencao> response) {
+                setLoading(false);
                 if (response.isSuccessful()) {
                     atualizarStatusUI("RESOLVIDO");
                     atualizarInterfacePorStatus("RESOLVIDO");
@@ -242,12 +263,14 @@ public class AlertaDetalheActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Manutencao> call, Throwable t) {
+                setLoading(false);
                 Toast.makeText(AlertaDetalheActivity.this, "Erro ao concluir", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     private void cancelarAlerta(int idManutencao) {
+        setLoading(true);
         OrbisApiService apiService = RetrofitClient.getInstance(this).getApi();
         Map<String, Object> body = new HashMap<>();
         body.put("status", "ENCERRADO_SEM_SOLUCAO");
@@ -255,6 +278,7 @@ public class AlertaDetalheActivity extends AppCompatActivity {
         apiService.updateManutencao(idManutencao, body).enqueue(new Callback<Manutencao>() {
             @Override
             public void onResponse(Call<Manutencao> call, Response<Manutencao> response) {
+                setLoading(false);
                 if (response.isSuccessful()) {
                     atualizarStatusUI("ATIVO");
                     atualizarInterfacePorStatus("ATIVO");
@@ -264,6 +288,7 @@ public class AlertaDetalheActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<Manutencao> call, Throwable t) {
+                setLoading(false);
                 Toast.makeText(AlertaDetalheActivity.this, "Erro de conexão", Toast.LENGTH_SHORT).show();
             }
         });
@@ -305,6 +330,7 @@ public class AlertaDetalheActivity extends AppCompatActivity {
     }
 
     private void salvarRelatoManutencao(String relato) {
+        setLoading(true);
         OrbisApiService apiService = RetrofitClient.getInstance(this).getApi();
         Map<String, Object> body = new HashMap<>();
         body.put("observacao", relato);
@@ -312,11 +338,15 @@ public class AlertaDetalheActivity extends AppCompatActivity {
         apiService.updateManutencao(manutencaoId, body).enqueue(new Callback<Manutencao>() {
             @Override
             public void onResponse(Call<Manutencao> call, Response<Manutencao> response) {
+                setLoading(false);
                 if (response.isSuccessful()) Toast.makeText(AlertaDetalheActivity.this, "Relato salvo!", Toast.LENGTH_SHORT).show();
             }
 
             @Override
-            public void onFailure(Call<Manutencao> call, Throwable t) {}
+            public void onFailure(Call<Manutencao> call, Throwable t) {
+                setLoading(false);
+                Toast.makeText(AlertaDetalheActivity.this, "Erro ao salvar relato", Toast.LENGTH_SHORT).show();
+            }
         });
     }
 }

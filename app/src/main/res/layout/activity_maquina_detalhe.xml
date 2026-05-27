@@ -34,6 +34,18 @@
                 android:contentDescription="Orbis Logo" />
 
         </com.google.android.material.appbar.MaterialToolbar>
+
+        <ProgressBar
+            android:id="@+id/progressMaquina"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:indeterminate="true"
+            android:visibility="gone"
+            android:layout_marginTop="-8dp"
+            android:layout_marginBottom="-4dp"
+            android:indeterminateTint="@color/purple" />
+
     </com.google.android.material.appbar.AppBarLayout>
 
     <ScrollView
