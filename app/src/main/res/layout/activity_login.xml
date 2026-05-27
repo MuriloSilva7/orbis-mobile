@@ -87,7 +87,8 @@
                         app:boxCornerRadiusTopEnd="16dp"
                         app:boxCornerRadiusBottomStart="16dp"
                         app:boxCornerRadiusBottomEnd="16dp"
-                        app:startIconDrawable="@android:drawable/ic_dialog_email"
+                        app:startIconDrawable="@drawable/ic_email_24"
+                        app:startIconSize="24dp"
                         app:startIconTint="@color/purple">
 
                         <com.google.android.material.textfield.TextInputEditText
@@ -111,7 +112,8 @@
                         app:boxCornerRadiusTopEnd="16dp"
                         app:boxCornerRadiusBottomStart="16dp"
                         app:boxCornerRadiusBottomEnd="16dp"
-                        app:startIconDrawable="@android:drawable/ic_lock_idle_lock"
+                        app:startIconDrawable="@drawable/ic_lock_24"
+                        app:startIconSize="24dp"
                         app:startIconTint="@color/purple">
 
                         <com.google.android.material.textfield.TextInputEditText
