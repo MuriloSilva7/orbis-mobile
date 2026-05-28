@@ -12,7 +12,7 @@
         android:id="@+id/main_content"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/background">
+        android:background="@color/white">
 
         <com.google.android.material.appbar.AppBarLayout
             android:id="@+id/appBarLayout"
@@ -28,7 +28,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
                 app:navigationIconTint="@color/black"
-                app:title="">
+                app:title=""
+                app:titleTextColor="@android:color/transparent">
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -54,19 +55,21 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@id/appBarLayout" />
 
+        <!-- Floating Action Button como uma bolinha no canto -->
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fabIa"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="60dp"
-            android:layout_marginEnd="25dp"
+            android:layout_marginBottom="24dp"
+            android:layout_marginEnd="24dp"
             app:srcCompat="@drawable/ic_smart_toy"
             app:tint="@android:color/white"
             app:backgroundTint="@color/purple"
-            app:shapeAppearanceOverlay="@style/CircleImageView"
+            app:fabSize="normal"
             app:elevation="6dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            android:contentDescription="Chat IA" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -77,10 +80,6 @@
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
         app:headerLayout="@layout/nav_header"
-        app:menu="@menu/menu_drawer"
-        app:itemShapeFillColor="@color/lightGray"
-        app:itemShapeAppearanceOverlay="@style/RoundedImageView"
-        app:itemHorizontalPadding="16dp"
-        app:itemIconTint="@color/purple" />
+        app:menu="@menu/menu_drawer" />
 
 </androidx.drawerlayout.widget.DrawerLayout>

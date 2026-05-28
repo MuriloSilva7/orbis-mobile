@@ -50,7 +50,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setTitle(""); 
         super.onCreate(savedInstanceState);
 
         EdgeToEdge.enable(this);
@@ -60,7 +59,10 @@ public class MainActivity extends AppCompatActivity {
         navigationView = findViewById(R.id.nav_view);
         MaterialToolbar toolbar = findViewById(R.id.toolbar);
 
-        toolbar.setTitle("");
+        setSupportActionBar(toolbar);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayShowTitleEnabled(false);
+        }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             if (checkSelfPermission(Manifest.permission.POST_NOTIFICATIONS)
@@ -87,8 +89,12 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(toolbar, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
+        // Remove o título toda vez que o destino mudar
         navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
             toolbar.setTitle("");
+            if (getSupportActionBar() != null) {
+                getSupportActionBar().setDisplayShowTitleEnabled(false);
+            }
         });
 
         setupNavHeader();
@@ -127,8 +133,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         MaterialToolbar toolbar = findViewById(R.id.toolbar);
-        if (toolbar != null) toolbar.setTitle("");
-        carregarPerfilAtualizado(); // Garante que atualiza se o usuário mudar o perfil
+        if (toolbar != null) {
+            toolbar.setTitle("");
+            if (getSupportActionBar() != null) {
+                getSupportActionBar().setDisplayShowTitleEnabled(false);
+            }
+        }
+        carregarPerfilAtualizado();
     }
 
     private void setupNavHeader() {
@@ -163,7 +174,6 @@ public class MainActivity extends AppCompatActivity {
                 if (response.isSuccessful() && response.body() != null) {
                     Usuario usuario = response.body();
                     
-                    // Salva os dados atualizados
                     SharedPreferences prefs = getSharedPreferences("orbis_prefs", MODE_PRIVATE);
                     prefs.edit()
                             .putString("user_nome", usuario.getNome())
@@ -171,7 +181,6 @@ public class MainActivity extends AppCompatActivity {
                             .putString("user_foto", usuario.getFotoPerfil())
                             .apply();
                     
-                    // Atualiza a UI do Header
                     setupNavHeader();
                 }
             }
@@ -196,7 +205,6 @@ public class MainActivity extends AppCompatActivity {
         TokenManager tokenManager = new TokenManager(this);
         tokenManager.clearTokens();
         
-        // Limpa as preferências do usuário ao sair
         SharedPreferences prefs = getSharedPreferences("orbis_prefs", MODE_PRIVATE);
         prefs.edit().clear().apply();
 
