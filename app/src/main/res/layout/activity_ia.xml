@@ -84,7 +84,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@drawable/bg_chat_input"
-            android:hint="Pergunte algo para o Orbi..."
+            android:hint="Pergunte algo para o Orb..."
             android:inputType="textMultiLine"
             android:maxLines="4"
             android:minHeight="45dp"
