@@ -61,6 +61,7 @@
             android:orientation="vertical"
             android:padding="20dp">
 
+            <!-- Card principal da máquina -->
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/cardMaquina"
                 style="@style/ModernCard"
@@ -117,7 +118,6 @@
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
-                    <!-- Detalhes -->
                     <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="SETOR" android:textColor="@color/gray" android:textSize="11sp" android:textStyle="bold" android:letterSpacing="0.05" />
                     <TextView android:id="@+id/txtSetorVariavel" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="--" android:textSize="16sp" android:textColor="@color/black" android:layout_marginTop="4dp" android:layout_marginBottom="16dp" />
 
@@ -139,13 +139,483 @@
                         </LinearLayout>
                     </LinearLayout>
 
-                    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/border" android:layout_marginTop="24dp" android:layout_marginBottom="24dp" />
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- ================================================ -->
+            <!-- Card de Risco -->
+            <!-- ================================================ -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardRisco"
+                style="@style/ModernCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="24dp">
+
+                    <!-- Título -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="20dp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Predição de Risco"
+                            android:textSize="17sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/black" />
+
+                        <TextView
+                            android:id="@+id/txtConfiancaGeral"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="--% conf."
+                            android:textSize="12sp"
+                            android:textColor="@color/gray" />
+
+                    </LinearLayout>
+
+                    <!-- Instabilidade -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginBottom="16dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            android:layout_marginBottom="6dp">
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="INSTABILIDADE"
+                                android:textSize="11sp"
+                                android:textColor="@color/gray"
+                                android:textStyle="bold"
+                                android:letterSpacing="0.05" />
+                            <TextView
+                                android:id="@+id/txtRiscoInstabilidadeClass"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="--"
+                                style="@style/BadgeText"
+                                android:textColor="@color/gray"
+                                android:background="@drawable/badge_outline_gray" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical">
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="24h"
+                                android:textSize="13sp"
+                                android:textColor="@color/gray" />
+                            <TextView
+                                android:id="@+id/txtRiscoInstabilidade24h"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="--"
+                                android:textSize="14sp"
+                                android:textStyle="bold"
+                                android:textColor="@color/black" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="   72h"
+                                android:textSize="13sp"
+                                android:textColor="@color/gray" />
+                            <TextView
+                                android:id="@+id/txtRiscoInstabilidade72h"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="--"
+                                android:textSize="14sp"
+                                android:textStyle="bold"
+                                android:textColor="@color/black"
+                                android:layout_marginStart="4dp" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/border" android:layout_marginBottom="16dp" />
+
+                    <!-- Alerta -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginBottom="16dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            android:layout_marginBottom="6dp">
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="ALERTA"
+                                android:textSize="11sp"
+                                android:textColor="@color/gray"
+                                android:textStyle="bold"
+                                android:letterSpacing="0.05" />
+                            <TextView
+                                android:id="@+id/txtRiscoAlertaClass"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="--"
+                                style="@style/BadgeText"
+                                android:textColor="@color/gray"
+                                android:background="@drawable/badge_outline_gray" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical">
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="24h"
+                                android:textSize="13sp"
+                                android:textColor="@color/gray" />
+                            <TextView
+                                android:id="@+id/txtRiscoAlerta24h"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="--"
+                                android:textSize="14sp"
+                                android:textStyle="bold"
+                                android:textColor="@color/black" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="   72h"
+                                android:textSize="13sp"
+                                android:textColor="@color/gray" />
+                            <TextView
+                                android:id="@+id/txtRiscoAlerta72h"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="--"
+                                android:textSize="14sp"
+                                android:textStyle="bold"
+                                android:textColor="@color/black"
+                                android:layout_marginStart="4dp" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/border" android:layout_marginBottom="16dp" />
+
+                    <!-- Manutenção -->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical"
+                            android:layout_marginBottom="6dp">
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="MANUTENÇÃO"
+                                android:textSize="11sp"
+                                android:textColor="@color/gray"
+                                android:textStyle="bold"
+                                android:letterSpacing="0.05" />
+                            <TextView
+                                android:id="@+id/txtRiscoManutencaoClass"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="--"
+                                style="@style/BadgeText"
+                                android:textColor="@color/gray"
+                                android:background="@drawable/badge_outline_gray" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical">
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="24h"
+                                android:textSize="13sp"
+                                android:textColor="@color/gray" />
+                            <TextView
+                                android:id="@+id/txtRiscoManutencao24h"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="--"
+                                android:textSize="14sp"
+                                android:textStyle="bold"
+                                android:textColor="@color/black" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="   72h"
+                                android:textSize="13sp"
+                                android:textColor="@color/gray" />
+                            <TextView
+                                android:id="@+id/txtRiscoManutencao72h"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="--"
+                                android:textSize="14sp"
+                                android:textStyle="bold"
+                                android:textColor="@color/black"
+                                android:layout_marginStart="4dp" />
+                        </LinearLayout>
+                    </LinearLayout>
 
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
+            <!-- ================================================ -->
+            <!-- Card de Predição de Alertas -->
+            <!-- ================================================ -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardPredicaoAlertas"
+                style="@style/ModernCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="24dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Predição de Alertas"
+                        android:textSize="17sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/black"
+                        android:layout_marginBottom="20dp" />
+
+                    <!-- Próximo alerta -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="PRÓXIMO ALERTA PREVISTO"
+                        android:textSize="11sp"
+                        android:textColor="@color/gray"
+                        android:textStyle="bold"
+                        android:letterSpacing="0.05"
+                        android:layout_marginBottom="8dp" />
+
+                    <LinearLayout
+                        android:id="@+id/layoutProximoAlerta"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical"
+                        android:layout_marginBottom="4dp">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+                            <TextView
+                                android:id="@+id/txtProximoAlertaData"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="--"
+                                android:textSize="15sp"
+                                android:textColor="@color/black"
+                                android:textStyle="bold" />
+                            <TextView
+                                android:id="@+id/txtProximoAlertaTipo"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="--"
+                                android:textSize="13sp"
+                                android:textColor="@color/gray"
+                                android:layout_marginTop="2dp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:gravity="end">
+                            <TextView
+                                android:id="@+id/txtProximoAlertaConfianca"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="--"
+                                android:textSize="13sp"
+                                android:textColor="@color/purple"
+                                android:textStyle="bold" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="confiança"
+                                android:textSize="11sp"
+                                android:textColor="@color/gray"
+                                android:layout_marginTop="2dp" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/txtProximoAlertaAusencia"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Sem previsão disponível"
+                        android:textSize="14sp"
+                        android:textColor="@color/gray"
+                        android:visibility="gone"
+                        android:layout_marginBottom="4dp" />
+
+                    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/border" android:layout_marginTop="16dp" android:layout_marginBottom="16dp" />
+
+                    <!-- Instabilidade prevista -->
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="INSTABILIDADE PREVISTA"
+                        android:textSize="11sp"
+                        android:textColor="@color/gray"
+                        android:textStyle="bold"
+                        android:letterSpacing="0.05"
+                        android:layout_marginBottom="8dp" />
+
+                    <LinearLayout
+                        android:id="@+id/layoutInstabilidade"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+                            <TextView
+                                android:id="@+id/txtInstabilidadeData"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="--"
+                                android:textSize="15sp"
+                                android:textColor="@color/black"
+                                android:textStyle="bold" />
+                            <TextView
+                                android:id="@+id/txtInstabilidadeLimiar"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="--"
+                                android:textSize="13sp"
+                                android:textColor="@color/gray"
+                                android:layout_marginTop="2dp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:gravity="end">
+                            <TextView
+                                android:id="@+id/txtInstabilidadeConfianca"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="--"
+                                android:textSize="13sp"
+                                android:textColor="@color/purple"
+                                android:textStyle="bold" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="confiança"
+                                android:textSize="11sp"
+                                android:textColor="@color/gray"
+                                android:layout_marginTop="2dp" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/txtInstabilidadeAusencia"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Sem previsão disponível"
+                        android:textSize="14sp"
+                        android:textColor="@color/gray"
+                        android:visibility="gone" />
+
+                    <!-- Modelo de integridade -->
+                    <LinearLayout
+                        android:id="@+id/layoutModeloIntegridade"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:background="@color/lightGray"
+                        android:padding="12dp"
+                        android:layout_marginTop="16dp"
+                        android:visibility="gone">
+
+                        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical" android:gravity="center_horizontal">
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="R²" android:textSize="10sp" android:textColor="@color/gray" android:textStyle="bold" />
+                            <TextView android:id="@+id/txtModeloR2" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="--" android:textSize="14sp" android:textColor="@color/black" android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical" android:gravity="center_horizontal">
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="SLOPE" android:textSize="10sp" android:textColor="@color/gray" android:textStyle="bold" />
+                            <TextView android:id="@+id/txtModeloSlope" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="--" android:textSize="14sp" android:textColor="@color/black" android:textStyle="bold" />
+                        </LinearLayout>
+
+                        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical" android:gravity="center_horizontal">
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="PONTOS" android:textSize="10sp" android:textColor="@color/gray" android:textStyle="bold" />
+                            <TextView android:id="@+id/txtModeloPontos" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="--" android:textSize="14sp" android:textColor="@color/black" android:textStyle="bold" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- ids ocultos legados -->
             <TextView android:id="@+id/txtIdVariavel" android:layout_width="0dp" android:layout_height="0dp" android:visibility="gone" />
             <Button android:id="@+id/btnVoltar" android:layout_width="0dp" android:layout_height="0dp" android:visibility="gone" />
+
+            <View android:layout_width="match_parent" android:layout_height="24dp" />
 
         </LinearLayout>
     </ScrollView>

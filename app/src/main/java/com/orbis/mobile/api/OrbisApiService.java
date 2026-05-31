@@ -10,6 +10,8 @@ import com.orbis.mobile.model.LoginResponse;
 import com.orbis.mobile.model.Manutencao;
 import com.orbis.mobile.model.ManutencoesResponse;
 import com.orbis.mobile.model.Maquina;
+import com.orbis.mobile.model.PredicaoAlertas;
+import com.orbis.mobile.model.PredicaoRisco;
 import com.orbis.mobile.model.Sensor;
 import com.orbis.mobile.model.TecnicosResponse;
 import com.orbis.mobile.model.Usuario;
@@ -83,6 +85,13 @@ public interface OrbisApiService {
 
     @DELETE("maquinas/{id}")
     Call<Void> deleteMaquina(@Path("id") int id);
+
+    // PREDIÇÕES
+    @GET("maquinas/{id}/predicao-alertas")
+    Call<PredicaoAlertas> getPredicaoAlertas(@Path("id") int id);
+
+    @GET("maquinas/{id}/predicao-risco")
+    Call<PredicaoRisco> getPredicaoRisco(@Path("id") int id);
 
     // SENSORES
     @GET("sensores")
