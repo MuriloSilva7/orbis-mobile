@@ -71,25 +71,60 @@ public class ManutencaoActivity extends AppCompatActivity {
         progressBar.setVisibility(View.VISIBLE);
 
         OrbisApiService apiService = RetrofitClient.getInstance(this).getApi();
+
+        if (filtroAlertaId != -1) {
+            apiService.getManutencoesByAlerta(filtroAlertaId).enqueue(new Callback<List<Manutencao>>() {
+                @Override
+                public void onResponse(Call<List<Manutencao>> call, Response<List<Manutencao>> response) {
+                    progressBar.setVisibility(View.GONE);
+                    listaManutencoes.clear();
+
+                    if (response.isSuccessful() && response.body() != null) {
+                        listaManutencoes.addAll(response.body());
+                        adapter.notifyDataSetChanged();
+
+                        if (listaManutencoes.isEmpty()) {
+                            txtSemManutencoes.setVisibility(View.VISIBLE);
+                            txtSemManutencoes.setText("Nenhum histórico para este alerta.");
+                        } else {
+                            txtSemManutencoes.setVisibility(View.GONE);
+                        }
+                    } else {
+                        String erroMsg = "Erro " + response.code() + " ao carregar histórico do alerta";
+                        Log.e("API_ERROR", erroMsg);
+                        Toast.makeText(ManutencaoActivity.this, erroMsg, Toast.LENGTH_SHORT).show();
+
+                        txtSemManutencoes.setVisibility(View.VISIBLE);
+                        txtSemManutencoes.setText("Não foi possível carregar o histórico deste alerta.");
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<List<Manutencao>> call, Throwable t) {
+                    progressBar.setVisibility(View.GONE);
+                    Log.e("API_ERROR", "Erro ao carregar histórico do alerta", t);
+                    Toast.makeText(ManutencaoActivity.this, "Erro de conexão", Toast.LENGTH_SHORT).show();
+
+                    txtSemManutencoes.setVisibility(View.VISIBLE);
+                    txtSemManutencoes.setText("Erro de conexão ao carregar o histórico.");
+                }
+            });
+
+            return;
+        }
+
         apiService.getManutencoes(1, 100).enqueue(new Callback<ManutencoesResponse>() {
             @Override
             public void onResponse(Call<ManutencoesResponse> call, Response<ManutencoesResponse> response) {
                 progressBar.setVisibility(View.GONE);
+
                 if (response.isSuccessful() && response.body() != null) {
                     listaManutencoes.clear();
 
                     List<Manutencao> dadosBrutos = response.body().getDados();
 
                     if (dadosBrutos != null) {
-                        if (filtroAlertaId != -1) {
-                            // Filtra apenas as manutenções daquele alerta específico
-                            for (Manutencao m : dadosBrutos) {
-                                if (m.getAlertaId() == filtroAlertaId) {
-                                    listaManutencoes.add(m);
-                                }
-                            }
-                        } else if (filtroMaquinaId != -1) {
-                            // Filtra apenas as manutenções daquela máquina
+                        if (filtroMaquinaId != -1) {
                             for (Manutencao m : dadosBrutos) {
                                 if (m.getAlerta() != null &&
                                         m.getAlerta().getMaquina() != null &&
@@ -106,9 +141,8 @@ public class ManutencaoActivity extends AppCompatActivity {
 
                     if (listaManutencoes.isEmpty()) {
                         txtSemManutencoes.setVisibility(View.VISIBLE);
-                        if (filtroAlertaId != -1) {
-                            txtSemManutencoes.setText("Nenhum histórico para este alerta.");
-                        } else if (filtroMaquinaId != -1) {
+
+                        if (filtroMaquinaId != -1) {
                             txtSemManutencoes.setText("Nenhum histórico para esta máquina.");
                         } else {
                             txtSemManutencoes.setText("Nenhuma manutenção encontrada.");
@@ -126,7 +160,7 @@ public class ManutencaoActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<ManutencoesResponse> call, Throwable t) {
                 progressBar.setVisibility(View.GONE);
-                Log.e("API_ERROR", t.getMessage());
+                Log.e("API_ERROR", "Erro ao carregar manutenções", t);
                 Toast.makeText(ManutencaoActivity.this, "Erro de conexão", Toast.LENGTH_SHORT).show();
             }
         });

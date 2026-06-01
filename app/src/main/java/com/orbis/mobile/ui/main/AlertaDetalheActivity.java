@@ -146,9 +146,7 @@ public class AlertaDetalheActivity extends AppCompatActivity {
                         if (alerta.getId() == id) {
                             preencherCampos(alerta);
                             atualizarInterfacePorStatus(alerta.getStatus());
-                            if ("EM_ANDAMENTO".equals(alerta.getStatus())) {
-                                carregarManutencaoDoAlerta(alerta.getId());
-                            }
+                            carregarManutencaoDoAlerta(alerta.getId());
                             break;
                         }
                     }

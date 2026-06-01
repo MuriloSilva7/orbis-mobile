@@ -33,6 +33,7 @@ import retrofit2.Response;
 
 public class MaquinaDetalheActivity extends AppCompatActivity {
 
+
     // --- Máquina principal ---
     private TextView txtIdVariavel, txtNomeVariavel, txtSetorVariavel, txtTipoVariavel,
             txtCriticidadeVariavel, txtIntegridadeVariavel, txtEstadoVariavel;
