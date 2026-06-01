@@ -4,17 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F5F5F5"
+    android:background="@drawable/bg_app_gradient"
     tools:context=".ui.main.ChatHistoryActivity">
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/toolbarHistory"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/white"
+        android:background="@drawable/bg_toolbar_surface"
         app:title="Conversas Salvas"
-        app:titleTextColor="@color/purple"
+        app:titleTextColor="@color/textPrimary"
         app:navigationIcon="@drawable/ic_voltar"
+        app:navigationIconTint="@color/textPrimary"
         app:layout_constraintTop_toTopOf="parent" />
 
     <View
