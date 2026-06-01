@@ -1,20 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Paleta alinhada ao dashboard web Orbis/shadcn -->
     <color name="purple">#5E17EB</color>
-    <color name="purpleLight">#8141FF</color>
+    <color name="purpleLight">#8B5CF6</color>
+    <color name="purpleSoft">#F3E8FF</color>
+    <color name="purpleSurface">#F6F1FF</color>
     <color name="purpleDark">#4310A3</color>
     <color name="white">#FFFFFF</color>
-    <color name="background">#F8F9FA</color>
+    <color name="background">#F8FAFC</color>
     <color name="surface">#FFFFFF</color>
-    <color name="black">#111111</color>
-    <color name="gray">#8E8E93</color>
-    <color name="lightGray">#F2F2F7</color>
-    <color name="darkGray">#1C1C1E</color>
-    <color name="border">#E5E5EA</color>
-    <color name="statusGreen">#34C759</color>
-    <color name="statusOrange">#FF9500</color>
-    <color name="statusRed">#FF3B30</color>
-    <color name="statusBlue">#007AFF</color>
+    <color name="surfaceElevated">#FFFFFF</color>
+    <color name="black">#111827</color>
+    <color name="textPrimary">#1E293B</color>
+    <color name="gray">#64748B</color>
+    <color name="lightGray">#F1F5F9</color>
+    <color name="darkGray">#334155</color>
+    <color name="border">#E2E8F0</color>
+    <color name="borderSoft">#EEF2F7</color>
+    <color name="statusGreen">#22C55E</color>
+    <color name="statusOrange">#F59E0B</color>
+    <color name="statusRed">#EF4444</color>
+    <color name="statusBlue">#2563EB</color>
     <color name="colorPrimary">#5E17EB</color>
     <color name="colorPrimaryDark">#3A0099</color>
     <color name="colorAccent">#5E17EB</color>

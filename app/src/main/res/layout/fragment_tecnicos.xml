@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
+    android:background="@drawable/bg_app_gradient"
     tools:context=".ui.fragments.TecnicosFragment">
 
     <ProgressBar
@@ -38,7 +38,7 @@
         android:layout_height="44dp"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="16dp"
-        android:background="?attr/selectableItemBackgroundBorderless"
+        android:background="@drawable/bg_refresh_button"
         android:src="@drawable/ic_refresh"
         app:tint="@color/purple"
         android:contentDescription="Recarregar"
