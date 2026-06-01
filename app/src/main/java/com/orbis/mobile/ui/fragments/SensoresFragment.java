@@ -6,10 +6,13 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 
@@ -30,8 +33,9 @@ public class SensoresFragment extends Fragment {
 
     private RecyclerView recyclerSensores;
     private SensorAdapter adapter;
-    private List<Sensor> listaSensores;
+    private List<Sensor> listaSensores = new ArrayList<>();
     private ProgressBar progressBar;
+    private EditText editSearch;
 
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container,
@@ -41,6 +45,7 @@ public class SensoresFragment extends Fragment {
 
         recyclerSensores = view.findViewById(R.id.recyclerSensores);
         progressBar = view.findViewById(R.id.progressSensores);
+        editSearch = view.findViewById(R.id.editSearchSensores);
 
         ImageButton btnRefresh = view.findViewById(R.id.btnRefreshSensores);
         btnRefresh.setOnClickListener(v -> carregarSensores());
@@ -49,14 +54,30 @@ public class SensoresFragment extends Fragment {
                 new LinearLayoutManager(getContext())
         );
 
-        listaSensores = new ArrayList<>();
-
         adapter = new SensorAdapter(listaSensores);
         recyclerSensores.setAdapter(adapter);
 
+        setupSearch();
         carregarSensores();
 
         return view;
+    }
+
+    private void setupSearch() {
+        if (editSearch != null) {
+            editSearch.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    adapter.filtrar(s.toString());
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {}
+            });
+        }
     }
 
     private void carregarSensores() {
@@ -75,11 +96,8 @@ public class SensoresFragment extends Fragment {
                 if (progressBar != null) progressBar.setVisibility(View.GONE);
 
                 if (response.isSuccessful() && response.body() != null) {
-
-                    listaSensores.clear();
-                    listaSensores.addAll(response.body());
-
-                    adapter.notifyDataSetChanged();
+                    listaSensores = response.body();
+                    adapter.atualizarLista(listaSensores);
                 }
             }
 

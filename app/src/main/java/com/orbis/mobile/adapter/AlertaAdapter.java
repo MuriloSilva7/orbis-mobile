@@ -17,14 +17,41 @@ import com.orbis.mobile.R;
 import com.orbis.mobile.model.Alerta;
 import com.orbis.mobile.ui.main.AlertaDetalheActivity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class AlertaAdapter extends RecyclerView.Adapter<AlertaAdapter.ViewHolder> {
 
     private List<Alerta> lista;
+    private List<Alerta> listaOriginal;
 
     public AlertaAdapter(List<Alerta> lista) {
         this.lista = lista;
+        this.listaOriginal = new ArrayList<>(lista);
+    }
+
+    public void atualizarLista(List<Alerta> novaLista) {
+        this.lista = novaLista;
+        this.listaOriginal = new ArrayList<>(novaLista);
+        notifyDataSetChanged();
+    }
+
+    public void filtrar(String texto) {
+        List<Alerta> filtrada = new ArrayList<>();
+        if (texto.isEmpty()) {
+            filtrada.addAll(listaOriginal);
+        } else {
+            String query = texto.toLowerCase().trim();
+            for (Alerta item : listaOriginal) {
+                if (item.getMaquina() != null && item.getMaquina().getNome().toLowerCase().contains(query)) {
+                    filtrada.add(item);
+                } else if (item.getMensagem() != null && item.getMensagem().toLowerCase().contains(query)) {
+                    filtrada.add(item);
+                }
+            }
+        }
+        this.lista = filtrada;
+        notifyDataSetChanged();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -84,6 +111,6 @@ public class AlertaAdapter extends RecyclerView.Adapter<AlertaAdapter.ViewHolder
 
     @Override
     public int getItemCount() {
-        return lista.size();
+        return lista != null ? lista.size() : 0;
     }
 }

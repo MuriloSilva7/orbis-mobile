@@ -6,10 +6,13 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 
@@ -31,8 +34,9 @@ public class MaquinasFragment extends Fragment {
 
     private RecyclerView recyclerMaquinas;
     private MaquinaAdapter adapter;
-    private List<Maquina> listaMaquinas;
+    private List<Maquina> listaMaquinas = new ArrayList<>();
     private ProgressBar progressBar;
+    private EditText editSearch;
 
     public View onCreateView(
             LayoutInflater inflater, ViewGroup container,
@@ -42,6 +46,7 @@ public class MaquinasFragment extends Fragment {
 
         recyclerMaquinas = view.findViewById(R.id.recyclerMaquinas);
         progressBar = view.findViewById(R.id.progressMaquinas);
+        editSearch = view.findViewById(R.id.editSearchMaquinas);
 
         ImageButton btnRefresh = view.findViewById(R.id.btnRefreshMaquinas);
         btnRefresh.setOnClickListener(v -> carregarMaquinas());
@@ -50,14 +55,28 @@ public class MaquinasFragment extends Fragment {
                 new LinearLayoutManager(getContext())
         );
 
-        listaMaquinas = new ArrayList<>();
-
         adapter = new MaquinaAdapter(listaMaquinas);
         recyclerMaquinas.setAdapter(adapter);
 
+        setupSearch();
         carregarMaquinas();
 
         return view;
+    }
+
+    private void setupSearch() {
+        editSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                adapter.filtrar(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
     }
 
     private void carregarMaquinas() {
@@ -76,11 +95,8 @@ public class MaquinasFragment extends Fragment {
                 if (progressBar != null) progressBar.setVisibility(View.GONE);
 
                 if (response.isSuccessful() && response.body() != null) {
-
-                    listaMaquinas.clear();
-                    listaMaquinas.addAll(response.body());
-
-                    adapter.notifyDataSetChanged();
+                    listaMaquinas = response.body();
+                    adapter.atualizarLista(listaMaquinas);
                 }
             }
 

@@ -6,9 +6,12 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -34,6 +37,7 @@ public class TecnicosFragment extends Fragment {
     private TecnicoAdapter adapter;
     private List<Usuario> listaTecnicos = new ArrayList<>();
     private ProgressBar progressBar;
+    private EditText editSearch;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -43,6 +47,7 @@ public class TecnicosFragment extends Fragment {
 
         recyclerTecnicos = view.findViewById(R.id.recyclerTecnicos);
         progressBar = view.findViewById(R.id.progressTecnicos);
+        editSearch = view.findViewById(R.id.editSearchTecnicos);
         
         ImageButton btnRefresh = view.findViewById(R.id.btnRefreshTecnicos);
         btnRefresh.setOnClickListener(v -> carregarTecnicos());
@@ -52,9 +57,27 @@ public class TecnicosFragment extends Fragment {
         adapter = new TecnicoAdapter(listaTecnicos);
         recyclerTecnicos.setAdapter(adapter);
 
+        setupSearch();
         carregarTecnicos();
 
         return view;
+    }
+
+    private void setupSearch() {
+        if (editSearch != null) {
+            editSearch.addTextChangedListener(new TextWatcher() {
+                @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    adapter.filtrar(s.toString());
+                }
+
+                @Override
+                public void afterTextChanged(Editable s) {}
+            });
+        }
     }
 
     private void carregarTecnicos() {
@@ -64,7 +87,8 @@ public class TecnicosFragment extends Fragment {
                 .getInstance(requireContext())
                 .getApi();
 
-        Call<TecnicosResponse> call = apiService.getTecnicos(1, 10);
+        // Buscando uma lista maior para permitir a pesquisa local eficiente
+        Call<TecnicosResponse> call = apiService.getTecnicos(1, 100);
 
         call.enqueue(new Callback<TecnicosResponse>() {
 
@@ -74,9 +98,8 @@ public class TecnicosFragment extends Fragment {
                 if (progressBar != null) progressBar.setVisibility(View.GONE);
 
                 if (response.isSuccessful() && response.body() != null) {
-                    listaTecnicos.clear();
-                    listaTecnicos.addAll(response.body().getDados());
-                    adapter.notifyDataSetChanged();
+                    listaTecnicos = response.body().getDados();
+                    adapter.atualizarLista(listaTecnicos);
                 }
             }
 

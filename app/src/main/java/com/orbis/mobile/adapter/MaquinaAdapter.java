@@ -16,30 +16,51 @@ import com.orbis.mobile.R;
 import com.orbis.mobile.model.Maquina;
 import com.orbis.mobile.ui.main.MaquinaDetalheActivity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MaquinaAdapter extends RecyclerView.Adapter<MaquinaAdapter.MaquinaViewHolder> {
 
     private List<Maquina> listaMaquinas;
+    private List<Maquina> listaOriginal;
 
     public MaquinaAdapter(List<Maquina> listaMaquinas){
         this.listaMaquinas = listaMaquinas;
+        this.listaOriginal = new ArrayList<>(listaMaquinas);
     }
 
+    public void atualizarLista(List<Maquina> novaLista) {
+        this.listaMaquinas = novaLista;
+        this.listaOriginal = new ArrayList<>(novaLista);
+        notifyDataSetChanged();
+    }
+
+    public void filtrar(String texto) {
+        List<Maquina> filtrada = new ArrayList<>();
+        if (texto.isEmpty()) {
+            filtrada.addAll(listaOriginal);
+        } else {
+            String query = texto.toLowerCase().trim();
+            for (Maquina item : listaOriginal) {
+                if (item.getNome().toLowerCase().contains(query)) {
+                    filtrada.add(item);
+                }
+            }
+        }
+        this.listaMaquinas = filtrada;
+        notifyDataSetChanged();
+    }
 
     @NonNull
     @Override
     public MaquinaAdapter.MaquinaViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_maquina, parent, false);
         return new MaquinaViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull MaquinaViewHolder holder, int position) {
-
         Maquina maquina = listaMaquinas.get(position);
-
         holder.txtNomeVariavel.setText(maquina.getNome());
 
         Glide.with(holder.itemView.getContext())
@@ -59,14 +80,12 @@ public class MaquinaAdapter extends RecyclerView.Adapter<MaquinaAdapter.MaquinaV
     }
 
     public static class MaquinaViewHolder extends RecyclerView.ViewHolder {
-
         ImageView imgMaquina;
         TextView txtNomeVariavel;
         Button btnVerMais;
 
         public MaquinaViewHolder(@NonNull View itemView) {
             super(itemView);
-
             txtNomeVariavel = itemView.findViewById(R.id.txtNomeVariavel);
             btnVerMais = itemView.findViewById(R.id.btnVerMais);
             imgMaquina = itemView.findViewById(R.id.imgMaquina);
