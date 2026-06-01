@@ -17,6 +17,9 @@
         android:theme="@style/Theme.Orbis"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".ui.main.ChatHistoryActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.main.IaActivity"
             android:exported="false" />
         <activity
@@ -51,8 +54,8 @@
         </activity>
         <activity
             android:name=".ui.main.MainActivity"
-            android:label=""
-            android:exported="false" />
+            android:exported="false"
+            android:label="" />
     </application>
 
 </manifest>
