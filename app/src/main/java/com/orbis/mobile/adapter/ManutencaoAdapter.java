@@ -13,7 +13,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.orbis.mobile.R;
 import com.orbis.mobile.model.Manutencao;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.TimeZone;
 
 public class ManutencaoAdapter extends RecyclerView.Adapter<ManutencaoAdapter.MyViewHolder> {
 
@@ -47,7 +51,7 @@ public class ManutencaoAdapter extends RecyclerView.Adapter<ManutencaoAdapter.My
             holder.txtTecnicoNome.setText("Técnico: Não informado");
         }
 
-        holder.txtData.setText("Data: " + manutencao.getCriadoEm());
+        holder.txtData.setText("Data: " + formatarData(manutencao.getCriadoEm()));
         holder.txtObservacao.setText(manutencao.getObservacao() != null ? manutencao.getObservacao() : "Sem observações.");
         holder.txtStatus.setText(manutencao.getStatus());
 
@@ -67,12 +71,40 @@ public class ManutencaoAdapter extends RecyclerView.Adapter<ManutencaoAdapter.My
         holder.txtStatus.setBackground(drawable);
     }
 
-    @Override
-    public int getItemCount() {
-        return listaManutencoes.size();
+    private String formatarData(String dataIso) {
+        if (dataIso == null || dataIso.isEmpty()) return "--";
+        try {
+            // Tenta converter de ISO-8601 (UTC) para Date
+            SimpleDateFormat sdfEntrada = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.US);
+            sdfEntrada.setTimeZone(TimeZone.getTimeZone("UTC"));
+            Date date = sdfEntrada.parse(dataIso);
+
+            if (date == null) return dataIso;
+
+            // Formata para o padrão brasileiro usando o fuso horário do dispositivo
+            SimpleDateFormat sdfSaida = new SimpleDateFormat("dd/MM/yyyy HH:mm", new Locale("pt", "BR"));
+            sdfSaida.setTimeZone(TimeZone.getDefault());
+            return sdfSaida.format(date);
+        } catch (Exception e) {
+            try {
+                // Tenta formato alternativo sem milissegundos
+                SimpleDateFormat sdfEntrada2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
+                Date date = sdfEntrada2.parse(dataIso);
+                if (date == null) return dataIso;
+                SimpleDateFormat sdfSaida = new SimpleDateFormat("dd/MM/yyyy HH:mm", new Locale("pt", "BR"));
+                return sdfSaida.format(date);
+            } catch (Exception e2) {
+                return dataIso;
+            }
+        }
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder {
+    @Override
+    public int getItemCount() {
+        return listaManutencoes != null ? listaManutencoes.size() : 0;
+    }
+
+    public static class MyViewHolder extends RecyclerView.ViewHolder {
         TextView txtMaquinaNome, txtTecnicoNome, txtData, txtStatus, txtObservacao;
 
         public MyViewHolder(@NonNull View itemView) {

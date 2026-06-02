@@ -1,6 +1,5 @@
 package com.orbis.mobile.adapter;
 
-
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +10,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.orbis.mobile.R;
@@ -56,13 +56,14 @@ public class AlertaAdapter extends RecyclerView.Adapter<AlertaAdapter.ViewHolder
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView txtNomeVariavel;
+        TextView txtStatusVariavel;
         Button btnVerMais;
         ImageView imgAlerta;
 
         public ViewHolder(View itemView) {
             super(itemView);
-
             txtNomeVariavel = itemView.findViewById(R.id.txtNomeVariavel);
+            txtStatusVariavel = itemView.findViewById(R.id.txtStatusVariavel);
             btnVerMais = itemView.findViewById(R.id.btnVerMais);
             imgAlerta = itemView.findViewById(R.id.imgAlerta);
         }
@@ -93,18 +94,39 @@ public class AlertaAdapter extends RecyclerView.Adapter<AlertaAdapter.ViewHolder
             holder.txtNomeVariavel.setText("Máquina desconhecida");
         }
 
+        // --- CORREÇÃO DO STATUS ---
+        String status = alerta.getStatus();
+        
+        // Define o texto amigável
+        if (status == null) status = "DESCONHECIDO";
+        
+        // Formata o texto para exibição (ex: EM_ANDAMENTO -> Em Andamento)
+        String statusFormatado = status.replace("_", " ");
+        holder.txtStatusVariavel.setText(statusFormatado);
+
+        // Aplica cores e estilos de acordo com o status real
+        switch (status.toUpperCase()) {
+            case "ATIVO":
+                holder.txtStatusVariavel.setTextColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.statusRed));
+                holder.txtStatusVariavel.setBackgroundResource(R.drawable.badge_outline_red);
+                break;
+            case "EM_ANDAMENTO":
+                holder.txtStatusVariavel.setTextColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.statusOrange));
+                holder.txtStatusVariavel.setBackgroundResource(R.drawable.badge_outline_purple);
+                break;
+            case "RESOLVIDO":
+                holder.txtStatusVariavel.setTextColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.statusGreen));
+                holder.txtStatusVariavel.setBackgroundResource(R.drawable.badge_outline_green);
+                break;
+            default:
+                holder.txtStatusVariavel.setTextColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.gray));
+                holder.txtStatusVariavel.setBackgroundResource(R.drawable.badge_outline_gray);
+                break;
+        }
+
         holder.btnVerMais.setOnClickListener(v -> {
-
-            Intent intent = new Intent(
-                    v.getContext(),
-                    AlertaDetalheActivity.class
-            );
-
-            intent.putExtra(
-                    "id_alerta",
-                    alerta.getId()
-            );
-
+            Intent intent = new Intent(v.getContext(), AlertaDetalheActivity.class);
+            intent.putExtra("id_alerta", alerta.getId());
             v.getContext().startActivity(intent);
         });
     }

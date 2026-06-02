@@ -22,9 +22,13 @@ import com.orbis.mobile.model.Alerta;
 import com.orbis.mobile.model.Manutencao;
 import com.orbis.mobile.network.RetrofitClient;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
+import java.util.TimeZone;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -165,7 +169,7 @@ public class AlertaDetalheActivity extends AppCompatActivity {
         txtIdAlertaVariavel.setText(String.valueOf(alerta.getId()));
         txtMaquinaVariavel.setText(alerta.getMaquina().getNome());
         txtSensorVariavel.setText(alerta.getSensor().getTipo());
-        txtCriadoEmVariavel.setText(alerta.getCriadoEm());
+        txtCriadoEmVariavel.setText(formatarData(alerta.getCriadoEm()));
         txtTipoVariavel.setText(alerta.getTipo());
         txtMensagemVariavel.setText(alerta.getMensagem());
 
@@ -177,6 +181,30 @@ public class AlertaDetalheActivity extends AppCompatActivity {
         }
         
         atualizarStatusUI(alerta.getStatus());
+    }
+
+    private String formatarData(String dataIso) {
+        if (dataIso == null || dataIso.isEmpty()) return "--";
+        try {
+            // Tenta converter de ISO-8601 para Date
+            SimpleDateFormat sdfEntrada = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.US);
+            sdfEntrada.setTimeZone(TimeZone.getTimeZone("UTC"));
+            Date date = sdfEntrada.parse(dataIso);
+
+            // Formata para o padrão brasileiro
+            SimpleDateFormat sdfSaida = new SimpleDateFormat("dd/MM/yyyy HH:mm", new Locale("pt", "BR"));
+            return sdfSaida.format(date);
+        } catch (Exception e) {
+            try {
+                // Tenta um formato alternativo sem milissegundos se falhar
+                SimpleDateFormat sdfEntrada2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
+                Date date = sdfEntrada2.parse(dataIso);
+                SimpleDateFormat sdfSaida = new SimpleDateFormat("dd/MM/yyyy HH:mm", new Locale("pt", "BR"));
+                return sdfSaida.format(date);
+            } catch (Exception e2) {
+                return dataIso; // Retorna original se não conseguir formatar
+            }
+        }
     }
 
     private void atualizarStatusUI(String status) {
