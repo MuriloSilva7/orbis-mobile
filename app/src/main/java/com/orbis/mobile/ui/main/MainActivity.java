@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
@@ -64,6 +65,12 @@ public class MainActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
 
+        // Listener para o botão de pesquisa global customizado na Toolbar
+        ImageButton btnSearchGlobal = findViewById(R.id.btnSearchGlobal);
+        if (btnSearchGlobal != null) {
+            btnSearchGlobal.setOnClickListener(v -> abrirPesquisaGlobal());
+        }
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             if (checkSelfPermission(Manifest.permission.POST_NOTIFICATIONS)
                     != PackageManager.PERMISSION_GRANTED) {
@@ -89,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(toolbar, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
 
-        // Remove o título toda vez que o destino mudar
+        // Mantém o título vazio para dar destaque aos elementos customizados na direita
         navController.addOnDestinationChangedListener((controller, destination, arguments) -> {
             toolbar.setTitle("");
             if (getSupportActionBar() != null) {
@@ -127,6 +134,11 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }, 5000);
+    }
+
+    private void abrirPesquisaGlobal() {
+        SearchBottomSheetDialogFragment searchSheet = new SearchBottomSheetDialogFragment();
+        searchSheet.show(getSupportFragmentManager(), "search_sheet");
     }
 
     @Override

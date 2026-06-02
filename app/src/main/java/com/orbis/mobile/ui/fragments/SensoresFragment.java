@@ -1,30 +1,22 @@
 package com.orbis.mobile.ui.fragments;
 
 import android.os.Bundle;
-
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
-
 import com.orbis.mobile.R;
 import com.orbis.mobile.adapter.SensorAdapter;
 import com.orbis.mobile.api.OrbisApiService;
 import com.orbis.mobile.model.Sensor;
 import com.orbis.mobile.network.RetrofitClient;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -35,75 +27,39 @@ public class SensoresFragment extends Fragment {
     private SensorAdapter adapter;
     private List<Sensor> listaSensores = new ArrayList<>();
     private ProgressBar progressBar;
-    private EditText editSearch;
 
-    public View onCreateView(
-            LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
-
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_sensores, container, false);
 
         recyclerSensores = view.findViewById(R.id.recyclerSensores);
         progressBar = view.findViewById(R.id.progressSensores);
-        editSearch = view.findViewById(R.id.editSearchSensores);
 
         ImageButton btnRefresh = view.findViewById(R.id.btnRefreshSensores);
         btnRefresh.setOnClickListener(v -> carregarSensores());
 
-        recyclerSensores.setLayoutManager(
-                new LinearLayoutManager(getContext())
-        );
-
+        recyclerSensores.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new SensorAdapter(listaSensores);
         recyclerSensores.setAdapter(adapter);
 
-        setupSearch();
         carregarSensores();
-
         return view;
-    }
-
-    private void setupSearch() {
-        if (editSearch != null) {
-            editSearch.addTextChangedListener(new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
-
-                @Override
-                public void onTextChanged(CharSequence s, int start, int before, int count) {
-                    adapter.filtrar(s.toString());
-                }
-
-                @Override
-                public void afterTextChanged(Editable s) {}
-            });
-        }
     }
 
     private void carregarSensores() {
         if (progressBar != null) progressBar.setVisibility(View.VISIBLE);
-
-        OrbisApiService apiService = RetrofitClient
-                .getInstance(requireContext())
-                .getApi();
-
-        Call<List<Sensor>> call = apiService.getSensores();
-
-        call.enqueue(new Callback<List<Sensor>>() {
+        OrbisApiService apiService = RetrofitClient.getInstance(requireContext()).getApi();
+        apiService.getSensores().enqueue(new Callback<List<Sensor>>() {
             @Override
-            public void onResponse(Call<List<Sensor>> call,
-                                   Response<List<Sensor>> response) {
+            public void onResponse(Call<List<Sensor>> call, Response<List<Sensor>> response) {
                 if (progressBar != null) progressBar.setVisibility(View.GONE);
-
                 if (response.isSuccessful() && response.body() != null) {
-                    listaSensores = response.body();
+                    listaSensores.clear();
+                    listaSensores.addAll(response.body());
                     adapter.atualizarLista(listaSensores);
                 }
             }
-
             @Override
-            public void onFailure(Call<List<Sensor>> call,
-                                  Throwable t) {
+            public void onFailure(Call<List<Sensor>> call, Throwable t) {
                 if (progressBar != null) progressBar.setVisibility(View.GONE);
                 Log.e("ERRO_API", t.getMessage());
             }
