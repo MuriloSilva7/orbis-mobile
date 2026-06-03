@@ -21,18 +21,24 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import android.text.Editable;
+import android.text.TextWatcher;
+import com.google.android.material.textfield.TextInputEditText;
+
 public class SensoresFragment extends Fragment {
 
     private RecyclerView recyclerSensores;
     private SensorAdapter adapter;
     private List<Sensor> listaSensores = new ArrayList<>();
     private ProgressBar progressBar;
+    private TextInputEditText editSearch;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_sensores, container, false);
 
         recyclerSensores = view.findViewById(R.id.recyclerSensores);
         progressBar = view.findViewById(R.id.progressSensores);
+        editSearch = view.findViewById(R.id.editSearchSensores);
 
         ImageButton btnRefresh = view.findViewById(R.id.btnRefreshSensores);
         btnRefresh.setOnClickListener(v -> carregarSensores());
@@ -40,6 +46,19 @@ public class SensoresFragment extends Fragment {
         recyclerSensores.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new SensorAdapter(listaSensores);
         recyclerSensores.setAdapter(adapter);
+
+        editSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                adapter.filtrar(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
 
         carregarSensores();
         return view;

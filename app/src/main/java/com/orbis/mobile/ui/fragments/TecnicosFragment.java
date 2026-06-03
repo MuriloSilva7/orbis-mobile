@@ -22,12 +22,17 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import android.text.Editable;
+import android.text.TextWatcher;
+import com.google.android.material.textfield.TextInputEditText;
+
 public class TecnicosFragment extends Fragment {
 
     private RecyclerView recyclerTecnicos;
     private TecnicoAdapter adapter;
     private List<Usuario> listaTecnicos = new ArrayList<>();
     private ProgressBar progressBar;
+    private TextInputEditText editSearch;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -35,6 +40,7 @@ public class TecnicosFragment extends Fragment {
 
         recyclerTecnicos = view.findViewById(R.id.recyclerTecnicos);
         progressBar = view.findViewById(R.id.progressTecnicos);
+        editSearch = view.findViewById(R.id.editSearchTecnicos);
         
         ImageButton btnRefresh = view.findViewById(R.id.btnRefreshTecnicos);
         btnRefresh.setOnClickListener(v -> carregarTecnicos());
@@ -42,6 +48,19 @@ public class TecnicosFragment extends Fragment {
         recyclerTecnicos.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new TecnicoAdapter(listaTecnicos);
         recyclerTecnicos.setAdapter(adapter);
+
+        editSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                adapter.filtrar(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
 
         carregarTecnicos();
         return view;

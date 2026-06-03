@@ -21,18 +21,24 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import android.text.Editable;
+import android.text.TextWatcher;
+import com.google.android.material.textfield.TextInputEditText;
+
 public class MaquinasFragment extends Fragment {
 
     private RecyclerView recyclerMaquinas;
     private MaquinaAdapter adapter;
     private List<Maquina> listaMaquinas = new ArrayList<>();
     private ProgressBar progressBar;
+    private TextInputEditText editSearch;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_maquinas, container, false);
 
         recyclerMaquinas = view.findViewById(R.id.recyclerMaquinas);
         progressBar = view.findViewById(R.id.progressMaquinas);
+        editSearch = view.findViewById(R.id.editSearchMaquinas);
 
         ImageButton btnRefresh = view.findViewById(R.id.btnRefreshMaquinas);
         btnRefresh.setOnClickListener(v -> carregarMaquinas());
@@ -40,6 +46,19 @@ public class MaquinasFragment extends Fragment {
         recyclerMaquinas.setLayoutManager(new LinearLayoutManager(getContext()));
         adapter = new MaquinaAdapter(listaMaquinas);
         recyclerMaquinas.setAdapter(adapter);
+
+        editSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                adapter.filtrar(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
 
         carregarMaquinas();
         return view;

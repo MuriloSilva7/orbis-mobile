@@ -65,12 +65,6 @@ public class MainActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
 
-        // Listener para o botão de pesquisa global customizado na Toolbar
-        ImageButton btnSearchGlobal = findViewById(R.id.btnSearchGlobal);
-        if (btnSearchGlobal != null) {
-            btnSearchGlobal.setOnClickListener(v -> abrirPesquisaGlobal());
-        }
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             if (checkSelfPermission(Manifest.permission.POST_NOTIFICATIONS)
                     != PackageManager.PERMISSION_GRANTED) {

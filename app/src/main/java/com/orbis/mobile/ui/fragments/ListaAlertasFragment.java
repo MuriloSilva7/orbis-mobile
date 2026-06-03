@@ -20,6 +20,10 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import android.text.Editable;
+import android.text.TextWatcher;
+import com.google.android.material.textfield.TextInputEditText;
+
 public class ListaAlertasFragment extends Fragment {
 
     private static final String ARG_STATUS = "status";
@@ -29,6 +33,7 @@ public class ListaAlertasFragment extends Fragment {
     private ProgressBar progressBar;
     private AlertaAdapter adapter;
     private List<Alerta> listaFiltrada = new ArrayList<>();
+    private TextInputEditText editSearch;
 
     public static ListaAlertasFragment newInstance(String status) {
         ListaAlertasFragment fragment = new ListaAlertasFragment();
@@ -52,10 +57,25 @@ public class ListaAlertasFragment extends Fragment {
 
         recyclerView = view.findViewById(R.id.recyclerAlertas);
         progressBar = view.findViewById(R.id.progressListaAlertas);
+        editSearch = view.findViewById(R.id.editSearchAlertas);
+        
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         adapter = new AlertaAdapter(listaFiltrada);
         recyclerView.setAdapter(adapter);
+
+        editSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                adapter.filtrar(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {}
+        });
 
         carregarAlertas();
         return view;

@@ -31,33 +31,16 @@
                 app:title=""
                 app:titleTextColor="@android:color/transparent">
 
-                <!-- Lupa na Esquerda da Logo, ambos alinhados à direita -->
-                <LinearLayout
+                <!-- Logo alinhada à direita -->
+                <ImageView
+                    android:id="@+id/imgLogoToolbar"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="32dp"
                     android:layout_gravity="end"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal"
-                    android:paddingEnd="16dp">
-
-                    <ImageButton
-                        android:id="@+id/btnSearchGlobal"
-                        android:layout_width="44dp"
-                        android:layout_height="44dp"
-                        android:background="?attr/selectableItemBackgroundBorderless"
-                        android:src="@drawable/ic_search"
-                        app:tint="@color/purple"
-                        android:contentDescription="Pesquisar" />
-
-                    <ImageView
-                        android:id="@+id/imgLogoToolbar"
-                        android:layout_width="wrap_content"
-                        android:layout_height="32dp"
-                        android:layout_marginStart="8dp"
-                        android:adjustViewBounds="true"
-                        android:src="@drawable/orbislogotoolbar"
-                        android:contentDescription="Orbis Logo" />
-                </LinearLayout>
+                    android:layout_marginEnd="16dp"
+                    android:adjustViewBounds="true"
+                    android:src="@drawable/orbislogotoolbar"
+                    android:contentDescription="Orbis Logo" />
 
             </com.google.android.material.appbar.MaterialToolbar>
         </com.google.android.material.appbar.AppBarLayout>
