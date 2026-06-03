@@ -44,12 +44,10 @@
 
     <ProgressBar
         android:id="@+id/progressSearch"
-        style="?android:attr/progressBarStyleHorizontal"
+        style="@style/ModernProgressBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:indeterminate="true"
         android:visibility="gone"
-        android:indeterminateTint="@color/purple"
         app:layout_constraintTop_toBottomOf="@id/searchLayout" />
 
     <androidx.recyclerview.widget.RecyclerView

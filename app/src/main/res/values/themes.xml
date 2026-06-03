@@ -62,10 +62,12 @@
         <item name="android:paddingBottom">4dp</item>
     </style>
 
-    <style name="ModernProgressBar" parent="Widget.Material3.LinearProgressIndicator">
-        <item name="trackColor">@color/lightGray</item>
-        <item name="indicatorColor">@color/purple</item>
-        <item name="trackCornerRadius">4dp</item>
+    <style name="ModernProgressBar" parent="Widget.AppCompat.ProgressBar.Horizontal">
+        <item name="android:indeterminate">true</item>
+        <item name="android:indeterminateTint">@color/purple</item>
+        <item name="android:layout_height">2dp</item>
+        <item name="android:minHeight">2dp</item>
+        <item name="android:maxHeight">2dp</item>
     </style>
 
     <style name="NavItemShape" parent="">
