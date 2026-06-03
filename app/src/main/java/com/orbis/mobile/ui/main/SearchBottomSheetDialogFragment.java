@@ -7,7 +7,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
+import com.google.android.material.progressindicator.LinearProgressIndicator;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -36,7 +36,7 @@ import retrofit2.Response;
 public class SearchBottomSheetDialogFragment extends BottomSheetDialogFragment {
 
     private TextInputEditText editSearch;
-    private ProgressBar progressBar;
+    private LinearProgressIndicator progressBar;
     private RecyclerView recyclerView;
     private TextView txtEmpty;
     private SearchResultAdapter adapter;

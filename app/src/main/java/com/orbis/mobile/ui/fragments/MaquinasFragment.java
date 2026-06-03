@@ -9,7 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.ProgressBar;
+import com.google.android.material.progressindicator.LinearProgressIndicator;
 import com.orbis.mobile.R;
 import com.orbis.mobile.adapter.MaquinaAdapter;
 import com.orbis.mobile.api.OrbisApiService;
@@ -30,7 +30,7 @@ public class MaquinasFragment extends Fragment {
     private RecyclerView recyclerMaquinas;
     private MaquinaAdapter adapter;
     private List<Maquina> listaMaquinas = new ArrayList<>();
-    private ProgressBar progressBar;
+    private LinearProgressIndicator progressBar;
     private TextInputEditText editSearch;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {

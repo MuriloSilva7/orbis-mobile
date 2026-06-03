@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/bg_app_gradient">
 
-    <ProgressBar
+    <com.google.android.material.progressindicator.LinearProgressIndicator
         android:id="@+id/progressPerfil"
         style="@style/ModernProgressBar"
         android:layout_width="match_parent"

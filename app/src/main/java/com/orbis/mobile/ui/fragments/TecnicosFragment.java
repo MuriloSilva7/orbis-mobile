@@ -8,7 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.ProgressBar;
+import com.google.android.material.progressindicator.LinearProgressIndicator;
 import android.widget.Toast;
 import com.orbis.mobile.R;
 import com.orbis.mobile.adapter.TecnicoAdapter;
@@ -31,7 +31,7 @@ public class TecnicosFragment extends Fragment {
     private RecyclerView recyclerTecnicos;
     private TecnicoAdapter adapter;
     private List<Usuario> listaTecnicos = new ArrayList<>();
-    private ProgressBar progressBar;
+    private LinearProgressIndicator progressBar;
     private TextInputEditText editSearch;
 
     @Override

@@ -42,7 +42,7 @@
             android:imeOptions="actionSearch" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <ProgressBar
+    <com.google.android.material.progressindicator.LinearProgressIndicator
         android:id="@+id/progressSearch"
         style="@style/ModernProgressBar"
         android:layout_width="match_parent"

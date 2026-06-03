@@ -6,7 +6,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.progressindicator.LinearProgressIndicator;
 import com.orbis.mobile.R;
 import com.orbis.mobile.adapter.ChatAdapter;
 import com.orbis.mobile.api.OrbisApiService;
@@ -43,7 +43,7 @@ public class IaActivity extends AppCompatActivity {
     private ChatAdapter adapter;
     private EditText edtPergunta;
     private FloatingActionButton btnEnviar;
-    private ProgressBar progressBar;
+    private LinearProgressIndicator progressBar;
     private MaterialToolbar toolbar;
     private ImageButton btnHistory;
 
@@ -89,6 +89,23 @@ public class IaActivity extends AppCompatActivity {
         if (intent.hasExtra(EXTRA_SESSION_ID)) {
             currentSessionId = intent.getIntExtra(EXTRA_SESSION_ID, -1);
             loadSessionMessages();
+        }
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
+        
+        // Limpar conversa atual para carregar a nova ou iniciar uma limpa
+        historico.clear();
+        currentSessionId = -1;
+        
+        if (intent.hasExtra(EXTRA_SESSION_ID)) {
+            currentSessionId = intent.getIntExtra(EXTRA_SESSION_ID, -1);
+            loadSessionMessages();
+        } else {
+            adapter.notifyDataSetChanged();
         }
     }
 

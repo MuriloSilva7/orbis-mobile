@@ -7,30 +7,48 @@
     android:background="@drawable/bg_app_gradient"
     tools:context=".ui.main.ChatHistoryActivity">
 
-    <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/toolbarHistory"
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@drawable/bg_toolbar_surface"
-        app:title="Conversas Salvas"
-        app:titleTextColor="@color/textPrimary"
-        app:navigationIcon="@drawable/ic_voltar"
-        app:navigationIconTint="@color/textPrimary"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        app:elevation="0dp"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbarHistory"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/white"
+            app:navigationIcon="@drawable/ic_voltar"
+            app:navigationIconTint="@color/textPrimary">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Conversas Salvas"
+                android:textColor="@color/textPrimary"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+        </com.google.android.material.appbar.MaterialToolbar>
+
+    </com.google.android.material.appbar.AppBarLayout>
 
     <View
         android:id="@+id/lineHistory"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/border"
-        app:layout_constraintTop_toBottomOf="@id/toolbarHistory" />
+        android:background="@color/borderSoft"
+        app:layout_constraintTop_toBottomOf="@id/appBarLayout" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerSessions"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:paddingVertical="8dp"
         android:clipToPadding="false"
+        android:paddingHorizontal="8dp"
+        android:paddingVertical="12dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/lineHistory" />
 
@@ -47,31 +65,40 @@
         app:layout_constraintTop_toBottomOf="@id/lineHistory">
 
         <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
-            android:alpha="0.3"
+            android:layout_width="120dp"
+            android:layout_height="120dp"
+            android:alpha="0.2"
             android:src="@drawable/ic_smart_toy"
-            app:tint="@color/gray" />
+            app:tint="@color/purple" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Nenhuma conversa encontrada"
+            android:text="Nenhuma conversa ainda"
             android:textColor="@color/gray"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Inicie um chat com o Orbi!"
+            android:textColor="@color/gray"
+            android:textSize="14sp" />
     </LinearLayout>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
         android:id="@+id/fabNewChat"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="24dp"
-        android:src="@drawable/ic_send_24"
-        app:tint="@color/white"
+        android:text="Nova Conversa"
+        android:textColor="@color/white"
+        app:icon="@drawable/ic_send_24"
+        app:iconTint="@color/white"
         app:backgroundTint="@color/purple"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:contentDescription="Nova conversa" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

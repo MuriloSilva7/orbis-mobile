@@ -8,7 +8,7 @@
     android:background="@drawable/bg_app_gradient"
     tools:context=".ui.fragments.AlertasFragment">
 
-    <ProgressBar
+    <com.google.android.material.progressindicator.LinearProgressIndicator
         android:id="@+id/progressAlertas"
         style="@style/ModernProgressBar"
         android:layout_width="match_parent"

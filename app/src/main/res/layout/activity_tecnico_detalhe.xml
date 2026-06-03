@@ -34,7 +34,7 @@
 
         </com.google.android.material.appbar.MaterialToolbar>
 
-        <ProgressBar
+        <com.google.android.material.progressindicator.LinearProgressIndicator
             android:id="@+id/progressTecnico"
             style="@style/ModernProgressBar"
             android:layout_width="match_parent"

@@ -3,7 +3,7 @@ package com.orbis.mobile.ui.main;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ProgressBar;
+import com.google.android.material.progressindicator.LinearProgressIndicator;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,7 +30,7 @@ public class ManutencaoActivity extends AppCompatActivity {
     private RecyclerView recyclerManutencoes;
     private ManutencaoAdapter adapter;
     private List<Manutencao> listaManutencoes = new ArrayList<>();
-    private ProgressBar progressBar;
+    private LinearProgressIndicator progressBar;
     private TextView txtSemManutencoes;
     private int filtroMaquinaId = -1;
     private int filtroAlertaId = -1;

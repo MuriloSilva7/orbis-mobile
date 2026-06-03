@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
+import com.google.android.material.progressindicator.LinearProgressIndicator;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,7 +30,7 @@ public class TecnicoDetalheActivity extends AppCompatActivity {
     private TextView txtEmailVariavel;
     private TextView txtEstadoVariavel;
     private ImageView imgTecnico;
-    private ProgressBar progressTecnico;
+    private LinearProgressIndicator progressTecnico;
 
     Button btnVoltar;
 

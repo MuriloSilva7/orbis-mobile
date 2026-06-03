@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
+import com.google.android.material.progressindicator.LinearProgressIndicator;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,7 +39,7 @@ public class PerfilFragment extends Fragment {
     private TextView txtNome, txtEmail, txtRole, txtAtivo, txtTelefone, txtEspecialidade;
     private ImageView imgUsuario;
     private Button btnAlterarFoto;
-    private ProgressBar progressBar;
+    private LinearProgressIndicator progressBar;
     private ActivityResultLauncher<String> imagePickerLauncher;
 
     public PerfilFragment() {}

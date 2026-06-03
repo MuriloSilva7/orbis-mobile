@@ -5,7 +5,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
+import com.google.android.material.progressindicator.LinearProgressIndicator;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -38,7 +38,7 @@ public class MaquinaDetalheActivity extends AppCompatActivity {
     private TextView txtIdVariavel, txtNomeVariavel, txtSetorVariavel, txtTipoVariavel,
             txtCriticidadeVariavel, txtIntegridadeVariavel, txtEstadoVariavel;
     private ImageView imgMaquina;
-    private ProgressBar progressMaquina;
+    private LinearProgressIndicator progressMaquina;
     private Button btnVoltar;
 
     // --- Card Risco ---

@@ -7,10 +7,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.material.progressindicator.LinearProgressIndicator;
 
 import com.orbis.mobile.R;
 import com.orbis.mobile.model.LoginRequest;
@@ -30,7 +31,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText etEmail;
     private EditText etSenha;
     private Button btnLogin;
-    private ProgressBar progressBar;
+    private LinearProgressIndicator progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

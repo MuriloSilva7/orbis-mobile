@@ -3,7 +3,7 @@ package com.orbis.mobile.ui.main;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ProgressBar;
+import com.google.android.material.progressindicator.LinearProgressIndicator;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,7 +29,7 @@ public class SensorDetalheActivity extends AppCompatActivity {
     private TextView txtUltimaVibracaoVariavel;
     private TextView txtLimiteVibracaoVariavel;
     private TextView txtEstadoVariavel;
-    private ProgressBar progressSensor;
+    private LinearProgressIndicator progressSensor;
 
     Button btnVoltar;
 

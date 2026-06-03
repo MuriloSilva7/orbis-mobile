@@ -8,7 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ProgressBar;
+import com.google.android.material.progressindicator.LinearProgressIndicator;
 import com.orbis.mobile.R;
 import com.orbis.mobile.adapter.AlertaAdapter;
 import com.orbis.mobile.api.OrbisApiService;
@@ -30,7 +30,7 @@ public class ListaAlertasFragment extends Fragment {
 
     private String statusFiltro;
     private RecyclerView recyclerView;
-    private ProgressBar progressBar;
+    private LinearProgressIndicator progressBar;
     private AlertaAdapter adapter;
     private List<Alerta> listaFiltrada = new ArrayList<>();
     private TextInputEditText editSearch;

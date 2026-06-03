@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.ProgressBar;
+import com.google.android.material.progressindicator.LinearProgressIndicator;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -42,7 +42,7 @@ public class AlertaDetalheActivity extends AppCompatActivity {
     private ImageView imgMaquinaAlerta;
     private Button btnVoltar, btnAceitar, btnConcluir, btnCriarManutencao, btnVerHistorico, btnCancelar;
     private LinearLayout layoutAcoesAndamento;
-    private ProgressBar progressAlerta;
+    private LinearProgressIndicator progressAlerta;
 
     private int manutencaoId = -1;
     private int alertaId = -1;
