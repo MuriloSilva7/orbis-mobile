@@ -3,6 +3,7 @@ package com.orbis.mobile.ui.main;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.progressindicator.LinearProgressIndicator;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,7 +32,7 @@ public class SensorDetalheActivity extends AppCompatActivity {
     private TextView txtEstadoVariavel;
     private LinearProgressIndicator progressSensor;
 
-    Button btnVoltar;
+    private MaterialButton btnVoltar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,9 +101,11 @@ public class SensorDetalheActivity extends AppCompatActivity {
                     String status = sensor.getStatus();
                     txtEstadoVariavel.setText(status);
                     if ("ATIVO".equalsIgnoreCase(status)) {
+                        txtEstadoVariavel.setText(getString(R.string.status_ativo));
                         txtEstadoVariavel.setTextColor(getColor(R.color.statusGreen));
                         txtEstadoVariavel.setBackgroundResource(R.drawable.badge_outline_green);
                     } else {
+                        txtEstadoVariavel.setText(getString(R.string.status_inativo));
                         txtEstadoVariavel.setTextColor(getColor(R.color.statusRed));
                         txtEstadoVariavel.setBackgroundResource(R.drawable.badge_outline_red);
                     }
@@ -113,7 +116,7 @@ public class SensorDetalheActivity extends AppCompatActivity {
             public void onFailure(Call<Sensor> call, Throwable t) {
                 setLoading(false);
                 Toast.makeText(SensorDetalheActivity.this,
-                        "Erro ao carregar sensor",
+                        getString(R.string.error_carregar_sensor),
                         Toast.LENGTH_SHORT).show();
             }
         });

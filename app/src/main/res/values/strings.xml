@@ -1,5 +1,143 @@
 <resources>
     <string name="app_name">Orbis</string>
-    <!-- TODO: Remove or change this placeholder text -->
+    <string name="title_sensores">Sensores</string>
+    <string name="title_maquinas">Máquinas</string>
+    <string name="title_tecnicos">Técnicos</string>
+    <string name="title_alertas">Alertas</string>
+    <string name="title_perfil">Perfil</string>
+
+    <string name="sub_sensores">Monitore e gerencie os sensores ativos</string>
+    <string name="sub_maquinas">Monitore a integridade e o estado dos ativos</string>
+    <string name="sub_tecnicos">Visualize os técnicos e verifique a disponibilidade</string>
+    <string name="sub_alertas">Gerencie as ocorrências e manutenções</string>
+
+    <string name="search_hint_sensores">Pesquisar sensores&#8230;</string>
+    <string name="search_hint_maquinas">Pesquisar máquinas&#8230;</string>
+    <string name="search_hint_tecnicos">Pesquisar técnicos&#8230;</string>
+    <string name="search_hint_alertas">Pesquisar alertas&#8230;</string>
+
+    <string name="btn_ver_detalhes">Ver Detalhes</string>
+    <string name="btn_ver_perfil">Ver Perfil</string>
+    <string name="btn_aceitar_alerta">Aceitar Alerta</string>
+    <string name="btn_relatar_manutencao">Relatar Manutenção</string>
+    <string name="btn_cancelar">Cancelar</string>
+    <string name="btn_concluir">Concluir</string>
+    <string name="btn_ver_historico_manutencao">Ver Histórico de Manutenção</string>
+
+    <string name="label_maquina">MÁQUINA</string>
+    <string name="label_sensor">SENSOR</string>
+    <string name="label_setor">SETOR</string>
+    <string name="label_tipo">TIPO</string>
+    <string name="label_data_abertura">DATA DE ABERTURA</string>
+    <string name="label_descricao_problema">DESCRIÇÃO DO PROBLEMA</string>
+    <string name="label_informacoes_contato">INFORMAÇÕES DE CONTATO</string>
+    <string name="label_especialidade">Especialidade</string>
+    <string name="label_cargo">Cargo</string>
+    <string name="label_status">Status</string>
+    <string name="label_telefone">Telefone</string>
+    <string name="label_email">Email</string>
+    <string name="label_criticiade">CRITICIDADE</string>
+    <string name="label_integridade">INTEGRIDADE</string>
+
+    <string name="welcome_back">Bem-vindo de volta</string>
+    <string name="login_subtitle">Acesse sua conta para gerenciar seus ativos</string>
+    <string name="btn_entrar">Entrar</string>
+    <string name="terms_policy_agreement">Ao entrar você concorda com os Termos de Uso e Política de Privacidade</string>
+    <string name="label_status_concluido">CONCLUÍDO</string>
+    <string name="label_tecnico_prefix">Técnico: </string>
+    <string name="label_data_prefix">Data: </string>
+    <string name="label_relato_tecnico">RELATO DO TÉCNICO</string>
+    <string name="label_conversa">Título da Conversa</string>
+    <string name="label_hoje_1000">Hoje, 10:00</string>
+    <string name="desc_excluir">Excluir</string>
+    <string name="label_ia_resposta">Resposta da IA</string>
+    <string name="label_user_mensagem">Mensagem do usuário</string>
+    <string name="btn_alterar_foto">Alterar Foto</string>
+    <string name="hint_email">Email</string>
+    <string name="hint_senha">Senha</string>
+    <string name="desc_recarregar">Recarregar</string>
+    <string name="tab_pendentes">Pendentes</string>
+    <string name="tab_em_andamento">Em Andamento</string>
+    <string name="tab_concluidos">Concluidos</string>
+    <string name="desc_logo">Orbis Logo</string>
+    <string name="desc_chat_ia">Chat IA</string>
+    <string name="label_usuario_placeholder">Usuário Orbis</string>
+    <string name="label_email_placeholder">usuario@orbis.com</string>
+    <string name="desc_historico">Conversas Salvas</string>
+    <string name="hint_pergunta_ia">Pergunte algo para o Orbi&#8230;</string>
+    <string name="desc_enviar">Enviar</string>
+    <string name="hint_pesquisa_global">Pesquisar por máquinas, alertas, técnicos&#8230;</string>
+    <string name="label_sem_resultados">Nenhum resultado encontrado</string>
+    <string name="label_sem_manutencoes">Nenhuma manutenção encontrada.</string>
+    <string name="label_sem_manutencoes_maquina">Nenhum histórico para esta máquina.</string>
+    <string name="label_sem_manutencoes_alerta">Nenhum histórico para este alerta.</string>
+    <string name="error_carregar_historico">Não foi possível carregar o histórico deste alerta.</string>
+    <string name="label_conversa_vazia">Nenhuma conversa ainda</string>
+    <string name="label_inicie_chat">Inicie um chat com o Orbi para começar!</string>
+    <string name="btn_nova_conversa">Nova Conversa</string>
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="label_ocorrencia">Ocorrência</string>
+    <string name="msg_alerta_aceito_tecnico">Alerta aceito pelo técnico</string>
+    <string name="error_manutencao_nao_encontrada">Manutenção não encontrada</string>
+    <string name="msg_aguarde_manutencao">Aguarde o carregamento da manutenção...</string>
+    <string name="error_carregar_detalhes">Erro ao carregar detalhes</string>
+    <string name="msg_alerta_aceito">Alerta aceito!</string>
+    <string name="error_aceitar_alerta">Erro ao aceitar alerta</string>
+    <string name="msg_alerta_concluido">Alerta concluído!</string>
+    <string name="error_concluir">Erro ao concluir</string>
+    <string name="msg_alerta_cancelado">Alerta cancelado</string>
+    <string name="error_conexao">Erro de conexão</string>
+    <string name="title_relatar_manutencao">Relatar Manutenção</string>
+    <string name="hint_descricao_feito">Descreva o que foi feito...</string>
+    <string name="btn_salvar">Salvar</string>
+    <string name="msg_relato_salvo">Relato salvo!</string>
+    <string name="error_salvar_relato">Erro ao salvar relato</string>
+    <string name="error_processar_imagem">Erro ao processar imagem</string>
+
+    <string name="label_tipo_sensor">Tipo de Sensor</string>
+    <string name="status_ativo">ATIVO</string>
+    <string name="status_inativo">INATIVO</string>
+    <string name="status_em_andamento">EM ANDAMENTO</string>
+    <string name="status_resolvido">RESOLVIDO</string>
+    <string name="error_carregar_sensor">Erro ao carregar sensor</string>
+
+    <string name="label_nome_maquina">Nome da Máquina</string>
+    <string name="title_predicao_risco">Predição de Risco</string>
+    <string name="label_confianca_format">%1$d%% conf.</string>
+    <string name="label_sem_dados">S/D</string>
+    <string name="title_predicao_alertas">Predição de Alertas</string>
+    <string name="label_proximo_alerta_previsto">PRÓXIMO ALERTA PREVISTO</string>
+    <string name="label_confianca">confiança</string>
+    <string name="msg_sem_previsao">Sem previsão disponível</string>
+    <string name="label_instabilidade_prevista">INSTABILIDADE PREVISTA</string>
+    <string name="label_limiar_prefix">Limiar: </string>
+    <string name="label_tendencia_curta">Tendência curta</string>
+    <string name="label_tendencia_longa">Tendência longa</string>
+    <string name="label_instabilidade">Instabilidade</string>
+    <string name="label_placeholder_dash">--</string>
+
+    <string name="motivo_historico_insuficiente">Histórico insuficiente</string>
+    <string name="motivo_modelo_nao_calculado">Modelo não pôde ser calculado</string>
+    <string name="motivo_tendencia_nao_confiavel">Tendência não confiável</string>
+    <string name="motivo_sem_historico_tipo">Sem histórico de alertas do tipo</string>
+    <string name="motivo_evento_ocorrido">Evento já ocorrido</string>
+    <string name="motivo_fora_da_janela">Previsão fora da janela</string>
+    <string name="motivo_sem_alerta_previsivel">Sem alerta previsível</string>
+    <string name="motivo_sem_leitura_recente">Sem leitura recente</string>
+    <string name="motivo_leituras_insuficientes">Leituras insuficientes</string>
+    <string name="motivo_historico_alertas_insuficiente">Histórico de alertas insuficiente</string>
+
+    <string name="label_tecnico">TÉCNICO</string>
+    <string name="label_nome_tecnico">Nome do Técnico</string>
+    <string name="error_carregar_tecnico">Erro ao carregar técnico: %1$s</string>
+    <string name="error_preencha_campos">Preencha todos os campos</string>
+    <string name="msg_login_realizado">Login realizado!</string>
+    <string name="error_login_invalido">Email ou senha inválidos</string>
+    <string name="title_excluir_conversa">Excluir conversa</string>
+    <string name="msg_confirmar_exclusao">Tem certeza que deseja excluir esta conversa?</string>
+    <string name="title_sair">Sair</string>
+    <string name="msg_confirmar_logout">Deseja realmente sair do aplicativo?</string>
+    <string name="btn_sim">Sim</string>
+    <string name="btn_nao">Não</string>
 </resources>

@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.progressindicator.LinearProgressIndicator;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -40,7 +41,7 @@ public class AlertaDetalheActivity extends AppCompatActivity {
                      txtCriadoEmVariavel, txtTipoVariavel, txtStatusVariavel, txtMensagemVariavel;
     
     private ImageView imgMaquinaAlerta;
-    private Button btnVoltar, btnAceitar, btnConcluir, btnCriarManutencao, btnVerHistorico, btnCancelar;
+    private MaterialButton btnVoltar, btnAceitar, btnConcluir, btnCriarManutencao, btnVerHistorico, btnCancelar;
     private LinearLayout layoutAcoesAndamento;
     private LinearProgressIndicator progressAlerta;
 
@@ -101,7 +102,7 @@ public class AlertaDetalheActivity extends AppCompatActivity {
             if (manutencaoId != -1) {
                 concluirAlerta(manutencaoId);
             } else {
-                Toast.makeText(this, "Manutenção não encontrada", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getString(R.string.error_manutencao_nao_encontrada), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -109,7 +110,7 @@ public class AlertaDetalheActivity extends AppCompatActivity {
             if (manutencaoId != -1) {
                 mostrarDialogRelato();
             } else {
-                Toast.makeText(this, "Aguarde o carregamento da manutenção...", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, getString(R.string.msg_aguarde_manutencao), Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -160,7 +161,7 @@ public class AlertaDetalheActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<List<Alerta>> call, Throwable t) {
                 setLoading(false);
-                Toast.makeText(AlertaDetalheActivity.this, "Erro ao carregar detalhes", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AlertaDetalheActivity.this, getString(R.string.error_carregar_detalhes), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -248,7 +249,7 @@ public class AlertaDetalheActivity extends AppCompatActivity {
         OrbisApiService apiService = RetrofitClient.getInstance(this).getApi();
         Map<String, Object> body = new HashMap<>();
         body.put("alertaId", idAlerta);
-        body.put("observacao", "Alerta aceito pelo técnico");
+        body.put("observacao", getString(R.string.msg_alerta_aceito_tecnico));
 
         apiService.createManutencao(body).enqueue(new Callback<Manutencao>() {
             @Override
@@ -258,14 +259,14 @@ public class AlertaDetalheActivity extends AppCompatActivity {
                     manutencaoId = response.body().getId();
                     atualizarStatusUI("EM_ANDAMENTO");
                     atualizarInterfacePorStatus("EM_ANDAMENTO");
-                    Toast.makeText(AlertaDetalheActivity.this, "Alerta aceito!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AlertaDetalheActivity.this, getString(R.string.msg_alerta_aceito), Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<Manutencao> call, Throwable t) {
                 setLoading(false);
-                Toast.makeText(AlertaDetalheActivity.this, "Erro ao aceitar alerta", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AlertaDetalheActivity.this, getString(R.string.error_aceitar_alerta), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -283,14 +284,14 @@ public class AlertaDetalheActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     atualizarStatusUI("RESOLVIDO");
                     atualizarInterfacePorStatus("RESOLVIDO");
-                    Toast.makeText(AlertaDetalheActivity.this, "Alerta concluído!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AlertaDetalheActivity.this, getString(R.string.msg_alerta_concluido), Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<Manutencao> call, Throwable t) {
                 setLoading(false);
-                Toast.makeText(AlertaDetalheActivity.this, "Erro ao concluir", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AlertaDetalheActivity.this, getString(R.string.error_concluir), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -308,14 +309,14 @@ public class AlertaDetalheActivity extends AppCompatActivity {
                 if (response.isSuccessful()) {
                     atualizarStatusUI("ATIVO");
                     atualizarInterfacePorStatus("ATIVO");
-                    Toast.makeText(AlertaDetalheActivity.this, "Alerta cancelado", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AlertaDetalheActivity.this, getString(R.string.msg_alerta_cancelado), Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onFailure(Call<Manutencao> call, Throwable t) {
                 setLoading(false);
-                Toast.makeText(AlertaDetalheActivity.this, "Erro de conexão", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AlertaDetalheActivity.this, getString(R.string.error_conexao), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -342,16 +343,16 @@ public class AlertaDetalheActivity extends AppCompatActivity {
 
     private void mostrarDialogRelato() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Relatar Manutenção");
+        builder.setTitle(getString(R.string.title_relatar_manutencao));
         final EditText input = new EditText(this);
-        input.setHint("Descreva o que foi feito...");
+        input.setHint(getString(R.string.hint_descricao_feito));
         builder.setView(input);
 
-        builder.setPositiveButton("Salvar", (dialog, which) -> {
+        builder.setPositiveButton(getString(R.string.btn_salvar), (dialog, which) -> {
             String relato = input.getText().toString().trim();
             if (!relato.isEmpty()) salvarRelatoManutencao(relato);
         });
-        builder.setNegativeButton("Cancelar", null);
+        builder.setNegativeButton(getString(R.string.btn_cancelar), null);
         builder.show();
     }
 
@@ -365,13 +366,13 @@ public class AlertaDetalheActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<Manutencao> call, Response<Manutencao> response) {
                 setLoading(false);
-                if (response.isSuccessful()) Toast.makeText(AlertaDetalheActivity.this, "Relato salvo!", Toast.LENGTH_SHORT).show();
+                if (response.isSuccessful()) Toast.makeText(AlertaDetalheActivity.this, getString(R.string.msg_relato_salvo), Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onFailure(Call<Manutencao> call, Throwable t) {
                 setLoading(false);
-                Toast.makeText(AlertaDetalheActivity.this, "Erro ao salvar relato", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AlertaDetalheActivity.this, getString(R.string.error_salvar_relato), Toast.LENGTH_SHORT).show();
             }
         });
     }

@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.button.MaterialButton;
 import com.orbis.mobile.R;
 import com.orbis.mobile.model.Sensor;
 import com.orbis.mobile.ui.main.SensorDetalheActivity;
@@ -75,12 +76,12 @@ public class SensorAdapter extends RecyclerView.Adapter<SensorAdapter.SensorView
 
     public class SensorViewHolder extends RecyclerView.ViewHolder{
         TextView txtTipoVariavel;
-        Button btnVerMais;
+        MaterialButton btnVerMais;
 
         public SensorViewHolder(@NonNull View itemView) {
             super(itemView);
             txtTipoVariavel = itemView.findViewById(R.id.txtTipoVariavel);
-            btnVerMais = itemView.findViewById(R.id.btnVerMais);
+            btnVerMais = (MaterialButton) itemView.findViewById(R.id.btnVerMais);
         }
     }
 }

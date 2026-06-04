@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.progressindicator.LinearProgressIndicator;
 import android.widget.TextView;
 
@@ -39,7 +40,7 @@ public class MaquinaDetalheActivity extends AppCompatActivity {
             txtCriticidadeVariavel, txtIntegridadeVariavel, txtEstadoVariavel;
     private ImageView imgMaquina;
     private LinearProgressIndicator progressMaquina;
-    private Button btnVoltar;
+    private MaterialButton btnVoltar;
 
     // --- Card Risco ---
     private MaterialCardView cardRisco;
@@ -214,11 +215,11 @@ public class MaquinaDetalheActivity extends AppCompatActivity {
         txtIntegridadeVariavel.setText(String.valueOf(maquina.getIntegridade()));
 
         if (maquina.isAtivo()) {
-            txtEstadoVariavel.setText("ATIVO");
+            txtEstadoVariavel.setText(getString(R.string.status_ativo));
             txtEstadoVariavel.setTextColor(ContextCompat.getColor(this, R.color.statusGreen));
             txtEstadoVariavel.setBackgroundResource(R.drawable.badge_outline_green);
         } else {
-            txtEstadoVariavel.setText("INATIVO");
+            txtEstadoVariavel.setText(getString(R.string.status_inativo));
             txtEstadoVariavel.setTextColor(ContextCompat.getColor(this, R.color.statusRed));
             txtEstadoVariavel.setBackgroundResource(R.drawable.badge_outline_red);
         }
@@ -229,7 +230,7 @@ public class MaquinaDetalheActivity extends AppCompatActivity {
 
         if (risco.getConfiancaGeral() != null) {
             int pct = (int) Math.round(risco.getConfiancaGeral() * 100);
-            txtConfiancaGeral.setText(pct + "% conf.");
+            txtConfiancaGeral.setText(getString(R.string.label_confianca_format, pct));
         }
 
         if (risco.getRiscos() == null) return;
@@ -245,16 +246,16 @@ public class MaquinaDetalheActivity extends AppCompatActivity {
     private void preencherBlocoRisco(PredicaoRisco.BlocoRisco bloco,
                                      TextView txtClass, TextView txt24h, TextView txt72h) {
         if (bloco == null || !bloco.isDisponivel()) {
-            txtClass.setText("S/D");
+            txtClass.setText(getString(R.string.label_sem_dados));
             txtClass.setTextColor(ContextCompat.getColor(this, R.color.gray));
             txtClass.setBackgroundResource(R.drawable.badge_outline_gray);
-            txt24h.setText("--");
-            txt72h.setText("--");
+            txt24h.setText(R.string.label_placeholder_dash);
+            txt72h.setText(R.string.label_placeholder_dash);
             return;
         }
 
         String classif = bloco.getClassificacao() != null ? bloco.getClassificacao() : "";
-        txtClass.setText(classif.isEmpty() ? "--" : classif);
+        txtClass.setText(classif.isEmpty() ? getString(R.string.label_placeholder_dash) : classif);
 
         int cor;
         int bg;
@@ -271,8 +272,8 @@ public class MaquinaDetalheActivity extends AppCompatActivity {
         txtClass.setTextColor(cor);
         txtClass.setBackgroundResource(bg);
 
-        txt24h.setText(bloco.getH24() != null ? formatPct(bloco.getH24()) : "--");
-        txt72h.setText(bloco.getH72() != null ? formatPct(bloco.getH72()) : "--");
+        txt24h.setText(bloco.getH24() != null ? formatPct(bloco.getH24()) : getString(R.string.label_placeholder_dash));
+        txt72h.setText(bloco.getH72() != null ? formatPct(bloco.getH72()) : getString(R.string.label_placeholder_dash));
     }
 
     private void preencherPredicaoAlertas(PredicaoAlertas predicao) {
@@ -286,13 +287,13 @@ public class MaquinaDetalheActivity extends AppCompatActivity {
             txtProximoAlertaData.setText(formatarData(alerta.getDataPrevista()));
             txtProximoAlertaTipo.setText(formatarTipo(alerta.getTipo()));
             txtProximoAlertaConfianca.setText(
-                    alerta.getConfianca() != null ? formatPct(alerta.getConfianca()) : "--");
+                    alerta.getConfianca() != null ? formatPct(alerta.getConfianca()) : getString(R.string.label_placeholder_dash));
         } else {
             layoutProximoAlerta.setVisibility(View.GONE);
             txtProximoAlertaAusencia.setVisibility(View.VISIBLE);
             String motivo = predicao.getAusenciaProximoAlerta() != null
                     ? formatarMotivo(predicao.getAusenciaProximoAlerta().getMotivo())
-                    : "Sem previsão disponível";
+                    : getString(R.string.msg_sem_previsao);
             txtProximoAlertaAusencia.setText(motivo);
         }
 
@@ -303,16 +304,16 @@ public class MaquinaDetalheActivity extends AppCompatActivity {
             txtInstabilidadeAusencia.setVisibility(View.GONE);
             txtInstabilidadeData.setText(formatarData(inst.getDataPrevista()));
             txtInstabilidadeLimiar.setText(inst.getIntegridadeLimiar() != null
-                    ? "Limiar: " + String.format(Locale.getDefault(), "%.1f", inst.getIntegridadeLimiar())
+                    ? getString(R.string.label_limiar_prefix) + String.format(Locale.getDefault(), "%.1f", inst.getIntegridadeLimiar())
                     : "");
             txtInstabilidadeConfianca.setText(
-                    inst.getConfianca() != null ? formatPct(inst.getConfianca()) : "--");
+                    inst.getConfianca() != null ? formatPct(inst.getConfianca()) : getString(R.string.label_placeholder_dash));
         } else {
             layoutInstabilidade.setVisibility(View.GONE);
             txtInstabilidadeAusencia.setVisibility(View.VISIBLE);
             String motivo = predicao.getAusenciaInstabilidade() != null
                     ? formatarMotivo(predicao.getAusenciaInstabilidade().getMotivo())
-                    : "Sem previsão disponível";
+                    : getString(R.string.msg_sem_previsao);
             txtInstabilidadeAusencia.setText(motivo);
         }
 
@@ -321,11 +322,11 @@ public class MaquinaDetalheActivity extends AppCompatActivity {
             PredicaoAlertas.ModeloIntegridade modelo = predicao.getModeloIntegridade();
             layoutModeloIntegridade.setVisibility(View.VISIBLE);
             txtModeloR2.setText(modelo.getR2() != null
-                    ? String.format(Locale.getDefault(), "%.2f", modelo.getR2()) : "--");
+                    ? String.format(Locale.getDefault(), "%.2f", modelo.getR2()) : getString(R.string.label_placeholder_dash));
             txtModeloSlope.setText(modelo.getSlope() != null
-                    ? String.format(Locale.getDefault(), "%.2f", modelo.getSlope()) : "--");
+                    ? String.format(Locale.getDefault(), "%.2f", modelo.getSlope()) : getString(R.string.label_placeholder_dash));
             txtModeloPontos.setText(modelo.getPontosUsados() != null
-                    ? String.valueOf(modelo.getPontosUsados()) : "--");
+                    ? String.valueOf(modelo.getPontosUsados()) : getString(R.string.label_placeholder_dash));
         } else {
             layoutModeloIntegridade.setVisibility(View.GONE);
         }
@@ -340,7 +341,7 @@ public class MaquinaDetalheActivity extends AppCompatActivity {
     }
 
     private String formatarData(String isoData) {
-        if (isoData == null) return "--";
+        if (isoData == null) return getString(R.string.label_placeholder_dash);
         String[] formatos = {
                 "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'",
                 "yyyy-MM-dd'T'HH:mm:ss'Z'"
@@ -361,24 +362,24 @@ public class MaquinaDetalheActivity extends AppCompatActivity {
 
     private String formatarTipo(String tipo) {
         if (tipo == null) return "";
-        if ("TENDENCIA_CURTA".equals(tipo)) return "Tendência curta";
-        if ("TENDENCIA_LONGA".equals(tipo)) return "Tendência longa";
-        if ("INSTABILIDADE".equals(tipo))   return "Instabilidade";
+        if ("TENDENCIA_CURTA".equals(tipo)) return getString(R.string.label_tendencia_curta);
+        if ("TENDENCIA_LONGA".equals(tipo)) return getString(R.string.label_tendencia_longa);
+        if ("INSTABILIDADE".equals(tipo))   return getString(R.string.label_instabilidade);
         return tipo;
     }
 
     private String formatarMotivo(String motivo) {
-        if (motivo == null) return "Sem previsão disponível";
-        if ("historico_insuficiente".equals(motivo))            return "Histórico insuficiente";
-        if ("modelo_nao_pode_ser_calculado".equals(motivo))     return "Modelo não pôde ser calculado";
-        if ("tendencia_nao_confiavel".equals(motivo))           return "Tendência não confiável";
-        if ("sem_historico_de_alertas_do_tipo".equals(motivo))  return "Sem histórico de alertas do tipo";
-        if ("evento_ja_ocorrido".equals(motivo))                return "Evento já ocorrido";
-        if ("previsao_fora_da_janela".equals(motivo))           return "Previsão fora da janela";
-        if ("sem_alerta_previsivel".equals(motivo))             return "Sem alerta previsível";
-        if ("sem_leitura_recente".equals(motivo))               return "Sem leitura recente";
-        if ("leituras_insuficientes".equals(motivo))            return "Leituras insuficientes";
-        if ("historico_de_alertas_insuficiente".equals(motivo)) return "Histórico de alertas insuficiente";
+        if (motivo == null) return getString(R.string.msg_sem_previsao);
+        if ("historico_insuficiente".equals(motivo))            return getString(R.string.motivo_historico_insuficiente);
+        if ("modelo_nao_pode_ser_calculado".equals(motivo))     return getString(R.string.motivo_modelo_nao_calculado);
+        if ("tendencia_nao_confiavel".equals(motivo))           return getString(R.string.motivo_tendencia_nao_confiavel);
+        if ("sem_historico_de_alertas_do_tipo".equals(motivo))  return getString(R.string.motivo_sem_historico_tipo);
+        if ("evento_ja_ocorrido".equals(motivo))                return getString(R.string.motivo_evento_ocorrido);
+        if ("previsao_fora_da_janela".equals(motivo))           return getString(R.string.motivo_fora_da_janela);
+        if ("sem_alerta_previsivel".equals(motivo))             return getString(R.string.motivo_sem_alerta_previsivel);
+        if ("sem_leitura_recente".equals(motivo))               return getString(R.string.motivo_sem_leitura_recente);
+        if ("leituras_insuficientes".equals(motivo))            return getString(R.string.motivo_leituras_insuficientes);
+        if ("historico_de_alertas_insuficiente".equals(motivo)) return getString(R.string.motivo_historico_alertas_insuficiente);
         return motivo;
     }
 }

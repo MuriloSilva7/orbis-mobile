@@ -117,14 +117,14 @@ public class ChatHistoryActivity extends AppCompatActivity {
 
     private void confirmDelete(ChatSession session) {
         new MaterialAlertDialogBuilder(this)
-                .setTitle("Excluir conversa")
-                .setMessage("Tem certeza que deseja excluir esta conversa?")
-                .setPositiveButton("Excluir", (dialog, which) -> {
+                .setTitle(R.string.title_excluir_conversa)
+                .setMessage(R.string.msg_confirmar_exclusao)
+                .setPositiveButton(R.string.desc_excluir, (dialog, which) -> {
                     chatDao.deleteMessagesBySession(session.getId());
                     chatDao.deleteSession(session.getId());
                     loadSessions();
                 })
-                .setNegativeButton("Cancelar", null)
+                .setNegativeButton(R.string.btn_cancelar, null)
                 .show();
     }
 }

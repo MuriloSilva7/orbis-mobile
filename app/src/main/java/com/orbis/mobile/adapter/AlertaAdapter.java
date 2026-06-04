@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.button.MaterialButton;
 import com.orbis.mobile.R;
 import com.orbis.mobile.model.Alerta;
 import com.orbis.mobile.ui.main.AlertaDetalheActivity;
@@ -57,14 +58,14 @@ public class AlertaAdapter extends RecyclerView.Adapter<AlertaAdapter.ViewHolder
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView txtNomeVariavel;
         TextView txtStatusVariavel;
-        Button btnVerMais;
+        MaterialButton btnVerMais;
         ImageView imgAlerta;
 
         public ViewHolder(View itemView) {
             super(itemView);
             txtNomeVariavel = itemView.findViewById(R.id.txtNomeVariavel);
             txtStatusVariavel = itemView.findViewById(R.id.txtStatusVariavel);
-            btnVerMais = itemView.findViewById(R.id.btnVerMais);
+            btnVerMais = (MaterialButton) itemView.findViewById(R.id.btnVerMais);
             imgAlerta = itemView.findViewById(R.id.imgAlerta);
         }
     }
@@ -91,7 +92,7 @@ public class AlertaAdapter extends RecyclerView.Adapter<AlertaAdapter.ViewHolder
                         .into(holder.imgAlerta);
             }
         } else {
-            holder.txtNomeVariavel.setText("Máquina desconhecida");
+            holder.txtNomeVariavel.setText(holder.itemView.getContext().getString(R.string.label_sem_dados));
         }
 
         // --- CORREÇÃO DO STATUS ---
@@ -101,24 +102,28 @@ public class AlertaAdapter extends RecyclerView.Adapter<AlertaAdapter.ViewHolder
         if (status == null) status = "DESCONHECIDO";
         
         // Formata o texto para exibição (ex: EM_ANDAMENTO -> Em Andamento)
-        String statusFormatado = status.replace("_", " ");
-        holder.txtStatusVariavel.setText(statusFormatado);
+        // String statusFormatado = status.replace("_", " ");
+        // holder.txtStatusVariavel.setText(statusFormatado);
 
         // Aplica cores e estilos de acordo com o status real
         switch (status.toUpperCase()) {
             case "ATIVO":
+                holder.txtStatusVariavel.setText(holder.itemView.getContext().getString(R.string.status_ativo));
                 holder.txtStatusVariavel.setTextColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.statusRed));
                 holder.txtStatusVariavel.setBackgroundResource(R.drawable.badge_outline_red);
                 break;
             case "EM_ANDAMENTO":
+                holder.txtStatusVariavel.setText(holder.itemView.getContext().getString(R.string.status_em_andamento));
                 holder.txtStatusVariavel.setTextColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.statusOrange));
                 holder.txtStatusVariavel.setBackgroundResource(R.drawable.badge_outline_purple);
                 break;
             case "RESOLVIDO":
+                holder.txtStatusVariavel.setText(holder.itemView.getContext().getString(R.string.status_resolvido));
                 holder.txtStatusVariavel.setTextColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.statusGreen));
                 holder.txtStatusVariavel.setBackgroundResource(R.drawable.badge_outline_green);
                 break;
             default:
+                holder.txtStatusVariavel.setText(status.replace("_", " "));
                 holder.txtStatusVariavel.setTextColor(ContextCompat.getColor(holder.itemView.getContext(), R.color.gray));
                 holder.txtStatusVariavel.setBackgroundResource(R.drawable.badge_outline_gray);
                 break;

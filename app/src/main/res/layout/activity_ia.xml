@@ -28,15 +28,15 @@
             app:titleTextColor="@android:color/transparent">
 
             <!-- Botão de Histórico agora na ESQUERDA (Start) -->
-            <ImageButton
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnHistoryIa"
+                style="@style/Widget.Material3.Button.IconButton"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:layout_gravity="start"
-                android:background="?attr/selectableItemBackgroundBorderless"
-                android:src="@drawable/ic_history_24"
-                app:tint="@color/purple"
-                android:contentDescription="Conversas Salvas" />
+                app:icon="@drawable/ic_history_24"
+                app:iconTint="@color/purple"
+                android:contentDescription="@string/desc_historico" />
 
             <!-- Logo agora na DIREITA (End) -->
             <ImageView
@@ -46,7 +46,7 @@
                 android:layout_marginEnd="16dp"
                 android:adjustViewBounds="true"
                 android:src="@drawable/orbislogotoolbar"
-                android:contentDescription="Orbis Logo" />
+                android:contentDescription="@string/desc_logo" />
 
         </com.google.android.material.appbar.MaterialToolbar>
 
@@ -101,7 +101,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:background="@android:color/transparent"
-                android:hint="Pergunte algo para o Orbi..."
+                android:hint="@string/hint_pergunta_ia"
                 android:inputType="textMultiLine"
                 android:maxLines="4"
                 android:minHeight="48dp"
@@ -119,7 +119,7 @@
                 app:tint="@android:color/white"
                 app:backgroundTint="@color/purple"
                 app:elevation="0dp"
-                android:contentDescription="Enviar" />
+                android:contentDescription="@string/desc_enviar" />
 
         </LinearLayout>
     </androidx.cardview.widget.CardView>

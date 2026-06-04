@@ -42,33 +42,34 @@ public class ManutencaoAdapter extends RecyclerView.Adapter<ManutencaoAdapter.My
         if (manutencao.getAlerta() != null && manutencao.getAlerta().getMaquina() != null) {
             holder.txtMaquinaNome.setText(manutencao.getAlerta().getMaquina().getNome());
         } else {
-            holder.txtMaquinaNome.setText("Manutenção #" + manutencao.getId());
+            holder.txtMaquinaNome.setText(holder.itemView.getContext().getString(R.string.label_ocorrencia) + " #" + manutencao.getId());
         }
 
         if (manutencao.getUsuario() != null) {
-            holder.txtTecnicoNome.setText("Técnico: " + manutencao.getUsuario().getNome());
+            holder.txtTecnicoNome.setText(holder.itemView.getContext().getString(R.string.label_tecnico_prefix) + manutencao.getUsuario().getNome());
         } else {
-            holder.txtTecnicoNome.setText("Técnico: Não informado");
+            holder.txtTecnicoNome.setText(holder.itemView.getContext().getString(R.string.label_tecnico_prefix) + holder.itemView.getContext().getString(R.string.label_sem_dados));
         }
 
-        holder.txtData.setText("Data: " + formatarData(manutencao.getCriadoEm()));
-        holder.txtObservacao.setText(manutencao.getObservacao() != null ? manutencao.getObservacao() : "Sem observações.");
-        holder.txtStatus.setText(manutencao.getStatus());
+        holder.txtData.setText(holder.itemView.getContext().getString(R.string.label_data_prefix) + formatarData(manutencao.getCriadoEm()));
+        holder.txtObservacao.setText(manutencao.getObservacao() != null ? manutencao.getObservacao() : holder.itemView.getContext().getString(R.string.label_sem_manutencoes));
+        
+        String status = manutencao.getStatus();
+        if (status == null) status = "";
 
-        // Estilização do Status
-        GradientDrawable drawable = new GradientDrawable();
-        drawable.setCornerRadius(16f);
-
-        if ("RESOLVIDO".equals(manutencao.getStatus())) {
-            holder.txtStatus.setText("CONCLUÍDO");
-            drawable.setColor(Color.parseColor("#22C55E")); // statusGreen
-        } else if ("EM_ANDAMENTO".equals(manutencao.getStatus())) {
-            holder.txtStatus.setText("EM ANDAMENTO");
-            drawable.setColor(Color.parseColor("#F59E0B")); // statusOrange
+        if ("RESOLVIDO".equals(status)) {
+            holder.txtStatus.setText(holder.itemView.getContext().getString(R.string.status_resolvido));
+            holder.txtStatus.setBackgroundResource(R.drawable.badge_outline_green);
+            holder.txtStatus.setTextColor(holder.itemView.getContext().getColor(R.color.statusGreen));
+        } else if ("EM_ANDAMENTO".equals(status)) {
+            holder.txtStatus.setText(holder.itemView.getContext().getString(R.string.status_em_andamento));
+            holder.txtStatus.setBackgroundResource(R.drawable.badge_outline_purple);
+            holder.txtStatus.setTextColor(holder.itemView.getContext().getColor(R.color.statusOrange));
         } else {
-            drawable.setColor(Color.parseColor("#808080")); // gray
+            holder.txtStatus.setText(status);
+            holder.txtStatus.setBackgroundResource(R.drawable.badge_outline_gray);
+            holder.txtStatus.setTextColor(holder.itemView.getContext().getColor(R.color.gray));
         }
-        holder.txtStatus.setBackground(drawable);
     }
 
     private String formatarData(String dataIso) {

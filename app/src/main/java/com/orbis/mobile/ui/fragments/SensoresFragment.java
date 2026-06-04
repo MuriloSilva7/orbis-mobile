@@ -8,7 +8,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
+import android.widget.Toast;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.progressindicator.LinearProgressIndicator;
 import com.orbis.mobile.R;
 import com.orbis.mobile.adapter.SensorAdapter;
@@ -40,7 +41,7 @@ public class SensoresFragment extends Fragment {
         progressBar = view.findViewById(R.id.progressSensores);
         editSearch = view.findViewById(R.id.editSearchSensores);
 
-        ImageButton btnRefresh = view.findViewById(R.id.btnRefreshSensores);
+        MaterialButton btnRefresh = view.findViewById(R.id.btnRefreshSensores);
         btnRefresh.setOnClickListener(v -> carregarSensores());
 
         recyclerSensores.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -81,6 +82,7 @@ public class SensoresFragment extends Fragment {
             public void onFailure(Call<List<Sensor>> call, Throwable t) {
                 if (progressBar != null) progressBar.setVisibility(View.GONE);
                 Log.e("ERRO_API", t.getMessage());
+                Toast.makeText(getContext(), getString(R.string.error_conexao), Toast.LENGTH_SHORT).show();
             }
         });
     }

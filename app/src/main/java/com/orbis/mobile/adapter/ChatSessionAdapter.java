@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.button.MaterialButton;
 import com.orbis.mobile.R;
 import com.orbis.mobile.model.ChatSession;
 
@@ -60,13 +61,13 @@ public class ChatSessionAdapter extends RecyclerView.Adapter<ChatSessionAdapter.
     static class SessionViewHolder extends RecyclerView.ViewHolder {
         TextView txtTitle;
         TextView txtDate;
-        ImageButton btnDelete;
+        MaterialButton btnDelete;
 
         SessionViewHolder(View itemView) {
             super(itemView);
             txtTitle = itemView.findViewById(R.id.txtSessionTitle);
             txtDate = itemView.findViewById(R.id.txtSessionDate);
-            btnDelete = itemView.findViewById(R.id.btnDeleteSession);
+            btnDelete = (MaterialButton) itemView.findViewById(R.id.btnDeleteSession);
         }
     }
 }

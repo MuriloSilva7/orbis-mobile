@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.google.android.material.button.MaterialButton;
 import com.orbis.mobile.R;
 import com.orbis.mobile.model.Usuario;
 import com.orbis.mobile.ui.main.TecnicoDetalheActivity;
@@ -85,13 +86,13 @@ public class TecnicoAdapter extends RecyclerView.Adapter<TecnicoAdapter.TecnicoV
 
     public static class TecnicoViewHolder extends RecyclerView.ViewHolder {
         TextView txtNomeVariavel;
-        Button btnVerMais;
+        MaterialButton btnVerMais;
         ImageView imgTecnico;
 
         public TecnicoViewHolder(@NonNull View itemView) {
             super(itemView);
             txtNomeVariavel = itemView.findViewById(R.id.txtNomeVariavel);
-            btnVerMais = itemView.findViewById(R.id.btnVerMais);
+            btnVerMais = (MaterialButton) itemView.findViewById(R.id.btnVerMais);
             imgTecnico = itemView.findViewById(R.id.imgTecnico);
         }
     }

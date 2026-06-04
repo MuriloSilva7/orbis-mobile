@@ -48,10 +48,11 @@
             android:layout_marginEnd="8dp"
             android:ellipsize="end"
             android:maxLines="1"
-            android:text="Título da Conversa"
-            android:textColor="@color/textPrimary"
+            android:text="@string/label_conversa"
+            android:textColor="@color/black"
             android:textSize="16sp"
             android:textStyle="bold"
+            android:letterSpacing="-0.01"
             app:layout_constraintEnd_toStartOf="@+id/btnDeleteSession"
             app:layout_constraintStart_toEndOf="@id/iconBg"
             app:layout_constraintTop_toTopOf="@id/iconBg"
@@ -61,25 +62,25 @@
             android:id="@+id/txtSessionDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Hoje, 10:00"
+            android:text="@string/label_hoje_1000"
             android:textColor="@color/gray"
             android:textSize="12sp"
             app:layout_constraintStart_toStartOf="@id/txtSessionTitle"
             app:layout_constraintTop_toBottomOf="@id/txtSessionTitle"
             app:layout_constraintBottom_toBottomOf="@id/iconBg" />
 
-        <ImageButton
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/btnDeleteSession"
+            style="@style/Widget.Material3.Button.IconButton"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:src="@android:drawable/ic_menu_delete"
-            app:tint="@color/statusRed"
+            app:icon="@android:drawable/ic_menu_delete"
+            app:iconTint="@color/statusRed"
             android:alpha="0.5"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:contentDescription="Excluir" />
+            android:contentDescription="@string/desc_excluir" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

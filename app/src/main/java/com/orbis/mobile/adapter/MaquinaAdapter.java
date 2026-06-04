@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.google.android.material.button.MaterialButton;
 import com.orbis.mobile.R;
 import com.orbis.mobile.model.Maquina;
 import com.orbis.mobile.ui.main.MaquinaDetalheActivity;
@@ -82,12 +83,12 @@ public class MaquinaAdapter extends RecyclerView.Adapter<MaquinaAdapter.MaquinaV
     public static class MaquinaViewHolder extends RecyclerView.ViewHolder {
         ImageView imgMaquina;
         TextView txtNomeVariavel;
-        Button btnVerMais;
+        MaterialButton btnVerMais;
 
         public MaquinaViewHolder(@NonNull View itemView) {
             super(itemView);
             txtNomeVariavel = itemView.findViewById(R.id.txtNomeVariavel);
-            btnVerMais = itemView.findViewById(R.id.btnVerMais);
+            btnVerMais = (MaterialButton) itemView.findViewById(R.id.btnVerMais);
             imgMaquina = itemView.findViewById(R.id.imgMaquina);
         }
     }

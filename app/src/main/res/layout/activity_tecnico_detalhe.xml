@@ -94,11 +94,12 @@
                         android:id="@+id/txtNomeVariavel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
-                        android:text="Nome do Técnico"
+                        android:layout_marginTop="16dp"
+                        android:text="@string/label_nome_tecnico"
                         android:textColor="@color/black"
-                        android:textSize="22sp"
-                        android:textStyle="bold" />
+                        android:textSize="26sp"
+                        android:textStyle="bold"
+                        android:letterSpacing="-0.02" />
 
                     <TextView
                         android:id="@+id/txtEspecialidadeVariavel"
@@ -106,14 +107,14 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
                         android:text="Especialidade"
-                        android:textColor="@color/gray"
+                        android:textColor="@color/textSecondary"
                         android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/txtEstadoVariavel"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="12dp"
+                        android:layout_marginTop="20dp"
                         android:text="ATIVO"
                         style="@style/BadgeText"
                         android:textColor="@color/statusGreen"
@@ -137,24 +138,24 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="INFORMAÇÕES DE CONTATO"
-                        android:textColor="@color/gray"
+                        android:text="@string/label_informacoes_contato"
+                        android:textColor="@color/textSecondary"
                         android:textSize="11sp"
                         android:textStyle="bold"
                         android:letterSpacing="0.05"
-                        android:layout_marginBottom="20dp"/>
+                        android:layout_marginBottom="24dp"/>
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:gravity="center_vertical"
-                        android:layout_marginBottom="16dp">
+                        android:layout_marginBottom="20dp">
                         <ImageView
                             android:layout_width="20dp"
                             android:layout_height="20dp"
-                            android:src="@android:drawable/ic_dialog_email"
-                            app:tint="@color/gray" />
+                            android:src="@drawable/ic_email_24"
+                            app:tint="@color/textSecondary" />
                         <TextView
                             android:id="@+id/txtEmailVariavel"
                             android:layout_width="match_parent"
@@ -174,7 +175,7 @@
                             android:layout_width="20dp"
                             android:layout_height="20dp"
                             android:src="@android:drawable/ic_menu_call"
-                            app:tint="@color/gray" />
+                            app:tint="@color/textSecondary" />
                         <TextView
                             android:id="@+id/txtTelefoneVariavel"
                             android:layout_width="match_parent"
@@ -188,7 +189,7 @@
                 </LinearLayout>
             </com.google.android.material.card.MaterialCardView>
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnVoltar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

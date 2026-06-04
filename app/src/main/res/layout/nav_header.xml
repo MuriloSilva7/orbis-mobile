@@ -24,7 +24,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Usuário Orbis"
+        android:text="@string/label_usuario_placeholder"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textSize="20sp"
         android:textStyle="bold"
@@ -34,7 +34,7 @@
         android:id="@+id/txtEmailHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="usuario@orbis.com"
+        android:text="@string/label_email_placeholder"
         android:textColor="#CCFFFFFF"
         android:textSize="14sp" />
 

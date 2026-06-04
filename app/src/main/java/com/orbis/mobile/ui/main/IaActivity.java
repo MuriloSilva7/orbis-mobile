@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.appbar.MaterialToolbar;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.progressindicator.LinearProgressIndicator;
 import com.orbis.mobile.R;
@@ -45,7 +46,7 @@ public class IaActivity extends AppCompatActivity {
     private FloatingActionButton btnEnviar;
     private LinearProgressIndicator progressBar;
     private MaterialToolbar toolbar;
-    private ImageButton btnHistory;
+    private MaterialButton btnHistory;
 
     private final List<ChatMessage> historico = new ArrayList<>();
     private ChatDao chatDao;
@@ -64,7 +65,7 @@ public class IaActivity extends AppCompatActivity {
         edtPergunta = findViewById(R.id.edtPergunta);
         btnEnviar = findViewById(R.id.btnEnviar);
         progressBar = findViewById(R.id.progressIa);
-        btnHistory = findViewById(R.id.btnHistoryIa);
+        btnHistory = (MaterialButton) findViewById(R.id.btnHistoryIa);
 
         setSupportActionBar(toolbar);
         if (getSupportActionBar() != null) {
@@ -160,7 +161,7 @@ public class IaActivity extends AppCompatActivity {
             public void onFailure(Call<IaResponse> call, Throwable t) {
                 progressBar.setVisibility(View.GONE);
                 btnEnviar.setEnabled(true);
-                Toast.makeText(IaActivity.this, "Erro de conexão", Toast.LENGTH_SHORT).show();
+                Toast.makeText(IaActivity.this, getString(R.string.error_conexao), Toast.LENGTH_SHORT).show();
             }
         });
     }

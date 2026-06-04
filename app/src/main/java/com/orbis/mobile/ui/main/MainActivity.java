@@ -29,6 +29,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 import com.onesignal.OSDeviceState;
 import com.onesignal.OneSignal;
+import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.orbis.mobile.R;
 import com.orbis.mobile.api.OrbisApiService;
 import com.orbis.mobile.model.TokenManager;
@@ -199,11 +200,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void confirmarLogout() {
-        new android.app.AlertDialog.Builder(this)
-                .setTitle("Sair")
-                .setMessage("Deseja realmente sair do aplicativo?")
-                .setPositiveButton("Sim", (dialog, which) -> realizarLogout())
-                .setNegativeButton("Não", null)
+        new MaterialAlertDialogBuilder(this)
+                .setTitle(R.string.title_sair)
+                .setMessage(R.string.msg_confirmar_logout)
+                .setPositiveButton(R.string.btn_sim, (dialog, which) -> realizarLogout())
+                .setNegativeButton(R.string.btn_nao, null)
                 .show();
     }
 

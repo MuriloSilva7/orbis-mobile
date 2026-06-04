@@ -40,7 +40,7 @@
                 android:id="@+id/txtBadgeTipo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="SENSOR"
+                android:text="@string/label_sensor"
                 style="@style/BadgeText"
                 android:textColor="@color/purple"
                 android:background="@drawable/badge_outline_purple"
@@ -54,6 +54,7 @@
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:textColor="@color/black"
+                android:letterSpacing="-0.01"
                 android:layout_marginBottom="12dp"/>
 
             <com.google.android.material.button.MaterialButton
@@ -61,7 +62,7 @@
                 style="@style/Widget.Material3.Button.TonalButton"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
-                android:text="Ver Detalhes"
+                android:text="@string/btn_ver_detalhes"
                 android:textSize="12sp"
                 android:textColor="@color/purple"
                 app:cornerRadius="16dp"

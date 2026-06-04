@@ -33,7 +33,7 @@
                 android:layout_marginEnd="16dp"
                 android:adjustViewBounds="true"
                 android:src="@drawable/orbislogotoolbar"
-                android:contentDescription="Orbis Logo" />
+                android:contentDescription="@string/desc_logo" />
 
         </com.google.android.material.appbar.MaterialToolbar>
 
@@ -59,7 +59,7 @@
         android:id="@+id/txtSemManutencoes"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Nenhuma manutenção encontrada."
+        android:text="@string/label_sem_manutencoes"
         android:visibility="gone"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"

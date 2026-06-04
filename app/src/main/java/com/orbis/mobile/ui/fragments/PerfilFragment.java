@@ -7,7 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageButton;
+import com.google.android.material.button.MaterialButton;
 import android.widget.ImageView;
 import com.google.android.material.progressindicator.LinearProgressIndicator;
 import android.widget.TextView;
@@ -72,7 +72,7 @@ public class PerfilFragment extends Fragment {
         btnAlterarFoto = view.findViewById(R.id.btnAlterarFoto);
         progressBar = view.findViewById(R.id.progressPerfil);
 
-        ImageButton btnRefresh = view.findViewById(R.id.btnRefreshPerfil);
+        MaterialButton btnRefresh = view.findViewById(R.id.btnRefreshPerfil);
         btnRefresh.setOnClickListener(v -> carregarPerfil());
 
         btnAlterarFoto.setOnClickListener(v -> imagePickerLauncher.launch("image/*"));
@@ -96,7 +96,7 @@ public class PerfilFragment extends Fragment {
             salvarNoServidor(byteArray, mimeType);
         } catch (Exception e) {
             Log.e("PERFIL_FOTO", "Erro ao processar imagem", e);
-            Toast.makeText(getContext(), "Erro ao processar imagem", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), getString(R.string.error_processar_imagem), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -126,12 +126,12 @@ public class PerfilFragment extends Fragment {
             public void onResponse(Call<Usuario> call, Response<Usuario> response) {
                 if (progressBar != null) progressBar.setVisibility(View.GONE);
                 if (response.isSuccessful()) {
-                    Toast.makeText(getContext(), "Foto de perfil atualizada!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), getString(R.string.msg_relato_salvo), Toast.LENGTH_SHORT).show();
                     // Recarrega o perfil para sincronizar a nova URL da imagem e limpar cache do Glide
                     carregarPerfil();
                 } else {
                     Log.e("API_ERROR", "Erro ao subir foto. Status: " + response.code());
-                    Toast.makeText(getContext(), "Erro ao salvar foto no servidor", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), getString(R.string.error_salvar_relato), Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -139,7 +139,7 @@ public class PerfilFragment extends Fragment {
             public void onFailure(Call<Usuario> call, Throwable t) {
                 if (progressBar != null) progressBar.setVisibility(View.GONE);
                 Log.e("API_ERROR", "Falha na conexão", t);
-                Toast.makeText(getContext(), "Erro de conexão", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), getString(R.string.error_conexao), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -169,14 +169,14 @@ public class PerfilFragment extends Fragment {
                     txtRole.setText(usuario.getRole());
                     txtTelefone.setText(usuario.getTelefone());
                     txtEspecialidade.setText(usuario.getEspecialidade());
-                    txtAtivo.setText(usuario.isAtivo() ? "Ativo" : "Inativo");
+                    txtAtivo.setText(usuario.isAtivo() ? getString(R.string.status_ativo) : getString(R.string.status_inativo));
                 }
             }
 
             @Override
             public void onFailure(Call<Usuario> call, Throwable t) {
                 if (progressBar != null) progressBar.setVisibility(View.GONE);
-                Toast.makeText(getContext(), "Erro ao carregar perfil", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), getString(R.string.error_carregar_detalhes), Toast.LENGTH_SHORT).show();
             }
         });
     }

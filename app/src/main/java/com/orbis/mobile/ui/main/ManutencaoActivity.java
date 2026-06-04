@@ -85,17 +85,16 @@ public class ManutencaoActivity extends AppCompatActivity {
 
                         if (listaManutencoes.isEmpty()) {
                             txtSemManutencoes.setVisibility(View.VISIBLE);
-                            txtSemManutencoes.setText("Nenhum histórico para este alerta.");
+                            txtSemManutencoes.setText(R.string.label_sem_manutencoes_alerta);
                         } else {
                             txtSemManutencoes.setVisibility(View.GONE);
                         }
                     } else {
-                        String erroMsg = "Erro " + response.code() + " ao carregar histórico do alerta";
-                        Log.e("API_ERROR", erroMsg);
-                        Toast.makeText(ManutencaoActivity.this, erroMsg, Toast.LENGTH_SHORT).show();
+                        Log.e("API_ERROR", "Erro ao carregar histórico do alerta");
+                        Toast.makeText(ManutencaoActivity.this, getString(R.string.error_carregar_detalhes), Toast.LENGTH_SHORT).show();
 
                         txtSemManutencoes.setVisibility(View.VISIBLE);
-                        txtSemManutencoes.setText("Não foi possível carregar o histórico deste alerta.");
+                        txtSemManutencoes.setText(R.string.error_carregar_historico);
                     }
                 }
 
@@ -103,10 +102,10 @@ public class ManutencaoActivity extends AppCompatActivity {
                 public void onFailure(Call<List<Manutencao>> call, Throwable t) {
                     progressBar.setVisibility(View.GONE);
                     Log.e("API_ERROR", "Erro ao carregar histórico do alerta", t);
-                    Toast.makeText(ManutencaoActivity.this, "Erro de conexão", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ManutencaoActivity.this, getString(R.string.error_conexao), Toast.LENGTH_SHORT).show();
 
                     txtSemManutencoes.setVisibility(View.VISIBLE);
-                    txtSemManutencoes.setText("Erro de conexão ao carregar o histórico.");
+                    txtSemManutencoes.setText(R.string.error_conexao);
                 }
             });
 
@@ -143,17 +142,16 @@ public class ManutencaoActivity extends AppCompatActivity {
                         txtSemManutencoes.setVisibility(View.VISIBLE);
 
                         if (filtroMaquinaId != -1) {
-                            txtSemManutencoes.setText("Nenhum histórico para esta máquina.");
+                            txtSemManutencoes.setText(R.string.label_sem_manutencoes_maquina);
                         } else {
-                            txtSemManutencoes.setText("Nenhuma manutenção encontrada.");
+                            txtSemManutencoes.setText(R.string.label_sem_manutencoes);
                         }
                     } else {
                         txtSemManutencoes.setVisibility(View.GONE);
                     }
                 } else {
-                    String erroMsg = "Erro " + response.code() + " ao carregar";
-                    Log.e("API_ERROR", erroMsg);
-                    Toast.makeText(ManutencaoActivity.this, erroMsg, Toast.LENGTH_SHORT).show();
+                    Log.e("API_ERROR", "Erro ao carregar");
+                    Toast.makeText(ManutencaoActivity.this, getString(R.string.error_carregar_detalhes), Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -161,7 +159,7 @@ public class ManutencaoActivity extends AppCompatActivity {
             public void onFailure(Call<ManutencoesResponse> call, Throwable t) {
                 progressBar.setVisibility(View.GONE);
                 Log.e("API_ERROR", "Erro ao carregar manutenções", t);
-                Toast.makeText(ManutencaoActivity.this, "Erro de conexão", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ManutencaoActivity.this, getString(R.string.error_conexao), Toast.LENGTH_SHORT).show();
             }
         });
     }

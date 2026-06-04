@@ -14,7 +14,9 @@
         android:background="@drawable/bg_bubble_user"
         android:paddingHorizontal="16dp"
         android:paddingVertical="10dp"
-        android:text="Mensagem do usuário"
+        android:text="@string/label_user_mensagem"
+        android:textStyle="normal"
+        android:letterSpacing="0.01"
         android:textColor="@color/white"
         android:textSize="15sp" />
 

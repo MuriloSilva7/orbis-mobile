@@ -8,7 +8,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
+import android.widget.Toast;
+import android.widget.Button;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.progressindicator.LinearProgressIndicator;
 import com.orbis.mobile.R;
 import com.orbis.mobile.adapter.MaquinaAdapter;
@@ -40,7 +42,7 @@ public class MaquinasFragment extends Fragment {
         progressBar = view.findViewById(R.id.progressMaquinas);
         editSearch = view.findViewById(R.id.editSearchMaquinas);
 
-        ImageButton btnRefresh = view.findViewById(R.id.btnRefreshMaquinas);
+        MaterialButton btnRefresh = view.findViewById(R.id.btnRefreshMaquinas);
         btnRefresh.setOnClickListener(v -> carregarMaquinas());
 
         recyclerMaquinas.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -81,6 +83,7 @@ public class MaquinasFragment extends Fragment {
             public void onFailure(Call<List<Maquina>> call, Throwable t) {
                 if (progressBar != null) progressBar.setVisibility(View.GONE);
                 Log.e("ERRO_API", t.getMessage());
+                Toast.makeText(getContext(), getString(R.string.error_conexao), Toast.LENGTH_SHORT).show();
             }
         });
     }

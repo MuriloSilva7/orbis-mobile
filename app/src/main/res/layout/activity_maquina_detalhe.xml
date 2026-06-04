@@ -85,16 +85,17 @@
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="24dp">
+                        android:layout_marginBottom="32dp">
 
                         <TextView
                             android:id="@+id/txtNomeVariavel"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:text="Nome da Máquina"
-                            android:textSize="24sp"
+                            android:text="@string/label_nome_maquina"
+                            android:textSize="26sp"
                             android:textStyle="bold"
                             android:textColor="@color/black"
+                            android:letterSpacing="-0.02"
                             android:layout_marginEnd="16dp"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintEnd_toStartOf="@id/txtEstadoVariavel"
@@ -104,7 +105,7 @@
                             android:id="@+id/txtEstadoVariavel"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="ATIVO"
+                            android:text="@string/status_ativo"
                             style="@style/BadgeText"
                             android:textColor="@color/statusGreen"
                             android:background="@drawable/badge_outline_green"
@@ -114,11 +115,13 @@
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="SETOR" android:textColor="@color/gray" android:textSize="11sp" android:textStyle="bold" android:letterSpacing="0.05" />
-                    <TextView android:id="@+id/txtSetorVariavel" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="--" android:textSize="16sp" android:textColor="@color/black" android:layout_marginTop="4dp" android:layout_marginBottom="16dp" />
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/label_setor" android:textColor="@color/textSecondary" android:textSize="11sp" android:textStyle="bold" android:letterSpacing="0.05" />
+                    <TextView android:id="@+id/txtSetorVariavel" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="--" android:textSize="16sp" android:textColor="@color/black" android:layout_marginTop="4dp" android:layout_marginBottom="20dp" />
 
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="TIPO" android:textColor="@color/gray" android:textSize="11sp" android:textStyle="bold" android:letterSpacing="0.05" />
-                    <TextView android:id="@+id/txtTipoVariavel" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="--" android:textSize="16sp" android:textColor="@color/black" android:layout_marginTop="4dp" android:layout_marginBottom="16dp" />
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/label_tipo" android:textColor="@color/textSecondary" android:textSize="11sp" android:textStyle="bold" android:letterSpacing="0.05" />
+                    <TextView android:id="@+id/txtTipoVariavel" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="--" android:textSize="16sp" android:textColor="@color/black" android:layout_marginTop="4dp" android:layout_marginBottom="24dp" />
+
+                    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/borderSoft" android:layout_marginBottom="28dp" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -126,12 +129,12 @@
                         android:orientation="horizontal"
                         android:baselineAligned="false">
                         <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical">
-                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="CRITICIDADE" android:textColor="@color/gray" android:textSize="11sp" android:textStyle="bold" android:letterSpacing="0.05" />
-                            <TextView android:id="@+id/txtCriticidadeVariavel" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="--" android:textSize="16sp" android:textColor="@color/black" android:layout_marginTop="4dp" />
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/label_criticiade" android:textColor="@color/textSecondary" android:textSize="11sp" android:textStyle="bold" android:letterSpacing="0.05" />
+                            <TextView android:id="@+id/txtCriticidadeVariavel" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="--" android:textSize="18sp" android:textStyle="bold" android:textColor="@color/black" android:layout_marginTop="4dp" />
                         </LinearLayout>
                         <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content" android:layout_weight="1" android:orientation="vertical">
-                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="INTEGRIDADE" android:textColor="@color/gray" android:textSize="11sp" android:textStyle="bold" android:letterSpacing="0.05" />
-                            <TextView android:id="@+id/txtIntegridadeVariavel" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="--" android:textSize="16sp" android:textColor="@color/black" android:layout_marginTop="4dp" />
+                            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/label_integridade" android:textColor="@color/textSecondary" android:textSize="11sp" android:textStyle="bold" android:letterSpacing="0.05" />
+                            <TextView android:id="@+id/txtIntegridadeVariavel" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="--" android:textSize="18sp" android:textStyle="bold" android:textColor="@color/black" android:layout_marginTop="4dp" />
                         </LinearLayout>
                     </LinearLayout>
 
@@ -167,7 +170,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:text="Predição de Risco"
+                            android:text="@string/title_predicao_risco"
                             android:textSize="17sp"
                             android:textStyle="bold"
                             android:textColor="@color/black" />
@@ -418,7 +421,7 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Predição de Alertas"
+                        android:text="@string/title_predicao_alertas"
                         android:textSize="17sp"
                         android:textStyle="bold"
                         android:textColor="@color/black"
@@ -428,7 +431,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="PRÓXIMO ALERTA PREVISTO"
+                        android:text="@string/label_proximo_alerta_previsto"
                         android:textSize="11sp"
                         android:textColor="@color/gray"
                         android:textStyle="bold"
@@ -506,7 +509,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="INSTABILIDADE PREVISTA"
+                        android:text="@string/label_instabilidade_prevista"
                         android:textSize="11sp"
                         android:textColor="@color/gray"
                         android:textStyle="bold"
@@ -609,7 +612,7 @@
 
             <!-- ids ocultos legados -->
             <TextView android:id="@+id/txtIdVariavel" android:layout_width="0dp" android:layout_height="0dp" android:visibility="gone" />
-            <Button android:id="@+id/btnVoltar" android:layout_width="0dp" android:layout_height="0dp" android:visibility="gone" />
+            <com.google.android.material.button.MaterialButton android:id="@+id/btnVoltar" android:layout_width="0dp" android:layout_height="0dp" android:visibility="gone" />
 
             <View android:layout_width="match_parent" android:layout_height="24dp" />
 

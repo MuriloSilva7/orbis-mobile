@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.progressindicator.LinearProgressIndicator;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,7 +33,7 @@ public class TecnicoDetalheActivity extends AppCompatActivity {
     private ImageView imgTecnico;
     private LinearProgressIndicator progressTecnico;
 
-    Button btnVoltar;
+    private MaterialButton btnVoltar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -104,7 +105,7 @@ public class TecnicoDetalheActivity extends AppCompatActivity {
                     txtTelefoneVariavel.setText(tecnico.getTelefone());
                     txtEmailVariavel.setText(tecnico.getEmail());
 
-                    txtEstadoVariavel.setText(tecnico.isAtivo() ? "ATIVO" : "INATIVO");
+                    txtEstadoVariavel.setText(tecnico.isAtivo() ? getString(R.string.status_ativo) : getString(R.string.status_inativo));
                     if (tecnico.isAtivo()) {
                         txtEstadoVariavel.setTextColor(getColor(R.color.statusGreen));
                         txtEstadoVariavel.setBackgroundResource(R.drawable.badge_outline_green);
@@ -120,7 +121,7 @@ public class TecnicoDetalheActivity extends AppCompatActivity {
                 setLoading(false);
                 Toast.makeText(
                         TecnicoDetalheActivity.this,
-                        "Erro ao carregar técnico: " + t.getMessage(),
+                        getString(R.string.error_carregar_tecnico, t.getMessage()),
                         Toast.LENGTH_SHORT
                 ).show();
             }

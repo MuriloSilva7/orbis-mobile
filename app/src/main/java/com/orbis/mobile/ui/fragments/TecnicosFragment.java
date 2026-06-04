@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.progressindicator.LinearProgressIndicator;
 import android.widget.Toast;
 import com.orbis.mobile.R;
@@ -42,7 +42,7 @@ public class TecnicosFragment extends Fragment {
         progressBar = view.findViewById(R.id.progressTecnicos);
         editSearch = view.findViewById(R.id.editSearchTecnicos);
         
-        ImageButton btnRefresh = view.findViewById(R.id.btnRefreshTecnicos);
+        MaterialButton btnRefresh = view.findViewById(R.id.btnRefreshTecnicos);
         btnRefresh.setOnClickListener(v -> carregarTecnicos());
 
         recyclerTecnicos.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -82,7 +82,7 @@ public class TecnicosFragment extends Fragment {
             @Override
             public void onFailure(Call<TecnicosResponse> call, Throwable t) {
                 if (progressBar != null) progressBar.setVisibility(View.GONE);
-                Toast.makeText(getContext(), "Erro: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), getString(R.string.error_carregar_tecnico, t.getMessage()), Toast.LENGTH_SHORT).show();
             }
         });
     }

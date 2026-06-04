@@ -36,7 +36,7 @@
             android:id="@+id/editSearchGlobal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Pesquisar por máquinas, alertas, técnicos..."
+            android:hint="@string/hint_pesquisa_global"
             android:textSize="15sp"
             android:inputType="text"
             android:imeOptions="actionSearch" />
@@ -64,7 +64,7 @@
         android:id="@+id/txtEmptySearch"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Nenhum resultado encontrado"
+        android:text="@string/label_sem_resultados"
         android:textColor="@color/gray"
         android:visibility="gone"
         app:layout_constraintTop_toBottomOf="@id/searchLayout"

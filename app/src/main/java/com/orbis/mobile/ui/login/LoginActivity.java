@@ -5,12 +5,12 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.progressindicator.LinearProgressIndicator;
 
 import com.orbis.mobile.R;
@@ -30,7 +30,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private EditText etEmail;
     private EditText etSenha;
-    private Button btnLogin;
+    private MaterialButton btnLogin;
     private LinearProgressIndicator progressBar;
 
     @Override
@@ -52,7 +52,7 @@ public class LoginActivity extends AppCompatActivity {
         String senha = etSenha.getText().toString().trim();
 
         if (email.isEmpty() || senha.isEmpty()) {
-            Toast.makeText(this, "Preencha todos os campos", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.error_preencha_campos), Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -87,11 +87,11 @@ public class LoginActivity extends AppCompatActivity {
                                 .apply();
                     }
 
-                    Toast.makeText(LoginActivity.this, "Login realizado!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, getString(R.string.msg_login_realizado), Toast.LENGTH_SHORT).show();
                     startActivity(new Intent(LoginActivity.this, MainActivity.class));
                     finish();
                 } else {
-                    Toast.makeText(LoginActivity.this, "Email ou senha inválidos", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, getString(R.string.error_login_invalido), Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -100,7 +100,7 @@ public class LoginActivity extends AppCompatActivity {
                 progressBar.setVisibility(View.GONE);
                 btnLogin.setEnabled(true);
                 Log.e("LOGIN", "Erro: " + t.getMessage());
-                Toast.makeText(LoginActivity.this, "Erro de conexão", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, getString(R.string.error_conexao), Toast.LENGTH_SHORT).show();
             }
         });
     }

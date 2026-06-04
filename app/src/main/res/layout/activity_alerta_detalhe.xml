@@ -83,24 +83,27 @@
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="24dp">
+                        android:layout_marginBottom="32dp">
 
                         <TextView
                             android:id="@+id/lblOcorrencia"
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:text="Ocorrência"
-                            android:textSize="24sp"
+                            android:text="@string/label_ocorrencia"
+                            android:textSize="26sp"
                             android:textStyle="bold"
                             android:textColor="@color/black"
+                            android:letterSpacing="-0.02"
+                            android:layout_marginEnd="16dp"
                             app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toStartOf="@id/txtStatusVariavel"
                             app:layout_constraintTop_toTopOf="parent" />
 
                         <TextView
                             android:id="@+id/txtStatusVariavel"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="--"
+                            android:text="@string/status_inativo"
                             style="@style/BadgeText"
                             android:textColor="@color/statusRed"
                             android:background="@drawable/badge_outline_red"
@@ -111,18 +114,18 @@
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
                     <!-- Seção de Informações -->
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="MÁQUINA" android:textColor="@color/gray" android:textSize="11sp" android:textStyle="bold" android:letterSpacing="0.05" />
-                    <TextView android:id="@+id/txtMaquinaVariavel" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="--" android:textSize="16sp" android:textStyle="bold" android:textColor="@color/black" android:layout_marginTop="4dp" android:layout_marginBottom="16dp" />
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/label_maquina" android:textColor="@color/textSecondary" android:textSize="11sp" android:textStyle="bold" android:letterSpacing="0.05" />
+                    <TextView android:id="@+id/txtMaquinaVariavel" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="--" android:textSize="16sp" android:textStyle="bold" android:textColor="@color/black" android:layout_marginTop="4dp" android:layout_marginBottom="20dp" />
 
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="SENSOR" android:textColor="@color/gray" android:textSize="11sp" android:textStyle="bold" android:letterSpacing="0.05" />
-                    <TextView android:id="@+id/txtSensorVariavel" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="--" android:textSize="16sp" android:textColor="@color/black" android:layout_marginTop="4dp" android:layout_marginBottom="16dp" />
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/label_sensor" android:textColor="@color/textSecondary" android:textSize="11sp" android:textStyle="bold" android:letterSpacing="0.05" />
+                    <TextView android:id="@+id/txtSensorVariavel" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="--" android:textSize="16sp" android:textColor="@color/black" android:layout_marginTop="4dp" android:layout_marginBottom="20dp" />
 
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="DATA DE ABERTURA" android:textColor="@color/gray" android:textSize="11sp" android:textStyle="bold" android:letterSpacing="0.05" />
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/label_data_abertura" android:textColor="@color/textSecondary" android:textSize="11sp" android:textStyle="bold" android:letterSpacing="0.05" />
                     <TextView android:id="@+id/txtCriadoEmVariavel" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="--" android:textSize="16sp" android:textColor="@color/black" android:layout_marginTop="4dp" android:layout_marginBottom="24dp" />
 
-                    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/border" android:layout_marginBottom="20dp" />
+                    <View android:layout_width="match_parent" android:layout_height="1dp" android:background="@color/borderSoft" android:layout_marginBottom="24dp" />
 
-                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="DESCRIÇÃO DO PROBLEMA" android:textColor="@color/gray" android:textSize="11sp" android:textStyle="bold" android:layout_marginBottom="8dp"/>
+                    <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/label_descricao_problema" android:textColor="@color/textSecondary" android:textSize="11sp" android:textStyle="bold" android:letterSpacing="0.05" android:layout_marginBottom="8dp"/>
                     <TextView android:id="@+id/txtMensagemVariavel" android:layout_width="match_parent" android:layout_height="wrap_content" android:text="--" android:textColor="@color/darkGray" android:textSize="15sp" android:lineSpacingExtra="6dp" android:layout_marginBottom="32dp" />
 
                     <!-- ÁREA DE AÇÕES -->
@@ -136,8 +139,7 @@
                             style="@style/PrimaryButton"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Aceitar Alerta"
-                            android:backgroundTint="@color/purple"
+                            android:text="@string/btn_aceitar_alerta"
                             android:visibility="gone"
                             android:layout_marginBottom="12dp" />
 
@@ -146,11 +148,12 @@
                             style="@style/Widget.Material3.Button.TonalButton"
                             android:layout_width="match_parent"
                             android:layout_height="56dp"
-                            android:text="Relatar Manutenção"
+                            android:text="@string/btn_relatar_manutencao"
                             android:textColor="@color/purple"
                             android:textStyle="bold"
                             android:visibility="gone"
                             android:layout_marginBottom="12dp"
+                            app:backgroundTint="@color/purpleSoft"
                             app:cornerRadius="16dp" />
 
                         <LinearLayout
@@ -167,7 +170,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="56dp"
                                 android:layout_weight="1"
-                                android:text="Cancelar"
+                                android:text="@string/btn_cancelar"
                                 android:textColor="@color/statusRed"
                                 app:strokeColor="@color/statusRed"
                                 android:layout_marginEnd="10dp"
@@ -178,7 +181,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="56dp"
                                 android:layout_weight="1"
-                                android:text="Concluir"
+                                android:text="@string/btn_concluir"
                                 android:backgroundTint="@color/statusGreen"
                                 android:textColor="@color/white"
                                 android:textStyle="bold"
@@ -190,7 +193,7 @@
                             style="@style/Widget.Material3.Button.TextButton"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Ver Histórico de Manutenção"
+                            android:text="@string/btn_ver_historico_manutencao"
                             android:textColor="@color/purple" />
                     </LinearLayout>
 
@@ -203,7 +206,7 @@
             <TextView android:id="@+id/txtIdMaquinaVariavel" android:layout_width="0dp" android:layout_height="0dp" android:visibility="gone" />
             <TextView android:id="@+id/txtIdTecnicoVariavel" android:layout_width="0dp" android:layout_height="0dp" android:visibility="gone" />
             <TextView android:id="@+id/txtTipoVariavel" android:layout_width="0dp" android:layout_height="0dp" android:visibility="gone" />
-            <Button android:id="@+id/btnVoltar" android:layout_width="0dp" android:layout_height="0dp" android:visibility="gone" />
+            <com.google.android.material.button.MaterialButton android:id="@+id/btnVoltar" android:layout_width="0dp" android:layout_height="0dp" android:visibility="gone" />
 
         </LinearLayout>
     </ScrollView>

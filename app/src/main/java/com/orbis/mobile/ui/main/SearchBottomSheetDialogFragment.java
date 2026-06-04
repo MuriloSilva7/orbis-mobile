@@ -198,16 +198,16 @@ public class SearchBottomSheetDialogFragment extends BottomSheetDialogFragment {
             Object item = items.get(position);
             if (item instanceof Maquina) {
                 holder.text1.setText(((Maquina) item).getNome());
-                holder.text2.setText("Máquina • " + ((Maquina) item).getSetor());
+                holder.text2.setText(holder.itemView.getContext().getString(R.string.title_maquinas) + " • " + ((Maquina) item).getSetor());
             } else if (item instanceof Alerta) {
-                holder.text1.setText("Alerta #" + ((Alerta) item).getId());
-                holder.text2.setText("Alerta • " + ((Alerta) item).getTipo());
+                holder.text1.setText(holder.itemView.getContext().getString(R.string.label_ocorrencia) + " #" + ((Alerta) item).getId());
+                holder.text2.setText(holder.itemView.getContext().getString(R.string.title_alertas) + " • " + ((Alerta) item).getTipo());
             } else if (item instanceof Usuario) {
                 holder.text1.setText(((Usuario) item).getNome());
-                holder.text2.setText("Técnico • " + ((Usuario) item).getEspecialidade());
+                holder.text2.setText(holder.itemView.getContext().getString(R.string.label_tecnico) + " • " + ((Usuario) item).getEspecialidade());
             } else if (item instanceof Sensor) {
-                holder.text1.setText("Sensor " + ((Sensor) item).getTipo());
-                holder.text2.setText("Status: " + ((Sensor) item).getStatus());
+                holder.text1.setText(holder.itemView.getContext().getString(R.string.label_sensor) + " " + ((Sensor) item).getTipo());
+                holder.text2.setText(holder.itemView.getContext().getString(R.string.label_status) + ": " + ((Sensor) item).getStatus());
             }
             holder.itemView.setOnClickListener(v -> listener.onItemClick(item));
         }
