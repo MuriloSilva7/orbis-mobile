@@ -1,10 +1,10 @@
 package com.orbis.mobile.adapter;
 
+
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.bumptech.glide.Glide;
@@ -14,12 +14,14 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.progressindicator.LinearProgressIndicator;
 import com.orbis.mobile.R;
 import com.orbis.mobile.model.Alerta;
 import com.orbis.mobile.ui.main.AlertaDetalheActivity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class AlertaAdapter extends RecyclerView.Adapter<AlertaAdapter.ViewHolder> {
 
@@ -58,6 +60,8 @@ public class AlertaAdapter extends RecyclerView.Adapter<AlertaAdapter.ViewHolder
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView txtNomeVariavel;
         TextView txtStatusVariavel;
+        TextView txtIntegridadeAlerta;
+        LinearProgressIndicator progressIntegridadeAlerta;
         MaterialButton btnVerMais;
         ImageView imgAlerta;
 
@@ -65,6 +69,8 @@ public class AlertaAdapter extends RecyclerView.Adapter<AlertaAdapter.ViewHolder
             super(itemView);
             txtNomeVariavel = itemView.findViewById(R.id.txtNomeVariavel);
             txtStatusVariavel = itemView.findViewById(R.id.txtStatusVariavel);
+            txtIntegridadeAlerta = itemView.findViewById(R.id.txtIntegridadeAlerta);
+            progressIntegridadeAlerta = itemView.findViewById(R.id.progressIntegridadeAlerta);
             btnVerMais = (MaterialButton) itemView.findViewById(R.id.btnVerMais);
             imgAlerta = itemView.findViewById(R.id.imgAlerta);
         }
@@ -85,6 +91,21 @@ public class AlertaAdapter extends RecyclerView.Adapter<AlertaAdapter.ViewHolder
         if (alerta.getMaquina() != null) {
             holder.txtNomeVariavel.setText(alerta.getMaquina().getNome());
 
+            // --- LÓGICA DA BARRA DE INTEGRIDADE ---
+            float integridade = alerta.getMaquina().getIntegridade();
+            holder.txtIntegridadeAlerta.setText(String.format(Locale.getDefault(), "Integridade: %.0f%%", integridade));
+            holder.progressIntegridadeAlerta.setProgress((int) integridade);
+
+            int cor;
+            if (integridade >= 70) {
+                cor = ContextCompat.getColor(holder.itemView.getContext(), R.color.statusGreen);
+            } else if (integridade >= 30) {
+                cor = ContextCompat.getColor(holder.itemView.getContext(), R.color.statusOrange);
+            } else {
+                cor = ContextCompat.getColor(holder.itemView.getContext(), R.color.statusRed);
+            }
+            holder.progressIntegridadeAlerta.setIndicatorColor(cor);
+
             if (alerta.getMaquina().getImagem() != null && !alerta.getMaquina().getImagem().isEmpty()) {
                 Glide.with(holder.itemView.getContext())
                         .load(alerta.getMaquina().getImagem())
@@ -93,19 +114,14 @@ public class AlertaAdapter extends RecyclerView.Adapter<AlertaAdapter.ViewHolder
             }
         } else {
             holder.txtNomeVariavel.setText(holder.itemView.getContext().getString(R.string.label_sem_dados));
+            holder.txtIntegridadeAlerta.setText("Integridade: --");
+            holder.progressIntegridadeAlerta.setProgress(0);
         }
 
-        // --- CORREÇÃO DO STATUS ---
+        // --- STATUS Badge ---
         String status = alerta.getStatus();
-        
-        // Define o texto amigável
         if (status == null) status = "DESCONHECIDO";
         
-        // Formata o texto para exibição (ex: EM_ANDAMENTO -> Em Andamento)
-        // String statusFormatado = status.replace("_", " ");
-        // holder.txtStatusVariavel.setText(statusFormatado);
-
-        // Aplica cores e estilos de acordo com o status real
         switch (status.toUpperCase()) {
             case "ATIVO":
                 holder.txtStatusVariavel.setText(holder.itemView.getContext().getString(R.string.status_ativo));

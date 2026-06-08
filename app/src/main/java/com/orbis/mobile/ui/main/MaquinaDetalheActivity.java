@@ -2,11 +2,8 @@ package com.orbis.mobile.ui.main;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import com.google.android.material.button.MaterialButton;
-import com.google.android.material.progressindicator.LinearProgressIndicator;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,7 +11,9 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 
 import com.bumptech.glide.Glide;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
+import com.google.android.material.progressindicator.LinearProgressIndicator;
 import com.orbis.mobile.R;
 import com.orbis.mobile.api.OrbisApiService;
 import com.orbis.mobile.model.Maquina;
@@ -40,6 +39,7 @@ public class MaquinaDetalheActivity extends AppCompatActivity {
             txtCriticidadeVariavel, txtIntegridadeVariavel, txtEstadoVariavel;
     private ImageView imgMaquina;
     private LinearProgressIndicator progressMaquina;
+    private LinearProgressIndicator progressBarIntegridade;
     private MaterialButton btnVoltar;
 
     // --- Card Risco ---
@@ -89,6 +89,7 @@ public class MaquinaDetalheActivity extends AppCompatActivity {
         txtEstadoVariavel = findViewById(R.id.txtEstadoVariavel);
         imgMaquina = findViewById(R.id.imgMaquina);
         progressMaquina = findViewById(R.id.progressMaquina);
+        progressBarIntegridade = findViewById(R.id.progressBarIntegridade);
         btnVoltar = findViewById(R.id.btnVoltar);
         btnVoltar.setOnClickListener(v -> finish());
 
@@ -212,7 +213,22 @@ public class MaquinaDetalheActivity extends AppCompatActivity {
         txtSetorVariavel.setText(maquina.getSetor());
         txtTipoVariavel.setText(maquina.getTipo());
         txtCriticidadeVariavel.setText(maquina.getCriticidade());
-        txtIntegridadeVariavel.setText(String.valueOf(maquina.getIntegridade()));
+        
+        float integridade = maquina.getIntegridade();
+        txtIntegridadeVariavel.setText(String.format(Locale.getDefault(), "%.1f%%", integridade));
+
+        if (progressBarIntegridade != null) {
+            progressBarIntegridade.setProgress((int) integridade);
+            
+            // Define a cor da barra de acordo com a porcentagem
+            if (integridade >= 70) {
+                progressBarIntegridade.setIndicatorColor(ContextCompat.getColor(this, R.color.statusGreen));
+            } else if (integridade >= 30) {
+                progressBarIntegridade.setIndicatorColor(ContextCompat.getColor(this, R.color.statusOrange));
+            } else {
+                progressBarIntegridade.setIndicatorColor(ContextCompat.getColor(this, R.color.statusRed));
+            }
+        }
 
         if (maquina.isAtivo()) {
             txtEstadoVariavel.setText(getString(R.string.status_ativo));
