@@ -80,10 +80,26 @@ public class IaActivity extends AppCompatActivity {
         });
 
         adapter = new ChatAdapter(historico);
-        recyclerChat.setLayoutManager(new LinearLayoutManager(this));
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        layoutManager.setStackFromEnd(true);
+        recyclerChat.setLayoutManager(layoutManager);
         recyclerChat.setAdapter(adapter);
 
+        // Rolar para baixo quando o teclado aparecer
+        recyclerChat.addOnLayoutChangeListener((v, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom) -> {
+            if (bottom < oldBottom && adapter.getItemCount() > 0) {
+                recyclerChat.postDelayed(() -> recyclerChat.smoothScrollToPosition(adapter.getItemCount() - 1), 100);
+            }
+        });
+
         btnEnviar.setOnClickListener(v -> enviarPergunta());
+
+        // Rolar ao clicar no campo de texto
+        edtPergunta.setOnClickListener(v -> {
+            if (adapter.getItemCount() > 0) {
+                recyclerChat.postDelayed(() -> recyclerChat.smoothScrollToPosition(adapter.getItemCount() - 1), 100);
+            }
+        });
 
         // Carregar sessão se existir
         Intent intent = getIntent();
