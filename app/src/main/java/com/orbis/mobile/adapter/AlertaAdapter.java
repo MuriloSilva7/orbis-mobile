@@ -62,7 +62,6 @@ public class AlertaAdapter extends RecyclerView.Adapter<AlertaAdapter.ViewHolder
         TextView txtStatusVariavel;
         TextView txtIntegridadeAlerta;
         LinearProgressIndicator progressIntegridadeAlerta;
-        MaterialButton btnVerMais;
         ImageView imgAlerta;
 
         public ViewHolder(View itemView) {
@@ -71,7 +70,6 @@ public class AlertaAdapter extends RecyclerView.Adapter<AlertaAdapter.ViewHolder
             txtStatusVariavel = itemView.findViewById(R.id.txtStatusVariavel);
             txtIntegridadeAlerta = itemView.findViewById(R.id.txtIntegridadeAlerta);
             progressIntegridadeAlerta = itemView.findViewById(R.id.progressIntegridadeAlerta);
-            btnVerMais = (MaterialButton) itemView.findViewById(R.id.btnVerMais);
             imgAlerta = itemView.findViewById(R.id.imgAlerta);
         }
     }
@@ -145,7 +143,7 @@ public class AlertaAdapter extends RecyclerView.Adapter<AlertaAdapter.ViewHolder
                 break;
         }
 
-        holder.btnVerMais.setOnClickListener(v -> {
+        holder.itemView.setOnClickListener(v -> {
             Intent intent = new Intent(v.getContext(), AlertaDetalheActivity.class);
             intent.putExtra("id_alerta", alerta.getId());
             v.getContext().startActivity(intent);

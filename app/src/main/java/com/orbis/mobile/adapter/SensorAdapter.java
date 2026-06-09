@@ -62,7 +62,7 @@ public class SensorAdapter extends RecyclerView.Adapter<SensorAdapter.SensorView
         Sensor sensor = listaSensores.get(position);
         holder.txtTipoVariavel.setText(sensor.getTipo());
 
-        holder.btnVerMais.setOnClickListener(v -> {
+        holder.itemView.setOnClickListener(v -> {
             Intent intent = new Intent(v.getContext(), SensorDetalheActivity.class);
             intent.putExtra("id_sensor", sensor.getId());
             v.getContext().startActivity(intent);
@@ -76,12 +76,10 @@ public class SensorAdapter extends RecyclerView.Adapter<SensorAdapter.SensorView
 
     public class SensorViewHolder extends RecyclerView.ViewHolder{
         TextView txtTipoVariavel;
-        MaterialButton btnVerMais;
 
         public SensorViewHolder(@NonNull View itemView) {
             super(itemView);
             txtTipoVariavel = itemView.findViewById(R.id.txtTipoVariavel);
-            btnVerMais = (MaterialButton) itemView.findViewById(R.id.btnVerMais);
         }
     }
 }

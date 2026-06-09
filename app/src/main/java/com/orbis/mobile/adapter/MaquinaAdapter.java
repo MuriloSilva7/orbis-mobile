@@ -87,7 +87,7 @@ public class MaquinaAdapter extends RecyclerView.Adapter<MaquinaAdapter.MaquinaV
                 .error(R.drawable.ic_launcher_foreground)
                 .into(holder.imgMaquina);
 
-        holder.btnVerMais.setOnClickListener(v -> {
+        holder.itemView.setOnClickListener(v -> {
             Intent intent = new Intent(v.getContext(), MaquinaDetalheActivity.class);
             intent.putExtra("id_maquina", maquina.getId());
             v.getContext().startActivity(intent);
@@ -103,14 +103,12 @@ public class MaquinaAdapter extends RecyclerView.Adapter<MaquinaAdapter.MaquinaV
         ImageView imgMaquina;
         TextView txtNomeVariavel, txtIntegridadePercent;
         LinearProgressIndicator progressIntegridade;
-        MaterialButton btnVerMais;
 
         public MaquinaViewHolder(@NonNull View itemView) {
             super(itemView);
             txtNomeVariavel = itemView.findViewById(R.id.txtNomeVariavel);
             txtIntegridadePercent = itemView.findViewById(R.id.txtIntegridadePercent);
             progressIntegridade = itemView.findViewById(R.id.progressIntegridade);
-            btnVerMais = itemView.findViewById(R.id.btnVerMais);
             imgMaquina = itemView.findViewById(R.id.imgMaquina);
         }
     }

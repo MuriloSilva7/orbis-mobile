@@ -72,7 +72,7 @@ public class TecnicoAdapter extends RecyclerView.Adapter<TecnicoAdapter.TecnicoV
                 .circleCrop()
                 .into(holder.imgTecnico);
 
-        holder.btnVerMais.setOnClickListener(v -> {
+        holder.itemView.setOnClickListener(v -> {
             Intent intent = new Intent(v.getContext(), TecnicoDetalheActivity.class);
             intent.putExtra("id_tecnico", tecnico.getId());
             v.getContext().startActivity(intent);
@@ -86,13 +86,11 @@ public class TecnicoAdapter extends RecyclerView.Adapter<TecnicoAdapter.TecnicoV
 
     public static class TecnicoViewHolder extends RecyclerView.ViewHolder {
         TextView txtNomeVariavel;
-        MaterialButton btnVerMais;
         ImageView imgTecnico;
 
         public TecnicoViewHolder(@NonNull View itemView) {
             super(itemView);
             txtNomeVariavel = itemView.findViewById(R.id.txtNomeVariavel);
-            btnVerMais = (MaterialButton) itemView.findViewById(R.id.btnVerMais);
             imgTecnico = itemView.findViewById(R.id.imgTecnico);
         }
     }
