@@ -29,4 +29,9 @@
         android:name="com.orbis.mobile.ui.fragments.TecnicosFragment"
         android:label="" />
 
+    <fragment
+        android:id="@+id/admsFragment"
+        android:name="com.orbis.mobile.ui.fragments.AdmsFragment"
+        android:label="" />
+
 </navigation>

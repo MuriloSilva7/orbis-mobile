@@ -13,11 +13,6 @@
             android:icon="@drawable/ic_alertas"/>
 
         <item
-            android:id="@+id/perfilFragment"
-            android:title="Perfil"
-            android:icon="@drawable/ic_perfil"/>
-
-        <item
             android:id="@+id/sensoresFragment"
             android:title="Sensores"
             android:icon="@drawable/ic_sensores"/>
@@ -26,6 +21,16 @@
             android:id="@+id/tecnicosFragment"
             android:title="Técnicos"
             android:icon="@drawable/ic_tecnicos"/>
+
+        <item
+            android:id="@+id/admsFragment"
+            android:title="Administradores"
+            android:icon="@drawable/ic_tecnicos"/>
+
+        <item
+            android:id="@+id/perfilFragment"
+            android:title="Perfil"
+            android:icon="@drawable/ic_perfil"/>
 
         <item
             android:id="@+id/nav_logout"
