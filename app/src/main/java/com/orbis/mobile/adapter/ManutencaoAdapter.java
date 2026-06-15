@@ -41,8 +41,22 @@ public class ManutencaoAdapter extends RecyclerView.Adapter<ManutencaoAdapter.My
 
         if (manutencao.getAlerta() != null && manutencao.getAlerta().getMaquina() != null) {
             holder.txtMaquinaNome.setText(manutencao.getAlerta().getMaquina().getNome());
+        } else if (manutencao.getMaquina() != null) {
+            holder.txtMaquinaNome.setText(manutencao.getMaquina().getNome());
         } else {
             holder.txtMaquinaNome.setText(holder.itemView.getContext().getString(R.string.label_ocorrencia) + " #" + manutencao.getId());
+        }
+
+        if (holder.txtTipoManutencao != null) {
+            String tipo = manutencao.getTipo() != null ? manutencao.getTipo() : "CORRETIVA";
+            holder.txtTipoManutencao.setText(tipo);
+            if ("PREVENTIVA".equals(tipo)) {
+                holder.txtTipoManutencao.setTextColor(holder.itemView.getContext().getColor(R.color.purple));
+                holder.txtTipoManutencao.setBackgroundResource(R.drawable.badge_outline_purple);
+            } else {
+                holder.txtTipoManutencao.setTextColor(holder.itemView.getContext().getColor(R.color.statusOrange));
+                holder.txtTipoManutencao.setBackgroundResource(R.drawable.badge_outline_purple);
+            }
         }
 
         if (manutencao.getUsuario() != null) {
@@ -106,7 +120,7 @@ public class ManutencaoAdapter extends RecyclerView.Adapter<ManutencaoAdapter.My
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView txtMaquinaNome, txtTecnicoNome, txtData, txtStatus, txtObservacao;
+        TextView txtMaquinaNome, txtTecnicoNome, txtData, txtStatus, txtObservacao, txtTipoManutencao;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -115,6 +129,7 @@ public class ManutencaoAdapter extends RecyclerView.Adapter<ManutencaoAdapter.My
             txtData = itemView.findViewById(R.id.txtData);
             txtStatus = itemView.findViewById(R.id.txtStatus);
             txtObservacao = itemView.findViewById(R.id.txtObservacao);
+            txtTipoManutencao = itemView.findViewById(R.id.txtTipoManutencao);
         }
     }
 }

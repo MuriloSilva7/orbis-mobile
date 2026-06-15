@@ -40,7 +40,7 @@ public class MaquinaDetalheActivity extends AppCompatActivity {
     private ImageView imgMaquina;
     private LinearProgressIndicator progressMaquina;
     private LinearProgressIndicator progressBarIntegridade;
-    private MaterialButton btnVoltar;
+    private MaterialButton btnVoltar, btnCriarPreventiva;
 
     // --- Card Risco ---
     private MaterialCardView cardRisco;
@@ -92,6 +92,9 @@ public class MaquinaDetalheActivity extends AppCompatActivity {
         progressBarIntegridade = findViewById(R.id.progressBarIntegridade);
         btnVoltar = findViewById(R.id.btnVoltar);
         btnVoltar.setOnClickListener(v -> finish());
+        
+        btnCriarPreventiva = findViewById(R.id.btnCriarPreventiva);
+        btnCriarPreventiva.setOnClickListener(v -> mostrarDialogPreventiva());
 
         cardRisco = findViewById(R.id.cardRisco);
         txtConfiancaGeral = findViewById(R.id.txtConfiancaGeral);
@@ -120,6 +123,60 @@ public class MaquinaDetalheActivity extends AppCompatActivity {
         txtModeloR2 = findViewById(R.id.txtModeloR2);
         txtModeloSlope = findViewById(R.id.txtModeloSlope);
         txtModeloPontos = findViewById(R.id.txtModeloPontos);
+        
+        checkUserRole();
+    }
+
+    private void checkUserRole() {
+        android.content.SharedPreferences prefs = getSharedPreferences("orbis_prefs", MODE_PRIVATE);
+        String role = prefs.getString("user_role", "");
+        if ("TECNICO".equals(role)) {
+            btnCriarPreventiva.setVisibility(View.VISIBLE);
+        } else {
+            btnCriarPreventiva.setVisibility(View.GONE);
+        }
+    }
+
+    private void mostrarDialogPreventiva() {
+        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(this);
+        builder.setTitle("Nova Manutenção Preventiva");
+        final android.widget.EditText input = new android.widget.EditText(this);
+        input.setHint("Observação (opcional)");
+        builder.setView(input);
+
+        builder.setPositiveButton("Criar", (dialog, which) -> {
+            String obs = input.getText().toString().trim();
+            criarPreventiva(obs);
+        });
+        builder.setNegativeButton("Cancelar", null);
+        builder.show();
+    }
+
+    private void criarPreventiva(String observacao) {
+        setLoading(true);
+        OrbisApiService api = RetrofitClient.getInstance(this).getApi();
+        java.util.Map<String, Object> body = new java.util.HashMap<>();
+        body.put("tipo", "PREVENTIVA");
+        body.put("maquinaId", maquinaId);
+        body.put("observacao", observacao);
+
+        api.createManutencao(body).enqueue(new Callback<com.orbis.mobile.model.Manutencao>() {
+            @Override
+            public void onResponse(Call<com.orbis.mobile.model.Manutencao> call, Response<com.orbis.mobile.model.Manutencao> response) {
+                setLoading(false);
+                if (response.isSuccessful()) {
+                    android.widget.Toast.makeText(MaquinaDetalheActivity.this, "Manutenção preventiva criada!", android.widget.Toast.LENGTH_SHORT).show();
+                } else {
+                    android.widget.Toast.makeText(MaquinaDetalheActivity.this, "Erro ao criar preventiva", android.widget.Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<com.orbis.mobile.model.Manutencao> call, Throwable t) {
+                setLoading(false);
+                android.widget.Toast.makeText(MaquinaDetalheActivity.this, "Erro de conexão", android.widget.Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void setupToolbar() {

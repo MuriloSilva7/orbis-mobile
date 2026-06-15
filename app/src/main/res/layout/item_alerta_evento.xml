@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/ModernCard"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="12dp"
+    app:cardElevation="2dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="8dp">
+
+            <TextView
+                android:id="@+id/txtEventoUsuario"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Nome do Usuário"
+                android:textStyle="bold"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/txtEventoData"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="10/06/2026 14:30"
+                android:textColor="@color/textSecondary"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/txtEventoRole"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TECNICO"
+            style="@style/BadgeText"
+            android:textSize="10sp"
+            android:textColor="@color/purple"
+            android:background="@drawable/badge_outline_purple"
+            android:layout_marginBottom="8dp" />
+
+        <TextView
+            android:id="@+id/txtEventoMensagem"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Mensagem do comentário..."
+            android:textColor="@color/darkGray"
+            android:textSize="14sp"
+            android:lineSpacingExtra="4dp" />
+
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

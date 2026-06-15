@@ -622,6 +622,15 @@
             <TextView android:id="@+id/txtIdVariavel" android:layout_width="0dp" android:layout_height="0dp" android:visibility="gone" />
             <com.google.android.material.button.MaterialButton android:id="@+id/btnVoltar" android:layout_width="0dp" android:layout_height="0dp" android:visibility="gone" />
 
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnCriarPreventiva"
+                style="@style/PrimaryButton"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Criar Manutenção Preventiva"
+                android:visibility="gone"
+                android:layout_marginTop="8dp" />
+
             <View android:layout_width="match_parent" android:layout_height="24dp" />
 
         </LinearLayout>

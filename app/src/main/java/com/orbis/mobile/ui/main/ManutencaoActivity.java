@@ -32,6 +32,7 @@ public class ManutencaoActivity extends AppCompatActivity {
     private List<Manutencao> listaManutencoes = new ArrayList<>();
     private LinearProgressIndicator progressBar;
     private TextView txtSemManutencoes;
+    private com.google.android.material.floatingactionbutton.FloatingActionButton fabNovaPreventiva;
     private int filtroMaquinaId = -1;
     private int filtroAlertaId = -1;
 
@@ -58,6 +59,11 @@ public class ManutencaoActivity extends AppCompatActivity {
         recyclerManutencoes = findViewById(R.id.recyclerManutencoes);
         progressBar = findViewById(R.id.progressManutencao);
         txtSemManutencoes = findViewById(R.id.txtSemManutencoes);
+        fabNovaPreventiva = findViewById(R.id.fabNovaPreventiva);
+
+        fabNovaPreventiva.setOnClickListener(v -> mostrarDialogPreventiva());
+
+        checkUserRole();
 
         // Adapter
         adapter = new ManutencaoAdapter(listaManutencoes);
@@ -65,6 +71,77 @@ public class ManutencaoActivity extends AppCompatActivity {
         recyclerManutencoes.setAdapter(adapter);
 
         carregarManutencoes();
+    }
+
+    private void checkUserRole() {
+        android.content.SharedPreferences prefs = getSharedPreferences("orbis_prefs", MODE_PRIVATE);
+        String role = prefs.getString("user_role", "");
+        if ("TECNICO".equals(role)) {
+            fabNovaPreventiva.setVisibility(View.VISIBLE);
+        } else {
+            fabNovaPreventiva.setVisibility(View.GONE);
+        }
+    }
+
+    private void mostrarDialogPreventiva() {
+        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(this);
+        builder.setTitle("Nova Manutenção Preventiva");
+        
+        android.widget.LinearLayout layout = new android.widget.LinearLayout(this);
+        layout.setOrientation(android.widget.LinearLayout.VERTICAL);
+        layout.setPadding(50, 40, 50, 10);
+
+        final android.widget.EditText inputId = new android.widget.EditText(this);
+        inputId.setHint("ID da Máquina");
+        inputId.setInputType(android.text.InputType.TYPE_CLASS_NUMBER);
+        if (filtroMaquinaId != -1) inputId.setText(String.valueOf(filtroMaquinaId));
+        layout.addView(inputId);
+
+        final android.widget.EditText inputObs = new android.widget.EditText(this);
+        inputObs.setHint("Observação");
+        layout.addView(inputObs);
+
+        builder.setView(layout);
+
+        builder.setPositiveButton("Criar", (dialog, which) -> {
+            String idStr = inputId.getText().toString().trim();
+            String obs = inputObs.getText().toString().trim();
+            if (!idStr.isEmpty()) {
+                criarPreventiva(Integer.parseInt(idStr), obs);
+            } else {
+                Toast.makeText(this, "ID da máquina é obrigatório", Toast.LENGTH_SHORT).show();
+            }
+        });
+        builder.setNegativeButton("Cancelar", null);
+        builder.show();
+    }
+
+    private void criarPreventiva(int maquinaId, String observacao) {
+        progressBar.setVisibility(View.VISIBLE);
+        OrbisApiService api = RetrofitClient.getInstance(this).getApi();
+        java.util.Map<String, Object> body = new java.util.HashMap<>();
+        body.put("tipo", "PREVENTIVA");
+        body.put("maquinaId", maquinaId);
+        body.put("observacao", observacao);
+
+        api.createManutencao(body).enqueue(new Callback<Manutencao>() {
+            @Override
+            public void onResponse(Call<Manutencao> call, Response<Manutencao> response) {
+                progressBar.setVisibility(View.GONE);
+                if (response.isSuccessful()) {
+                    Toast.makeText(ManutencaoActivity.this, "Manutenção preventiva criada!", Toast.LENGTH_SHORT).show();
+                    carregarManutencoes();
+                } else {
+                    Toast.makeText(ManutencaoActivity.this, "Erro ao criar preventiva", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Manutencao> call, Throwable t) {
+                progressBar.setVisibility(View.GONE);
+                Toast.makeText(ManutencaoActivity.this, "Erro de conexão", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void carregarManutencoes() {

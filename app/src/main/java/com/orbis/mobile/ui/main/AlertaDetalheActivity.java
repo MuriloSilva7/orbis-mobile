@@ -19,9 +19,17 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.orbis.mobile.R;
 import com.orbis.mobile.api.OrbisApiService;
+import com.google.android.material.card.MaterialCardView;
+import com.google.android.material.textfield.TextInputEditText;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import com.orbis.mobile.adapter.AlertaEventoAdapter;
 import com.orbis.mobile.model.Alerta;
+import com.orbis.mobile.model.AlertaEvento;
 import com.orbis.mobile.model.Manutencao;
 import com.orbis.mobile.network.RetrofitClient;
+import android.content.SharedPreferences;
+import java.util.ArrayList;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -44,6 +52,11 @@ public class AlertaDetalheActivity extends AppCompatActivity {
     private MaterialButton btnVoltar, btnAceitar, btnConcluir, btnCriarManutencao, btnVerHistorico, btnCancelar;
     private LinearLayout layoutAcoesAndamento;
     private LinearProgressIndicator progressAlerta;
+    private RecyclerView recyclerEventos;
+    private AlertaEventoAdapter eventoAdapter;
+    private MaterialCardView cardNovoComentario;
+    private TextInputEditText edtComentario;
+    private MaterialButton btnEnviarComentario;
 
     private int manutencaoId = -1;
     private int alertaId = -1;
@@ -86,6 +99,32 @@ public class AlertaDetalheActivity extends AppCompatActivity {
         btnVerHistorico = findViewById(R.id.btnVerHistorico);
         btnCancelar = findViewById(R.id.btnCancelar);
         layoutAcoesAndamento = findViewById(R.id.layoutAcoesAndamento);
+
+        recyclerEventos = findViewById(R.id.recyclerEventos);
+        cardNovoComentario = findViewById(R.id.cardNovoComentario);
+        edtComentario = findViewById(R.id.edtComentario);
+        btnEnviarComentario = findViewById(R.id.btnEnviarComentario);
+
+        setupRecyclerView();
+        checkUserRole();
+    }
+
+    private void setupRecyclerView() {
+        eventoAdapter = new AlertaEventoAdapter(new ArrayList<>());
+        recyclerEventos.setLayoutManager(new LinearLayoutManager(this));
+        recyclerEventos.setAdapter(eventoAdapter);
+    }
+
+    private void checkUserRole() {
+        SharedPreferences prefs = getSharedPreferences("orbis_prefs", MODE_PRIVATE);
+        String role = prefs.getString("user_role", "");
+        
+        // Apenas ADMIN e TECNICO podem comentar
+        if ("ADMIN".equals(role) || "TECNICO".equals(role)) {
+            cardNovoComentario.setVisibility(View.VISIBLE);
+        } else {
+            cardNovoComentario.setVisibility(View.GONE);
+        }
     }
 
     private void setupToolbar() {
@@ -127,6 +166,40 @@ public class AlertaDetalheActivity extends AppCompatActivity {
                 cancelarAlerta(manutencaoId);
             }
         });
+
+        btnEnviarComentario.setOnClickListener(v -> {
+            String msg = edtComentario.getText().toString().trim();
+            if (!msg.isEmpty()) {
+                enviarComentario(msg);
+            } else {
+                Toast.makeText(this, "Digite um comentário", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void enviarComentario(String mensagem) {
+        setLoading(true);
+        OrbisApiService apiService = RetrofitClient.getInstance(this).getApi();
+        Map<String, String> body = new HashMap<>();
+        body.put("mensagem", mensagem);
+
+        apiService.criarComentario(alertaId, body).enqueue(new Callback<AlertaEvento>() {
+            @Override
+            public void onResponse(Call<AlertaEvento> call, Response<AlertaEvento> response) {
+                setLoading(false);
+                if (response.isSuccessful()) {
+                    edtComentario.setText("");
+                    carregarEventos(alertaId);
+                    Toast.makeText(AlertaDetalheActivity.this, "Comentário enviado", Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<AlertaEvento> call, Throwable t) {
+                setLoading(false);
+                Toast.makeText(AlertaDetalheActivity.this, "Erro ao enviar comentário", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void setLoading(boolean isLoading) {
@@ -152,6 +225,7 @@ public class AlertaDetalheActivity extends AppCompatActivity {
                             preencherCampos(alerta);
                             atualizarInterfacePorStatus(alerta.getStatus());
                             carregarManutencaoDoAlerta(alerta.getId());
+                            carregarEventos(alerta.getId());
                             break;
                         }
                     }
@@ -318,6 +392,21 @@ public class AlertaDetalheActivity extends AppCompatActivity {
                 setLoading(false);
                 Toast.makeText(AlertaDetalheActivity.this, getString(R.string.error_conexao), Toast.LENGTH_SHORT).show();
             }
+        });
+    }
+
+    private void carregarEventos(int idAlerta) {
+        OrbisApiService apiService = RetrofitClient.getInstance(this).getApi();
+        apiService.getAlertaEventos(idAlerta).enqueue(new Callback<List<AlertaEvento>>() {
+            @Override
+            public void onResponse(Call<List<AlertaEvento>> call, Response<List<AlertaEvento>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    eventoAdapter.updateList(response.body());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<AlertaEvento>> call, Throwable t) {}
         });
     }
 

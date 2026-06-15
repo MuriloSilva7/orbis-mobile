@@ -1,6 +1,7 @@
 package com.orbis.mobile.api;
 
 import com.orbis.mobile.model.Alerta;
+import com.orbis.mobile.model.AlertaEvento;
 import com.orbis.mobile.model.DashboardResumo;
 import com.orbis.mobile.model.IaRequest;
 import com.orbis.mobile.model.IaResponse;
@@ -136,6 +137,15 @@ public interface OrbisApiService {
 
     @GET("alertas")
     Call<List<Alerta>> getAlertas();
+
+    @GET("alertas/{id}")
+    Call<Alerta> getAlerta(@Path("id") int id);
+
+    @GET("alertas/{id}/eventos")
+    Call<List<AlertaEvento>> getAlertaEventos(@Path("id") int id);
+
+    @POST("alertas/{id}/comentarios")
+    Call<AlertaEvento> criarComentario(@Path("id") int id, @Body Map<String, String> body);
 
     //IA
 

@@ -186,6 +186,7 @@ public class MainActivity extends AppCompatActivity {
                             .putString("user_nome", usuario.getNome())
                             .putString("user_email", usuario.getEmail())
                             .putString("user_foto", usuario.getFotoPerfil())
+                            .putString("user_role", usuario.getRole())
                             .apply();
                     
                     setupNavHeader();
