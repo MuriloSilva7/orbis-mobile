@@ -99,8 +99,8 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        setupNavHeader();
-        carregarPerfilAtualizado();
+        setupNavHeader(navController);
+        carregarPerfilAtualizado(navController);
 
         FloatingActionButton fabIa = findViewById(R.id.fabIa);
         fabIa.setOnClickListener(v -> {
@@ -146,14 +146,25 @@ public class MainActivity extends AppCompatActivity {
                 getSupportActionBar().setDisplayShowTitleEnabled(false);
             }
         }
-        carregarPerfilAtualizado();
+        
+        NavHostFragment navHostFragment = (NavHostFragment)
+                getSupportFragmentManager().findFragmentById(R.id.nav_host);
+        if (navHostFragment != null) {
+            carregarPerfilAtualizado(navHostFragment.getNavController());
+        }
     }
 
-    private void setupNavHeader() {
+    private void setupNavHeader(NavController navController) {
         View headerView = navigationView.getHeaderView(0);
+        View headerContainer = headerView.findViewById(R.id.headerContainer);
         ImageView imgPerfil = headerView.findViewById(R.id.imgPerfilHeader);
         TextView txtNome = headerView.findViewById(R.id.txtNomeHeader);
         TextView txtEmail = headerView.findViewById(R.id.txtEmailHeader);
+
+        headerContainer.setOnClickListener(v -> {
+            navController.navigate(R.id.perfilFragment);
+            drawerLayout.closeDrawer(GravityCompat.START);
+        });
 
         SharedPreferences prefs = getSharedPreferences("orbis_prefs", MODE_PRIVATE);
         String nome = prefs.getString("user_nome", "Usuário Orbis");
@@ -173,7 +184,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void carregarPerfilAtualizado() {
+    private void carregarPerfilAtualizado(NavController navController) {
         OrbisApiService apiService = RetrofitClient.getInstance(this).getApi();
         apiService.getPerfil().enqueue(new Callback<Usuario>() {
             @Override
@@ -189,7 +200,7 @@ public class MainActivity extends AppCompatActivity {
                             .putString("user_role", usuario.getRole())
                             .apply();
                     
-                    setupNavHeader();
+                    setupNavHeader(navController);
                 }
             }
 

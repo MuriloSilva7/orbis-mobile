@@ -152,7 +152,7 @@ public interface OrbisApiService {
     @POST("dashboard/ia/perguntar")
     Call<IaResponse> perguntarIa(@Body IaRequest body);
 
-    @GET("admins")
+    @GET("usuarios")
     Call<TecnicosResponse> getAdmins(
             @Query("page") int page,
             @Query("limit") int limit
