@@ -16,7 +16,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitClient {
 
-    private static final String BASE_URL = "https://orbis-5hnm.onrender.com/";
+    private static final String BASE_URL = "https://server.orbis-3td.com.br";
 
     private static RetrofitClient instance;
 
